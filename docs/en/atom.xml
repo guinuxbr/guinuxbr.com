@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title type="text">GuinuxBR</title>
+    <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
+    <updated>2020-07-26T21:43:38-03:00</updated>
+    <id>https://guinuxbr.com/en/</id>
+    <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
+    <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
+    <author>
+            <name>Guilherme L. L. Marques</name>
+            <uri>https://guinuxbr.com/en/</uri>
+            
+                <email>guinuxbr@gmail.com</email>
+            </author>
+    <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
+    <generator uri="https://gohugo.io/" version="0.74.3">Hugo</generator>
+        <entry>
+            <title type="text">Run Debian in Windows 10 with WSL 2</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/debian-windows10-wsl2/" />
+            <id>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</id>
+            <updated>2020-07-26T21:36:43-03:00</updated>
+            <published>2020-07-24T21:15:00-03:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hello and welcome to my blog.
+We use Windows in our workstations at my current job (it was not my choice 🙊), but there is a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: &amp;ldquo;This would be a lot simple with cat, grep, sort, etc.</summary>
+            
+                <content type="html">&lt;p&gt;Hello and welcome to my blog.&lt;/p&gt;
+&lt;p&gt;We use Windows in our workstations at my current job (it was not my choice 🙊), but there is a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: &amp;ldquo;This would be a lot simple with cat, grep, sort, etc.&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;So, I remember that I have read something about running Linux inside Windows using WSL and, well, why not give a try?&lt;/p&gt;
+&lt;h2 id=&#34;setting-up-the-environment&#34;&gt;Setting up the environment&lt;/h2&gt;
+&lt;p&gt;Some considerations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WSL 2 is only available in Windows 10, Version 2004, Build 19041 or higher. Check your Windows version by selecting the Windows logo key + R, type &lt;code&gt;winver&lt;/code&gt;, select OK.&lt;/li&gt;
+&lt;li&gt;All Windows commands should be typed in a PowerShell session with administrative privileges unless otherwise specified (right-click in the PowerShell icon and choose &amp;ldquo;Run as administrator&amp;rdquo;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here we go! Since I&amp;rsquo;m a command-line lover and do not have a Microsoft account to access Microsoft Store, I&amp;rsquo;ll do this from there as much as possible. First, let&amp;rsquo;s install a decent terminal emulator and Microsoft is doing a good job with &lt;a href=&#34;https://github.com/microsoft/terminal&#34;&gt;Windows Terminal&lt;/a&gt;. I have downloaded v1.1.2021.0 and renamed it to &lt;strong&gt;WindowsTerminal.msixbundle&lt;/strong&gt;. This is the latest version at the time of writing. The installation is pretty straight forward, just open a PowerShell instance, navigate to the directory where the executable was downloaded and type:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;.\WindowsTerminal.msixbundle&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now, click in Instal and wait a few seconds to the windows of Windows Terminal show up. Close this window for now, we need to open it as Administrator soon.&lt;/p&gt;
+&lt;p&gt;The next step is to enable WSL. Use the same method stated at the top of the article to launch an instance of Windows Terminal with administrative privileges (damn, I wish that there was a &amp;ldquo;&lt;code&gt;sudo&lt;/code&gt;&amp;rdquo; for this. Maybe Microsoft can launch an &amp;ldquo;&lt;code&gt;addo&lt;/code&gt;&amp;rdquo; 🙃). Observe that should have a &amp;ldquo;PS&amp;rdquo; before your prompt, this indicates that you are in a PowerShell session. Now type:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The &amp;lsquo;Virtual Machine Platform&amp;rsquo; is needed to run WSL 2. To enable it, just type:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You should see &amp;ldquo;&lt;em&gt;The operation completed successfully.&lt;/em&gt;&amp;rdquo; to both commands. Now reboot your computer.&lt;/p&gt;
+&lt;p&gt;Once rebooted, open Windows Terminal again and set WSL2 as default:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;wsl --set-default-version&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If you already have a distribution installed and like to convert it to use WSL2, this is possible. First, check the current status.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;wsl --list --verbose&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The above command will show a list of installed distributions separated by NAME, STATE, and VERSION. For instance, if you have an Ubuntu installation that is running at version 1 you can type:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;wsl --set-version Ubuntu 2&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You also can revert it to WSL 1 if you are not satisfied with the result, just change the version number.&lt;/p&gt;
+&lt;h2 id=&#34;download-and-installation&#34;&gt;Download and installation&lt;/h2&gt;
+&lt;p&gt;Now it is time to download the distribution that you wish to install. I chose Debian because it is very light and stable. Since Windows 10 Spring 2018 Update, &lt;code&gt;curl.exe&lt;/code&gt; is present, so let&amp;rsquo;s use it.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;curl.exe -L -o debian.appx &lt;a href=&#34;https://aka.ms/wsl-debian-gnulinux&#34;&gt;https://aka.ms/wsl-debian-gnulinux&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The installation step is also quite simple.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Add-AppxPackage .\debian.appx&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;A strange progress bar will be displayed. Once it disappears, it is done. Now Debian should be available in your applications menu, but don&amp;rsquo;t click there, use the Windows Terminal do open a Debian session. On the right side of the tab, there is an arrow that hides all the possible sessions.
+Clicking on Debian will lead you to the user configuration screen. Choose your username and password and you are done.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;Now, I recommend that you update installation:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Verify the version of Debian that was installed.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;cat /etc/os-release&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For an unknown reason by me, the downloaded image was still the Stretch version of Debian. No problem, let&amp;rsquo;s update it to Debian Buster. First, make a backup of your &lt;em&gt;sources.list&lt;/em&gt; file.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now, replace every &amp;ldquo;stretch&amp;rdquo; entry with &amp;ldquo;buster&amp;rdquo;. You can do this with &lt;code&gt;nano&lt;/code&gt; or &lt;code&gt;vi&lt;/code&gt; or directly with &lt;code&gt;sed&lt;/code&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo sed -i &amp;rsquo;s/stretch/buster/g&amp;rsquo; /etc/apt/sources.list&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Then update the system again.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade &amp;amp;&amp;amp; sudo apt full-upgrade&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now get rid of obsolete packages in your system.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt autoremove&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Close the Debian tab and open another one to check if you have installed Debian Buster with success.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;cat /etc/os-release&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You should see something like the below:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;PRETTY_NAME=&amp;quot;Debian GNU/Linux 10 (buster)&amp;quot;
+NAME=&amp;quot;Debian GNU/Linux&amp;quot;
+VERSION_ID=&amp;quot;10&amp;quot;
+VERSION=&amp;quot;10 (buster)&amp;quot;
+VERSION_CODENAME=buster
+ID=debian
+HOME_URL=&amp;quot;https://www.debian.org/&amp;quot;
+SUPPORT_URL=&amp;quot;https://www.debian.org/support&amp;quot;
+BUG_REPORT_URL=&amp;quot;https://bugs.debian.org/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;final-considerations&#34;&gt;Final considerations&lt;/h2&gt;
+&lt;p&gt;For a better file system performance, make sure to store your Linux project files in the Linux file system (not the Windows file system).
+It is probable that when you open a Debian session your prompt show something like: &lt;strong&gt;&lt;em&gt;username@hostname:/mnt/c/Users/username$&lt;/em&gt;&lt;/strong&gt; This is why WSL exposes the Windows file system through mount points placed in &lt;strong&gt;&lt;em&gt;/mnt&lt;/em&gt;&lt;/strong&gt; like &lt;strong&gt;&lt;em&gt;/mnt/c&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;/mnt/d&lt;/em&gt;&lt;/strong&gt; just type &lt;code&gt;cd ~&lt;/code&gt; to go to your real home.&lt;/p&gt;
+&lt;p&gt;Not only the file system of Windows is exposed by WSL, but you can use Windows applications too, try to type &lt;code&gt;explorer.exe .&lt;/code&gt; As you can see, Windows Explorer will open with the files of your current directory loaded.&lt;/p&gt;
+&lt;p&gt;That is it, everything is set up and ready to use.&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/wsl/" term="wsl" label="wsl" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/wsl2/" term="wsl2" label="wsl2" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/windows/" term="windows" label="windows" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">Convert OVA to QCOW2</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/convert-ova-to-qcow2/" />
+            <id>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</id>
+            <updated>2020-07-26T21:36:43-03:00</updated>
+            <published>2020-07-09T19:50:56-03:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hello! In this quick tutorial, I will show you how to convert OVA file to a QCOW2.
+A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at https://developer.</summary>
+            
+                <content type="html">&lt;p&gt;Hello! In this quick tutorial, I will show you how to convert OVA file to a QCOW2.&lt;/p&gt;
+&lt;p&gt;A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at &lt;a href=&#34;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&#34;&gt;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&lt;/a&gt; but there are no images to use with KVM. So, what if it would be possible to convert some of the provided formats to a KVM compatible format?&lt;/p&gt;
+&lt;p&gt;Well, this is possible and much easier than I thought it was. Follow me!&lt;/p&gt;
+&lt;p&gt;First, we have to extract the files from the OVA file.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;tar -xvf MSEdge-Win10.ova&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;An OVA file is an Open Virtualization Appliance that contains a compressed version of a virtual machine. Now we have two files: the MSEdge - Win10-disk001.vmdk and the MSEdge - Win10.ovf. To convert the .vmdk file to a .qcow2 file to import into KVM we just have to use the qemu-img command as follows.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;qemu-img convert MSEdge-Win10-disk001.vmdk the_name_you_want.qcow2 -O qcow2&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Observe that I&amp;rsquo;ve renamed the file MSEdge - Win10-disk001.vmdk to remove the blank spaces. I always try to do this before work with files in the command line.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s it! Now we can just move our converted the_name_you_want.qcow2 to the images directory that is usually /var/lib/libvirt/images, but you can place it wherever you wish and import it.&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/virtualization/" term="virtualization" label="virtualization" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">Arch linux ARM on Raspberry Pi 4</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/" />
+            <id>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</id>
+            <updated>2020-07-26T21:36:43-03:00</updated>
+            <published>2020-05-08T22:54:24-03:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hello, welcome to my blog!
+In this article, I will show you how to run Arch Linux ARM on the Raspberry Pi 4.
+I think everyone already knows the Raspberry Pi, but if you haven&amp;rsquo;t heard about it, click here.
+Now that you know what it is about, let&amp;rsquo;s get down to business.</summary>
+            
+                <content type="html">&lt;p&gt;Hello, welcome to my blog!&lt;/p&gt;
+&lt;p&gt;In this article, I will show you how to run Arch Linux ARM on the Raspberry Pi 4.&lt;/p&gt;
+&lt;p&gt;I think everyone already knows the Raspberry Pi, but if you haven&amp;rsquo;t heard about it, &lt;a href=&#34;https://www.raspberrypi.org/&#34;&gt;click here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Now that you know what it is about, let&amp;rsquo;s get down to business.
+It is worth mentioning that a good part of this guide is found in the instructions on the project&amp;rsquo;s own page, available &lt;a href=&#34;https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The first thing to do is to format your MicroSD card. I recommend a good Class 10 card or better.&lt;/p&gt;
+&lt;p&gt;The choice of the partitioning tool is up to you. I will use &lt;em&gt;fdisk&lt;/em&gt; which is available by default on most Linux distributions.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;First, we start microSD with fdisk. You need to use &lt;em&gt;sudo&lt;/em&gt; or perform the process as &lt;em&gt;root&lt;/em&gt;.
+&lt;blockquote&gt;
+&lt;p&gt;fdisk / dev / sdX&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Replace &amp;ldquo;X&amp;rdquo; with your MicroSD identifier.&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;At the first prompt, delete (!!!) the partitions and create a new one:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;strong&gt;o&lt;/strong&gt; and &lt;strong&gt;ENTER&lt;/strong&gt;. This will clear the current partitions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;strong&gt;p&lt;/strong&gt; to list the partitions. There should be none listed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;strong&gt;n&lt;/strong&gt; and &lt;strong&gt;ENTER&lt;/strong&gt; for a new partition and &lt;strong&gt;p&lt;/strong&gt; to choose the &amp;ldquo;Primary&amp;rdquo; type. Now &lt;strong&gt;1&lt;/strong&gt; for the first partition and &lt;strong&gt;ENTER&lt;/strong&gt; to accept the default value for the first sector. Now type &lt;strong&gt;+ 100M&lt;/strong&gt; for the last sector.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;strong&gt;t&lt;/strong&gt; and then &lt;strong&gt;c&lt;/strong&gt; to configure the first partition with type &lt;strong&gt;W95 FAT32 (LBA)&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now press &lt;strong&gt;n&lt;/strong&gt; for a new partition and &lt;strong&gt;p&lt;/strong&gt; again for &amp;ldquo;Primary&amp;rdquo;. Then &lt;strong&gt;2&lt;/strong&gt; for the second partition on the card and press &lt;strong&gt;ENTER&lt;/strong&gt; twice to accept the default values ​​for the first and last sectors of the second partition.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;strong&gt;w&lt;/strong&gt; to write the partition table and exit.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This way you guarantee the rest of the card to the system. We will talk about this later.&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Create and mount the FAT file system that will be filled by the &lt;em&gt;boot&lt;/em&gt; files:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkfs.vfat / dev / sdX1
+mkdir boot
+mount / dev / sdX1 boot&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create and mount the EXT4 file system that will be filled by the system files:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkfs.ext4 / dev / sdX2
+mkdir root
+mount / dev / sdX2 root&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download and extract the root filesystem. The parameters of the &lt;em&gt;bsdtar&lt;/em&gt; command are: &lt;strong&gt;x&lt;/strong&gt; to extract, &lt;strong&gt;p&lt;/strong&gt; to restore permissions, and &lt;strong&gt;f&lt;/strong&gt; indicates the input file. The &lt;em&gt;C&lt;/em&gt; after the input file indicates the directory to which we must change before extracting the files, in this case, the &lt;em&gt;root&lt;/em&gt; directory we have created.
+This part MUST be done as the root user:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;wget &lt;a href=&#34;http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-4-latest.tar.gz&#34;&gt;http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-4-latest.tar.gz&lt;/a&gt;
+bsdtar -xpf ArchLinuxARM-rpi-4-latest.tar.gz -C root
+sync&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here&amp;rsquo;s a tip: the URL reported in the documentation had an error the day I tried to download it. I went straight to the mirror in Brazil and found it was out of date, took advantage, and reported on IRC # archlinux-arm. I managed to download the latest version using the Danish mirror directly. A list of mirrors is available at &lt;a href=&#34;https://archlinuxarm.org/about/mirrors&#34;&gt;https://archlinuxarm.org/about/mirrors&lt;/a&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Move the boot files to the first partition:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mv root/boot/* boot&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount the two partitions:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;umount boot root&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Insert the card into the Raspberry Pi, connect the ethernet cable and the power supply.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you do not use the Raspberry Pi connected directly to a video, keyboard, and mouse, you can connect via SSH. Check the IP assigned by your router&amp;rsquo;s DHCP, for example.
+    * Log in with the standard user &lt;em&gt;alarm&lt;/em&gt; and password &lt;em&gt;alarm&lt;/em&gt;.
+    * The default root password is &lt;em&gt;root&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Last, but not least: Start the Pacman keychain and populate it with the Arch Linux ARM keys.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pacman-key -- init
+pacman-key -- populate archlinuxarm&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ready, Arch Linux ARM is ready to be used for the project you want. I recommend updating the system and restarting to start the game.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pacman -Syu
+systemctl reboot&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In the next posts, we will talk more about configurations and the use of the system. See you.&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/raspberrypi/" term="raspberrypi" label="raspberrypi" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/arm/" term="arm" label="arm" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/archlinux/" term="archlinux" label="archlinux" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">Installing Zsh &#43; Oh-My-Zsh &#43; Starship</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/" />
+            <id>https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/</id>
+            <updated>2020-07-26T21:36:43-03:00</updated>
+            <published>2020-04-03T20:59:05-03:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hi, welcome to my blog!
+The objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the &amp;ldquo;normal&amp;rdquo; bash. I hope that it helps you.</summary>
+            
+                <content type="html">&lt;p&gt;Hi, welcome to my blog!&lt;/p&gt;
+&lt;p&gt;The objective of this article is to share my shell setup with you.
+I think that my job and day to day tasks became easier and more productive than using the &amp;ldquo;normal&amp;rdquo; &lt;em&gt;bash&lt;/em&gt;. I hope that it helps you.&lt;/p&gt;
+&lt;p&gt;You will need the following tools:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://zsh.sourceforge.net/&#34;&gt;Zsh&lt;/a&gt; - The Z shell.&lt;br&gt;
+&lt;a href=&#34;https://ohmyz.sh/&#34;&gt;Oh-My-Zsh&lt;/a&gt; - A framework for managing your Zsh configuration.&lt;br&gt;
+&lt;a href=&#34;https://starship.rs/&#34;&gt;Starship&lt;/a&gt; - A fast and customizable prompt for any shell!&lt;/p&gt;
+&lt;p&gt;I assume that you already have &lt;em&gt;git&lt;/em&gt; installed and have a little knowledge of using it to clone repositories.&lt;/p&gt;
+&lt;h2 id=&#34;installing-zsh&#34;&gt;Installing Zsh&lt;/h2&gt;
+&lt;p&gt;First, you need to install Zsh. You can use your distribution package manager to install it easily.&lt;/p&gt;
+&lt;p&gt;For openSUSE:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo zypper install zsh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For Ubuntu:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt install zsh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For Fedora:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo dnf install zsh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After this you should set Zsh as your default shell:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;chsh -s $(which zsh)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now reboot your machine.&lt;/p&gt;
+&lt;h2 id=&#34;installing-oh-my-zsh&#34;&gt;Installing Oh-My-Zsh&lt;/h2&gt;
+&lt;p&gt;After rebooting, open your terminal and you should now be prompted by a Zsh configuration wizard. At this time you can just type &lt;strong&gt;q&lt;/strong&gt; and &lt;strong&gt;ENTER&lt;/strong&gt; because you will install and configure Oh-My-Zsh and it will install a &lt;em&gt;.zshrc&lt;/em&gt; template for us:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;curl or wget should be installed.&lt;/li&gt;
+&lt;li&gt;git should be installed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sh -c &amp;ldquo;$(wget -O- &lt;a href=&#34;https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh&#34;&gt;https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh&lt;/a&gt;)&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If Oh-My-Zsh was successfully installed, you should see that your prompt changes to a green one. The template configuration file is &lt;em&gt;~/.zshrc&lt;/em&gt; and it gives you tons of possibilities to configure your shell behavior, like prompt themes and plugins.&lt;/p&gt;
+&lt;h2 id=&#34;loading-some-plugins&#34;&gt;Loading some plugins&lt;/h2&gt;
+&lt;p&gt;There is a lot of configurations that can be made in Zsh + Oh-My-Zsh, here I&amp;rsquo;ll just talk about a list of cool plugins that I use, but you can dive deeper to discover more possibilities.
+Plugins should be placed in &lt;code&gt;plugins=(...)&lt;/code&gt; session of the configuration file. I use the following:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;plugin name&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;brief description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;colored-man-pages&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;adds colors to man pages&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;command-not-found&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;uses the command-not-found package for Zsh to provide suggested packages&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;docker&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;adds auto-completion for docker&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;git&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;provides many aliases and a few useful functions&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;npm&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;provides completion as well as adding many useful aliases&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;pep8&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;adds completion for pep8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;pip&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;adds completion for pip&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;pyenv&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;loads pyenv and pyenv-virtualenv&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;python&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;adds several aliases for useful python commands&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;sudo&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;prefix your current or previous commands with sudo by pressing esc twice&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;systemd&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;provides many useful aliases for systemd&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ubuntu&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;This plugin adds completions and aliases for Ubuntu&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;zsh_reload&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;type &lt;em&gt;src&lt;/em&gt; to reload Zsh session&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;zsh-autosuggestions&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;suggests commands as you type based on history and completions&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;zsh-syntax-highlighting&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;package provides syntax highlighting&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;You can always go to &lt;a href=&#34;https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins&#34;&gt;https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins&lt;/a&gt; to see a complete list of plugins and their respective documentation.&lt;/p&gt;
+&lt;p&gt;The last two plugins of my list aren&amp;rsquo;t part of the default Oh-My-Zsh installation and should be installed separately. Maybe you can install it with your distribution package manager, but I do prefer to install via Github to take advantage of possible new features.&lt;/p&gt;
+&lt;p&gt;As you are using Oh-My-Zsh as a plugin manager, and the plugins are already enabled in our &lt;em&gt;.zshrc&lt;/em&gt; file, all you have to do is clone the project repository to our &lt;em&gt;$ZSH_CUSTOM&lt;/em&gt; directory.
+Just type the following commands.
+For &lt;em&gt;zsh-autosuggestions&lt;/em&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git clone &lt;a href=&#34;https://github.com/zsh-users/zsh-autosuggestions&#34;&gt;https://github.com/zsh-users/zsh-autosuggestions&lt;/a&gt; ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;And for zsh-syntax-highlighting:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git clone &lt;a href=&#34;https://github.com/zsh-users/zsh-syntax-highlighting.git&#34;&gt;https://github.com/zsh-users/zsh-syntax-highlighting.git&lt;/a&gt; ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;installing-a-better-font&#34;&gt;Installing a better font&lt;/h2&gt;
+&lt;p&gt;For better support icons and symbols, you have to install a modern font like Nerd Fonts. I use the Meslo, but you can choose your own and test it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip&#34;&gt;Meslo Nerd Fonts&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now you have to configure your terminal emulator to use Meslo Nerd Fonts.&lt;/p&gt;
+&lt;h2 id=&#34;theming-the-prompt-with-starship&#34;&gt;Theming the prompt with Starship&lt;/h2&gt;
+&lt;p&gt;To finish the task, the last step is to install Starship that will bring a lot of goodies to our Zsh shell.
+The installation is very simple, just type:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;curl should be installed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;curl -fsSL &lt;a href=&#34;https://starship.rs/install.sh&#34;&gt;https://starship.rs/install.sh&lt;/a&gt; | zsh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Once installed, you have to enable it. Just place the following line at the end &lt;em&gt;~/.zshrc&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;eval &amp;ldquo;$(starship init zsh)&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It is a good idea to comment out the &lt;em&gt;ZSH_THEME&lt;/em&gt; entry in &lt;em&gt;~/.zshrc&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;configuring-starship&#34;&gt;Configuring Starship&lt;/h2&gt;
+&lt;p&gt;The configuration of Starship is easy to understand. First, you need to create de &lt;em&gt;starship.toml&lt;/em&gt; file. It should be placed inside &lt;em&gt;~/.config&lt;/em&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkdir -p ~/.config &amp;amp;&amp;amp; touch ~/.config/starship.toml&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After this, you have to fill the file with the options that you wish to change the default setup. By the way, the default setup is quite cool! As the configuration is a &lt;em&gt;.toml&lt;/em&gt; file, all the options are of the type &lt;em&gt;key : value&lt;/em&gt;, pretty intuitive.&lt;/p&gt;
+&lt;p&gt;The detailed information about every option is well described at the &lt;a href=&#34;https://starship.rs/config/&#34;&gt;official documentation&lt;/a&gt;. However, I paste the one that I&amp;rsquo;m using to serve as a reference for you.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;  1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 66
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 67
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 68
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 69
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 70
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 71
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 72
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 73
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 74
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 75
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 76
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 77
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 78
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 79
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 80
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 81
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 82
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 83
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 84
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 85
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 86
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 87
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 88
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 89
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 90
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 91
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 92
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 93
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 94
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 95
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 96
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 97
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 98
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 99
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;100
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;101
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;102
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;103
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;104
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;105
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;106
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;107
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;108
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;109
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;110
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;111
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;112
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;113
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;114
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;115
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;116
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;117
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;118
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;119
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;120
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;121
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;122
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;123
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;124
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;125
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;126
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;127
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;128
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;129
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;130
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;131
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;132
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;133
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;134
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;135
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;136
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;137
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;138
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;139
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;140
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;141
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;142
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;143
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;144
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;145
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;146
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;147
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;148
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;149
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;150
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;151
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;152
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;153
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;154
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;155
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;156
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;157
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;158
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;159
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;160
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;161
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;162
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;163
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;164
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;165
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;166
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;167
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;nx&#34;&gt;add_newline&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;prompt_order&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;memory_usage&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hostname&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;kubernetes&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;directory&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_branch&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_commit&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_state&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_status&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hg_branch&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;package&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;dotnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;elixir&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;elm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;golang&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;haskell&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;java&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;nodejs&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;php&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;python&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;ruby&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;rust&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;terraform&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;nix_shell&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;conda&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;aws&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;env_var&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;crystal&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;line_break&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;battery&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;cmd_duration&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;jobs&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;character&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;full_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🔋&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;charging_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;⚡️&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;discharging_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;💀&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;threshold&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold red&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;threshold&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;60&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;threshold&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold green&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;character&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;➜&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;error_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;✗&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;use_symbol_for_status&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cmd_duration&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;min_time&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;500&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;tooks &amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;directory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;truncation_length&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;truncate_to_repo&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;in &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold cyan&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# [env_var]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# variable = &amp;#34;SHELL&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# default = &amp;#34;Zsh&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# prefix = &amp;#34;&amp;lt;&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# suffix = &amp;#34;&amp;gt;&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;git_branch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;🌱 &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;truncation_length&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;truncation_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;...&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold purple&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;git_state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;cherry_pick&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;CHERRY PICKING&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;rebase&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;REBASING&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;merge&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;MERGING&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;revert&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;REVERTING&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;bisect&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;BISECTING&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;am&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;AM&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;am_or_rebase&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;AM/REBASE&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;progress_divider&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34; of &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# [git_status]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# conflicted = &amp;#34;🏳&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# ahead = &amp;#34;🏎💨&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# behind = &amp;#34;😰&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# diverged = &amp;#34;😵&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# untracked = &amp;#34;🤷‍&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# stashed = &amp;#34;📦&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# modified = &amp;#34;📝&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# staged.value = &amp;#34;++&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# staged.style = &amp;#34;green&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# staged_count.enabled = true&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# staged_count.style = &amp;#34;green&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# renamed = &amp;#34;👅&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# deleted = &amp;#34;🗑&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# [[git_status.count]]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# enabled = true&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;hostname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;ssh_only&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🤖&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# suffix = &amp;#34;⟫&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;trim_at&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# [jobs]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;+ &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# threshold = 1&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line_break&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# [memory_usage]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# disabled = false&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# show_percentage = true&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# show_swap = false&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# threshold = -1&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34; &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# separator = &amp;#34;/&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# style = &amp;#34;bold dimmed white&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;nodejs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;⬢ &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold green&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# [package]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;📦 &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# style = &amp;#34;bold red&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# disabled = false&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;python&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🐍 &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;pyenv_version_name&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;pyenv_prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;pyenv&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# [time]&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# format = &amp;#34;🕙%T&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# style_root = &amp;#34;bold red&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# style_user = &amp;#34;bold yellow&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# show_always = true&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# disabled = false&lt;/span&gt;
+
+&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style_root&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold red&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;style_user&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;show_always&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Close and reopen your terminal to see the results. Cool! Isn&amp;rsquo;t it?!&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s it! I hope this article can be useful. Thanks for reading!&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/shell/" term="shell" label="shell" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/bash/" term="bash" label="bash" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/zsh/" term="zsh" label="zsh" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

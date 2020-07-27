@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://guinuxbr.com/en/categories/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/linux/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/linux/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/linux/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/posts/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/categories/tutorials/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/windows/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/wsl/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/wsl2/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/virtualization/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/posts/arch_linux_arm-raspberry_pi_4/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/archlinux/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/archlinux/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/archlinux/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/arm/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/arm/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/arm/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/raspberrypi/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/raspberrypi/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/raspberrypi/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/about/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/bash/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/bash/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/bash/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/posts/zsh&#43;oh-my-zsh&#43;starship/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/shell/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/shell/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/shell/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/zsh/</loc>
+    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/zsh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/zsh/"
+                />
+  </url>
+  
+</urlset>
