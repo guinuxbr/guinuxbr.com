@@ -5,10 +5,12 @@ date: 2020-07-09T19:50:56-03:00
 draft: false
 tags: ["linux", "virtualization"]
 categories: ["tutorials"]
-align: justify
+align: left
 ---
 
 Hello! In this quick tutorial, I will show you how to convert OVA file to a QCOW2.
+
+![kvm](/img/convert-ova-to-qcow2/kvm.png)
 
 A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/ but there are no images to use with KVM. So, what if it would be possible to convert some of the provided formats to a KVM compatible format?
 

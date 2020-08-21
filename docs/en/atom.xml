@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-07-27T17:43:43-03:00</updated>
+    <updated>2020-08-21T17:24:14-03:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -17,10 +17,178 @@
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
     <generator uri="https://gohugo.io/" version="0.74.3">Hugo</generator>
         <entry>
+            <title type="text">Secure GitHub credentials with KWallet</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/" />
+            <id>https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/</id>
+            <updated>2020-08-21T17:22:45-03:00</updated>
+            <published>2020-08-21T15:15:00-03:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hi and welcome to my blog!
+KWallet is a KDE Plasma tool to safely store any kind of credentials and secrets. It has an interface called KWallet Manager that allows to easily manage this credentials and secrets.
+In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store your GitHub credentials in KWallet.</summary>
+            
+                <content type="html">&lt;p&gt;Hi and welcome to my blog!&lt;/p&gt;
+&lt;p&gt;KWallet is a KDE Plasma tool to safely store any kind of credentials and secrets. It has an interface called KWallet Manager that allows to easily manage this credentials and secrets.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/secure-github-credentials-kwallet/kwallet.png&#34; alt=&#34;kwallet&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store your GitHub credentials in KWallet. This guide was tested against &lt;a href=&#34;https://www.opensuse.org/&#34;&gt;openSUSE Tumbleweed&lt;/a&gt; but should work for the most of Linux distributions.&lt;/p&gt;
+&lt;p&gt;First, make sure to have &lt;em&gt;ksshaskpass&lt;/em&gt; installed. &lt;em&gt;ksshaskpass&lt;/em&gt; is an ssh-add helper that uses &lt;em&gt;kwallet&lt;/em&gt; and &lt;em&gt;kpassworddialog&lt;/em&gt; to show a window where you should type your credentials.&lt;/p&gt;
+&lt;p&gt;Now, create an autostart script file and mark it as executable:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;touch ~/.config/plasma-workspace/env/askpass.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Open it for edition.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nano ~/.config/plasma-workspace/env/askpass.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Put the following content in the file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GIT_ASKPASS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/usr/lib/ssh/ksshaskpass&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Save and exit. Now make it executable.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;chmod +x ~/.config/plasma-workspace/env/askpass.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Next time you log in, open Konsole and try to clone some of your private GitHub repositories.
+If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em&gt; dialogue asking for your user name and then asking for your password. Just make sure to mark &amp;ldquo;Remember password&amp;rdquo; in both dialogues to save your credentials safely in your wallet.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/secure-github-credentials-kwallet/ksshaskpass.png&#34; alt=&#34;ksshaskpass&#34;&gt;&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tips/" term="tips" label="tips" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/kde/" term="kde" label="kde" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/opensuse/" term="opensuse" label="opensuse" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">Sort Linux partitions correctly</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/" />
+            <id>https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/</id>
+            <updated>2020-08-21T15:18:16-03:00</updated>
+            <published>2020-08-21T15:10:00-03:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hi and welcome to my blog! Here goes a quick tip on how to properly sort partitions number in Linux.
+Let&amp;rsquo;s think that we had a disk /dev/sda with 4 partitions:
+/dev/sda1 /dev/sda2 /dev/sda3 /dev/sda4  Now, if we have to repartition our disk and delete /dev/sda2 and /dev/sda3 to make /dev/sda1 larger, occasionally you will end up with /dev/sda1 and /dev/sda4 when it should be only /dev/sda1 and /dev/sda2.</summary>
+            
+                <content type="html">&lt;p&gt;Hi and welcome to my blog!
+Here goes a quick tip on how to properly sort partitions number in Linux.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s think that we had a disk &lt;code&gt;/dev/sda&lt;/code&gt; with 4 partitions:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/dev/sda1
+/dev/sda2
+/dev/sda3
+/dev/sda4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, if we have to repartition our disk and delete &lt;code&gt;/dev/sda2&lt;/code&gt; and &lt;code&gt;/dev/sda3&lt;/code&gt; to make &lt;code&gt;/dev/sda1&lt;/code&gt; larger, occasionally you will end up with &lt;code&gt;/dev/sda1&lt;/code&gt; and &lt;code&gt;/dev/sda4&lt;/code&gt; when it should be only &lt;code&gt;/dev/sda1&lt;/code&gt; and &lt;code&gt;/dev/sda2&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/sort-linux-partitions-correctly/gnu-linux.jpg&#34; alt=&#34;fdisk&#34;&gt;&lt;/p&gt;
+&lt;p&gt;To fix this mess and sort the partitions correctly we can use &lt;em&gt;fdisk&lt;/em&gt; that is present by default in almost every Linux installation. Remember that &lt;em&gt;fdisk&lt;/em&gt; and most of the partition/disk tools are very powerful and can be dangerous. Make sure to have a backup of your important files.&lt;/p&gt;
+&lt;p&gt;Now, let&amp;rsquo;s do the job.
+Begin typing &lt;code&gt;sudo fdisk /dev/sda&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Than type &lt;strong&gt;&amp;ldquo;m&amp;rdquo;&lt;/strong&gt; to see the help.&lt;/p&gt;
+&lt;p&gt;Press &lt;strong&gt;&amp;ldquo;p&amp;rdquo;&lt;/strong&gt; to print the partitions list.&lt;/p&gt;
+&lt;p&gt;You&amp;rsquo;ll see that they are unsorted.&lt;/p&gt;
+&lt;p&gt;Now, type &lt;strong&gt;&amp;ldquo;x&amp;rdquo;&lt;/strong&gt; to access the advanced options.&lt;/p&gt;
+&lt;p&gt;Than type &lt;strong&gt;&amp;ldquo;m&amp;rdquo;&lt;/strong&gt; again to see the help.&lt;/p&gt;
+&lt;p&gt;press &lt;strong&gt;&amp;ldquo;f&amp;rdquo;&lt;/strong&gt; to fix partitions order.&lt;/p&gt;
+&lt;p&gt;press &lt;strong&gt;&amp;ldquo;p&amp;rdquo;&lt;/strong&gt; again to print the partitions list.&lt;/p&gt;
+&lt;p&gt;Now, they should be sorted correctly 😉.&lt;/p&gt;
+&lt;p&gt;Press &lt;strong&gt;&amp;ldquo;w&amp;rdquo;&lt;/strong&gt; to write changes to disk and exit.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s done.&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/partitions/" term="partitions" label="partitions" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
             <title type="text">Run Debian in Windows 10 with WSL 2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/debian-windows10-wsl2/" />
             <id>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</id>
-            <updated>2020-07-26T21:36:43-03:00</updated>
+            <updated>2020-08-16T23:12:59-03:00</updated>
             <published>2020-07-24T21:15:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -33,6 +201,7 @@ We use Windows in our workstations at my current job (it was not my choice 🙊)
                 <content type="html">&lt;p&gt;Hello and welcome to my blog.&lt;/p&gt;
 &lt;p&gt;We use Windows in our workstations at my current job (it was not my choice 🙊), but there is a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: &amp;ldquo;This would be a lot simple with cat, grep, sort, etc.&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;So, I remember that I have read something about running Linux inside Windows using WSL and, well, why not give a try?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/debian-windows10-wsl2/wsl2.png&#34; alt=&#34;wsl2&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;setting-up-the-environment&#34;&gt;Setting up the environment&lt;/h2&gt;
 &lt;p&gt;Some considerations:&lt;/p&gt;
 &lt;ul&gt;
@@ -173,7 +342,7 @@ It is probable that when you open a Debian session your prompt show something li
             <title type="text">Convert OVA to QCOW2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/convert-ova-to-qcow2/" />
             <id>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</id>
-            <updated>2020-07-26T21:36:43-03:00</updated>
+            <updated>2020-08-16T23:07:31-03:00</updated>
             <published>2020-07-09T19:50:56-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -184,6 +353,7 @@ It is probable that when you open a Debian session your prompt show something li
 A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at https://developer.</summary>
             
                 <content type="html">&lt;p&gt;Hello! In this quick tutorial, I will show you how to convert OVA file to a QCOW2.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/convert-ova-to-qcow2/kvm.png&#34; alt=&#34;kvm&#34;&gt;&lt;/p&gt;
 &lt;p&gt;A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at &lt;a href=&#34;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&#34;&gt;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&lt;/a&gt; but there are no images to use with KVM. So, what if it would be possible to convert some of the provided formats to a KVM compatible format?&lt;/p&gt;
 &lt;p&gt;Well, this is possible and much easier than I thought it was. Follow me!&lt;/p&gt;
 &lt;p&gt;First, we have to extract the files from the OVA file.&lt;/p&gt;
@@ -236,7 +406,7 @@ A few days ago I have to install Windows in a virtual environment to test some s
             <title type="text">Arch linux ARM on Raspberry Pi 4</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/" />
             <id>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</id>
-            <updated>2020-07-26T21:36:43-03:00</updated>
+            <updated>2020-08-16T23:12:36-03:00</updated>
             <published>2020-05-08T22:54:24-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -402,7 +572,7 @@ systemctl reboot&lt;/p&gt;
             <title type="text">Installing Zsh &#43; Oh-My-Zsh &#43; Starship</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/" />
             <id>https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/</id>
-            <updated>2020-07-26T21:36:43-03:00</updated>
+            <updated>2020-08-21T15:45:50-03:00</updated>
             <published>2020-04-03T20:59:05-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -916,6 +1086,12 @@ The installation is very simple, just type:&lt;/p&gt;
                             
                             
                                 <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/productivity/" term="productivity" label="productivity" />
                             
                         
                     

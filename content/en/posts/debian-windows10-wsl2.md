@@ -5,7 +5,7 @@ date: 2020-07-24T21:15:00-03:00
 draft: false
 tags: ["linux", "wsl", "wsl2", "windows"]
 categories: ["tutorials"]
-align: justify
+align: left
 ---
 
 Hello and welcome to my blog.
@@ -13,6 +13,8 @@ Hello and welcome to my blog.
 We use Windows in our workstations at my current job (it was not my choice 🙊), but there is a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: "This would be a lot simple with cat, grep, sort, etc.".
 
 So, I remember that I have read something about running Linux inside Windows using WSL and, well, why not give a try?
+
+![wsl2](/img/debian-windows10-wsl2/wsl2.png)
 
 ## Setting up the environment
 

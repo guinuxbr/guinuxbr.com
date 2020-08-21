@@ -4,8 +4,8 @@ subtitle: "Increasing productivity"
 date: 2020-04-03T20:59:05-03:00
 draft: false
 tags: ["linux","shell", "bash", "zsh"]
-categories: ["tutorials"]
-align: justify
+categories: ["tutorials", "productivity"]
+align: left
 ---
 
 Hi, welcome to my blog!  
