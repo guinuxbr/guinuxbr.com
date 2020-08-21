@@ -31,6 +31,7 @@ Put the following content in the file:
 ```bash
 #!/bin/sh
 export GIT_ASKPASS='/usr/lib/ssh/ksshaskpass'
+
 ```
 
 Save and exit. Now make it executable.
