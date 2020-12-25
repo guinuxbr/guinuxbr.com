@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-12-25T19:57:53&#43;00:00</updated>
+    <updated>2020-12-25T19:59:44&#43;00:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">Vim Cheat Sheet</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/vim-cheat-sheet/" />
             <id>https://guinuxbr.com/en/posts/vim-cheat-sheet/</id>
-            <updated>2020-12-25T19:55:52&#43;00:00</updated>
+            <updated>2020-12-25T19:59:28&#43;00:00</updated>
             <published>2020-12-25T19:22:19&#43;00:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -139,6 +139,12 @@
                             
                             
                                 <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tips/" term="tips" label="tips" />
                             
                         
                     

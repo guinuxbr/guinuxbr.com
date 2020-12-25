@@ -4,7 +4,7 @@ subtitle: "Sooner or latter you will need it"
 date: 2020-12-25T19:22:19Z
 draft: false
 tags: ["linux", "vim", "editor"]
-categories: ["tutorials"]
+categories: ["tutorials", "tips"]
 align: left
 ---
 
