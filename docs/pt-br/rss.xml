@@ -10,7 +10,7 @@
         <title>GuinuxBR</title>
         <link>https://guinuxbr.com/pt-br/</link>
         <description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description>
-        <generator>Hugo 0.74.3 https://gohugo.io/</generator>
+        <generator>Hugo 0.79.1 https://gohugo.io/</generator>
         
             <language>en</language>
         
@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
         
-        <lastBuildDate>Fri, 21 Aug 2020 17:27:03 -0300</lastBuildDate>
+        <lastBuildDate>Fri, 25 Dec 2020 19:57:53 &#43;0000</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://guinuxbr.com/pt-br/rss.xml" />
         
@@ -81,70 +81,70 @@ Os plugins devem ser colocados na sessão &lt;code&gt;plugins = (...)&lt;/code&g
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th align=&#34;left&#34;&gt;nome do plugin&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;breve descrição&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;nome do plugin&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;breve descrição&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;colored-man-pages&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona cores às páginas de manual&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;colored-man-pages&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona cores às páginas de manual&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;command-not-found&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;usa o pacote command-not-found para o Zsh apresentar pacotes sugeridos&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;command-not-found&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;usa o pacote command-not-found para o Zsh apresentar pacotes sugeridos&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;docker&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para Docker&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;docker&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para Docker&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;git&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece aliases e algumas funções úteis&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;git&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece aliases e algumas funções úteis&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;npm&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece &amp;ldquo;tab-completion&amp;rdquo; e muitos aliases úteis&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;npm&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece &amp;ldquo;tab-completion&amp;rdquo; e muitos aliases úteis&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pep8&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pep8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pep8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pep8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pip&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pip&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pip&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pip&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pyenv&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;carrega pyenv e pyenv-virtualenv&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pyenv&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;carrega pyenv e pyenv-virtualenv&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;python&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona vários aliases para comandos python úteis&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;python&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona vários aliases para comandos python úteis&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;sudo&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;prefixa o comando atual com &lt;em&gt;sudo&lt;/em&gt; pressionando &lt;strong&gt;esc&lt;/strong&gt; duas vezes&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;sudo&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;prefixa o comando atual com &lt;em&gt;sudo&lt;/em&gt; pressionando &lt;strong&gt;esc&lt;/strong&gt; duas vezes&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;systemd&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece aliases úteis para systemd&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;systemd&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece aliases úteis para systemd&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;ubuntu&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; e aliases para o Ubuntu&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ubuntu&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; e aliases para o Ubuntu&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-reload&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;basta digitar &lt;em&gt;src&lt;/em&gt; para recarregar a sessão do Zsh&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-reload&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;basta digitar &lt;em&gt;src&lt;/em&gt; para recarregar a sessão do Zsh&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-autosuggestions&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;sugere comandos enquanto você digita com base no histórico e nos &amp;ldquo;tab-completions&amp;rdquo;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-autosuggestions&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;sugere comandos enquanto você digita com base no histórico e nos &amp;ldquo;tab-completions&amp;rdquo;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-syntax-highlighting&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece destaque de sintaxe&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-syntax-highlighting&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece destaque de sintaxe&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;

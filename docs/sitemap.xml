@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	
-	<sitemap>
-	   	<loc>https://guinuxbr.com/en/sitemap.xml</loc>
-		
-	   	<lastmod>2020-08-21T17:26:57-03:00</lastmod>
-		
-	</sitemap>
-	
-	<sitemap>
-	   	<loc>https://guinuxbr.com/pt-br/sitemap.xml</loc>
-		
-	   	<lastmod>2020-07-26T21:36:43-03:00</lastmod>
-		
-	</sitemap>
-	
+  
+  <sitemap>
+    <loc>https://guinuxbr.com/en/sitemap.xml</loc>
+    
+      <lastmod>2020-12-25T19:55:52+00:00</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://guinuxbr.com/pt-br/sitemap.xml</loc>
+    
+      <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    
+  </sitemap>
+  
 </sitemapindex>

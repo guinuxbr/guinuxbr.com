@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-08-21T17:27:03-03:00</updated>
+    <updated>2020-12-25T19:57:53&#43;00:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -15,12 +15,164 @@
                 <email>guinuxbr@gmail.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
-    <generator uri="https://gohugo.io/" version="0.74.3">Hugo</generator>
+    <generator uri="https://gohugo.io/" version="0.79.1">Hugo</generator>
+        <entry>
+            <title type="text">Vim Cheat Sheet</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/vim-cheat-sheet/" />
+            <id>https://guinuxbr.com/en/posts/vim-cheat-sheet/</id>
+            <updated>2020-12-25T19:55:52&#43;00:00</updated>
+            <published>2020-12-25T19:22:19&#43;00:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">For a long time, I ran away from Vim because it seemed very tricky and because there is a lot of simpler editors out there to work with. However, as it comes installed in most Linux distributions, I made this cheat sheet to help me understand how things work.</summary>
+            
+                <content type="html">&lt;p&gt;For a long time, I ran away from Vim because it seemed very tricky and because there is a lot of simpler editors out there to work with. However, as it comes installed in most Linux distributions, I made this cheat sheet to help me understand how things work. I have discovered that is possible to be very productive with Vim 😃.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll try to go straight to the point. This cheat-sheet is not intended to be a complete guide but it helps to get started.&lt;/p&gt;
+&lt;p&gt;Vim have different operation modes, and I will not cover all of them in this cheat sheet. I&amp;rsquo;ll stick with the basic functionality needed to open, edit and save a file.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/vim-cheat-sheet/vim-logo.png&#34; alt=&#34;vim-logo&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s begin! To open a file with Vim just type &lt;code&gt;vim filename&lt;/code&gt;.&lt;br&gt;
+&lt;code&gt;ESC&lt;/code&gt; = enter &amp;ldquo;command mode&amp;rdquo;&lt;/p&gt;
+&lt;h5 id=&#34;move-the-cursor&#34;&gt;Move the cursor&lt;/h5&gt;
+&lt;p&gt;You can use the arrow keys to move the cursor around. There is also special keys to do this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;h&lt;/code&gt; = move one character left&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;j&lt;/code&gt; = move one row down&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;k&lt;/code&gt; = move one row up&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;l&lt;/code&gt; = move one character right&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;edition-mode&#34;&gt;Edition Mode&lt;/h5&gt;
+&lt;p&gt;The following keys have to be typed in &amp;ldquo;Command Mode&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;i&lt;/code&gt; = insert text in the cursor position&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;I&lt;/code&gt; = insert text in the begin of the line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;o&lt;/code&gt; = insert text in the next line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;O&lt;/code&gt; = insert text in the previous line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;a&lt;/code&gt; = insert a character after the current&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;A&lt;/code&gt; = insert text at the end of the line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;r&lt;/code&gt; = replace the character at the current cursor position&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;R&lt;/code&gt; = enter replace mode to replace characters from the current cursor position&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;u&lt;/code&gt; = undo last action&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CTRL + r&lt;/code&gt; = redo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;saving--exiting&#34;&gt;Saving &amp;amp; Exiting&lt;/h5&gt;
+&lt;p&gt;The following keys have to be typed in &amp;ldquo;Command Mode&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;:w&lt;/code&gt; = Save&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:q&lt;/code&gt; = Exit&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:q!&lt;/code&gt; = Force exit (exit without saving)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:qa&lt;/code&gt; = Exit from all opened files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:wq&lt;/code&gt; = Save and exit&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:x&lt;/code&gt; = Save and exit&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ZZ&lt;/code&gt; = Save and exit&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ZQ&lt;/code&gt; = Force exit (exit without saving)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;copy-paste--cut&#34;&gt;Copy, paste &amp;amp; cut&lt;/h5&gt;
+&lt;p&gt;The following keys have to be typed in &amp;ldquo;Command Mode&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;yy&lt;/code&gt; = copy line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p&lt;/code&gt; = paste content to the below line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;P&lt;/code&gt; = paste content to the above line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;yNy&lt;/code&gt; = copy N lines&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cw&lt;/code&gt; = cut the word starting from the current cursor position&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dd&lt;/code&gt; = cut or delete a line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;D&lt;/code&gt; = delete the line starting from the current cursor position&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dG&lt;/code&gt; = delete the lines starting from the current cursor position to the end of the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dGG&lt;/code&gt; = delete the lines starting from the current cursor position to the begin of the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dw&lt;/code&gt; = delete the word starting from the current cursor position&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dNd&lt;/code&gt; = cut or delete N lines&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;x&lt;/code&gt; = delete a character at the current cursor position (similar to &amp;ldquo;delete&amp;rdquo; key behaviour)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;X&lt;/code&gt; = delete a character before the current cursor position (similar to &amp;ldquo;backspace&amp;rdquo; key behaviour)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;yw&lt;/code&gt; = copy the word starting from the current cursor position&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;visual-mode&#34;&gt;Visual Mode&lt;/h5&gt;
+&lt;p&gt;The following keys have to be typed in &amp;ldquo;Command Mode&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;v&lt;/code&gt; = visual mode that allows to select a text fragment&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;V&lt;/code&gt; = visual mode that allows to select an entire line&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CTRL+v&lt;/code&gt; = visual block that allows select a block of text&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;navigation&#34;&gt;Navigation&lt;/h5&gt;
+&lt;p&gt;The following keys have to be typed in &amp;ldquo;Command Mode&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/pattern&lt;/code&gt; = search forward for a patter&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;?pattern&lt;/code&gt; = search backward for a pattern&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;n&lt;/code&gt; = pattern forward search&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;N&lt;/code&gt; = pattern backward search&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gg&lt;/code&gt; = goes to the first line of the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;G&lt;/code&gt; = goes to the last line of the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;H&lt;/code&gt; = goes to the top of the current screen&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;M&lt;/code&gt; = goes to the middle of the current screen&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;L&lt;/code&gt; = goes to the end of the current screen&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;commands&#34;&gt;Commands&lt;/h5&gt;
+&lt;p&gt;The following keys have to be typed in &amp;ldquo;Command Mode&amp;rdquo;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;:set hlsearch&lt;/code&gt; = enable search highlight&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:set number&lt;/code&gt; = show line numbers&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:set tabstop=N&lt;/code&gt; = set the size of TAB to N&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:set expandtab&lt;/code&gt; = convert TAB in spaces&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:set bg=dark/light&lt;/code&gt; = change the color scheme&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:set ignorecase&lt;/code&gt; = makes the search case insensitive&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:syntax on/off&lt;/code&gt; = enable/disable syntax highlighting&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:LNs/tobereplaced/replacer/g&lt;/code&gt; = replaces(s) all(g) &lt;em&gt;tobereplaced&lt;/em&gt; with &lt;em&gt;replacer&lt;/em&gt; in the line LN&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:%s/tobereplaced/replacer/g&lt;/code&gt; = replaces(s) all(g) &lt;em&gt;tobereplaced&lt;/em&gt; with &lt;em&gt;replacer&lt;/em&gt; in the entire file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:e filename&lt;/code&gt; = opens &amp;ldquo;filename&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:r filename&lt;/code&gt; = copy the contents of the &amp;ldquo;filename&amp;rdquo; to the current file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:split filename&lt;/code&gt; = split screen horizontally to show the current file and &amp;ldquo;filename&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:vsplit filename&lt;/code&gt; = split screen vertically to show the current file and &amp;ldquo;filename&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:! command&lt;/code&gt; = runs &amp;ldquo;command&amp;rdquo; in shell and show the STDOUT&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;!! command&lt;/code&gt; = runs &amp;ldquo;command&amp;rdquo; in shell and paste the STDOUT in the file&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/vim/" term="vim" label="vim" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/editor/" term="editor" label="editor" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">Secure GitHub credentials with KWallet</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/" />
             <id>https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/</id>
-            <updated>2020-08-21T17:26:57-03:00</updated>
+            <updated>2020-12-25T19:53:18&#43;00:00</updated>
             <published>2020-08-21T15:15:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -28,13 +180,13 @@
                     <email>guinuxbr@gmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hi and welcome to my blog!
-KWallet is a KDE Plasma tool to safely store any kind of credentials and secrets. It has an interface called KWallet Manager that allows to easily manage this credentials and secrets.
+KWallet is a KDE Plasma tool to store any credentials and secrets safely. It has an interface called KWallet Manager that allows to manage credentials and secrets easily.
 In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store your GitHub credentials in KWallet.</summary>
             
                 <content type="html">&lt;p&gt;Hi and welcome to my blog!&lt;/p&gt;
-&lt;p&gt;KWallet is a KDE Plasma tool to safely store any kind of credentials and secrets. It has an interface called KWallet Manager that allows to easily manage this credentials and secrets.&lt;/p&gt;
+&lt;p&gt;KWallet is a KDE Plasma tool to store any credentials and secrets safely. It has an interface called KWallet Manager that allows to manage credentials and secrets easily.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/secure-github-credentials-kwallet/kwallet.png&#34; alt=&#34;kwallet&#34;&gt;&lt;/p&gt;
-&lt;p&gt;In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store your GitHub credentials in KWallet. This guide was tested against &lt;a href=&#34;https://www.opensuse.org/&#34;&gt;openSUSE Tumbleweed&lt;/a&gt; but should work for the most of Linux distributions.&lt;/p&gt;
+&lt;p&gt;In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store your GitHub credentials in KWallet. This guide was tested against &lt;a href=&#34;https://www.opensuse.org/&#34;&gt;openSUSE Tumbleweed&lt;/a&gt; but should work for most Linux distributions.&lt;/p&gt;
 &lt;p&gt;First, make sure to have &lt;em&gt;ksshaskpass&lt;/em&gt; installed. &lt;em&gt;ksshaskpass&lt;/em&gt; is an ssh-add helper that uses &lt;em&gt;kwallet&lt;/em&gt; and &lt;em&gt;kpassworddialog&lt;/em&gt; to show a window where you should type your credentials.&lt;/p&gt;
 &lt;p&gt;Now, create an autostart script file and mark it as executable:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -116,7 +268,7 @@ If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em
             <title type="text">Sort Linux partitions correctly</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/" />
             <id>https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/</id>
-            <updated>2020-08-21T15:18:16-03:00</updated>
+            <updated>2020-08-21T19:18:16&#43;01:00</updated>
             <published>2020-08-21T15:10:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -190,7 +342,7 @@ Begin typing &lt;code&gt;sudo fdisk /dev/sda&lt;/code&gt;.&lt;/p&gt;
             <title type="text">Run Debian in Windows 10 with WSL 2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/debian-windows10-wsl2/" />
             <id>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</id>
-            <updated>2020-08-16T23:12:59-03:00</updated>
+            <updated>2020-08-17T03:12:59&#43;01:00</updated>
             <published>2020-07-24T21:15:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -263,7 +415,7 @@ Clicking on Debian will lead you to the user configuration screen. Choose your u
 &lt;/blockquote&gt;
 &lt;p&gt;Now, replace every &amp;ldquo;stretch&amp;rdquo; entry with &amp;ldquo;buster&amp;rdquo;. You can do this with &lt;code&gt;nano&lt;/code&gt; or &lt;code&gt;vi&lt;/code&gt; or directly with &lt;code&gt;sed&lt;/code&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;sudo sed -i &amp;rsquo;s/stretch/buster/g&amp;rsquo; /etc/apt/sources.list&lt;/p&gt;
+&lt;p&gt;sudo sed -i &amp;rsquo;s/stretch/buster/g&#39; /etc/apt/sources.list&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Then update the system again.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -344,7 +496,7 @@ It is probable that when you open a Debian session your prompt show something li
             <title type="text">Convert OVA to QCOW2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/convert-ova-to-qcow2/" />
             <id>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</id>
-            <updated>2020-08-16T23:07:31-03:00</updated>
+            <updated>2020-08-17T03:07:31&#43;01:00</updated>
             <published>2020-07-09T19:50:56-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -408,7 +560,7 @@ A few days ago I have to install Windows in a virtual environment to test some s
             <title type="text">Arch linux ARM on Raspberry Pi 4</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/" />
             <id>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</id>
-            <updated>2020-08-16T23:12:36-03:00</updated>
+            <updated>2020-08-17T03:12:36&#43;01:00</updated>
             <published>2020-05-08T22:54:24-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -574,7 +726,7 @@ systemctl reboot&lt;/p&gt;
             <title type="text">Installing Zsh &#43; Oh-My-Zsh &#43; Starship</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/" />
             <id>https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/</id>
-            <updated>2020-08-21T15:45:50-03:00</updated>
+            <updated>2020-08-21T19:45:50&#43;01:00</updated>
             <published>2020-04-03T20:59:05-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -627,70 +779,70 @@ Plugins should be placed in &lt;code&gt;plugins=(...)&lt;/code&gt; session of th
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th align=&#34;left&#34;&gt;plugin name&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;brief description&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;plugin name&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;brief description&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;colored-man-pages&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adds colors to man pages&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;colored-man-pages&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adds colors to man pages&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;command-not-found&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;uses the command-not-found package for Zsh to provide suggested packages&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;command-not-found&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;uses the command-not-found package for Zsh to provide suggested packages&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;docker&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adds auto-completion for docker&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;docker&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adds auto-completion for docker&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;git&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;provides many aliases and a few useful functions&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;git&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;provides many aliases and a few useful functions&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;npm&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;provides completion as well as adding many useful aliases&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;npm&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;provides completion as well as adding many useful aliases&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pep8&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adds completion for pep8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pep8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adds completion for pep8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pip&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adds completion for pip&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pip&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adds completion for pip&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pyenv&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;loads pyenv and pyenv-virtualenv&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pyenv&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;loads pyenv and pyenv-virtualenv&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;python&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adds several aliases for useful python commands&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;python&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adds several aliases for useful python commands&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;sudo&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;prefix your current or previous commands with sudo by pressing esc twice&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;sudo&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;prefix your current or previous commands with sudo by pressing esc twice&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;systemd&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;provides many useful aliases for systemd&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;systemd&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;provides many useful aliases for systemd&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;ubuntu&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;This plugin adds completions and aliases for Ubuntu&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ubuntu&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;This plugin adds completions and aliases for Ubuntu&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh_reload&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;type &lt;em&gt;src&lt;/em&gt; to reload Zsh session&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh_reload&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;type &lt;em&gt;src&lt;/em&gt; to reload Zsh session&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-autosuggestions&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;suggests commands as you type based on history and completions&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-autosuggestions&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;suggests commands as you type based on history and completions&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-syntax-highlighting&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;package provides syntax highlighting&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-syntax-highlighting&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;package provides syntax highlighting&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;

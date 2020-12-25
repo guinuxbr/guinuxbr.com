@@ -10,11 +10,11 @@ align: left
 
 Hi and welcome to my blog!
 
-KWallet is a KDE Plasma tool to safely store any kind of credentials and secrets. It has an interface called KWallet Manager that allows to easily manage this credentials and secrets.
+KWallet is a KDE Plasma tool to store any credentials and secrets safely. It has an interface called KWallet Manager that allows to manage credentials and secrets easily.
 
 ![kwallet](/img/secure-github-credentials-kwallet/kwallet.png)
 
-In this quick tutorial, I'll show how to configure your KDE to store your GitHub credentials in KWallet. This guide was tested against [openSUSE Tumbleweed](https://www.opensuse.org/) but should work for the most of Linux distributions.
+In this quick tutorial, I'll show how to configure your KDE to store your GitHub credentials in KWallet. This guide was tested against [openSUSE Tumbleweed](https://www.opensuse.org/) but should work for most Linux distributions.
 
 First, make sure to have _ksshaskpass_ installed. _ksshaskpass_ is an ssh-add helper that uses _kwallet_ and _kpassworddialog_ to show a window where you should type your credentials.
 

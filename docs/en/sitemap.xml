@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/categories/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -18,8 +18,13 @@
   </url>
   
   <url>
+    <loc>https://guinuxbr.com/en/tags/editor/</loc>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guinuxbr.com/en/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -33,13 +38,8 @@
   </url>
   
   <url>
-    <loc>https://guinuxbr.com/en/tags/kde/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://guinuxbr.com/en/tags/linux/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -53,13 +53,8 @@
   </url>
   
   <url>
-    <loc>https://guinuxbr.com/en/tags/opensuse/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://guinuxbr.com/en/posts/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -73,13 +68,8 @@
   </url>
   
   <url>
-    <loc>https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://guinuxbr.com/en/tags/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -93,58 +83,83 @@
   </url>
   
   <url>
-    <loc>https://guinuxbr.com/en/categories/tips/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
+    <loc>https://guinuxbr.com/en/categories/tutorials/</loc>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://guinuxbr.com/en/categories/tutorials/</loc>
-    <lastmod>2020-08-21T17:26:57-03:00</lastmod>
+    <loc>https://guinuxbr.com/en/tags/vim/</loc>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/posts/vim-cheat-sheet/</loc>
+    <lastmod>2020-12-25T19:55:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/kde/</loc>
+    <lastmod>2020-12-25T19:53:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/tags/opensuse/</loc>
+    <lastmod>2020-12-25T19:53:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/</loc>
+    <lastmod>2020-12-25T19:53:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guinuxbr.com/en/categories/tips/</loc>
+    <lastmod>2020-12-25T19:53:18+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/tags/partitions/</loc>
-    <lastmod>2020-08-21T15:18:16-03:00</lastmod>
+    <lastmod>2020-08-21T19:18:16+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/</loc>
-    <lastmod>2020-08-21T15:18:16-03:00</lastmod>
+    <lastmod>2020-08-21T19:18:16+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</loc>
-    <lastmod>2020-08-16T23:12:59-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:59+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/tags/windows/</loc>
-    <lastmod>2020-08-16T23:12:59-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:59+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/tags/wsl/</loc>
-    <lastmod>2020-08-16T23:12:59-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:59+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/tags/wsl2/</loc>
-    <lastmod>2020-08-16T23:12:59-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:59+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</loc>
-    <lastmod>2020-08-16T23:07:31-03:00</lastmod>
+    <lastmod>2020-08-17T03:07:31+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/tags/virtualization/</loc>
-    <lastmod>2020-08-16T23:07:31-03:00</lastmod>
+    <lastmod>2020-08-17T03:07:31+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</loc>
-    <lastmod>2020-08-16T23:12:36-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:36+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -159,7 +174,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/tags/archlinux/</loc>
-    <lastmod>2020-08-16T23:12:36-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:36+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -174,7 +189,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/tags/arm/</loc>
-    <lastmod>2020-08-16T23:12:36-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:36+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -189,7 +204,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/tags/raspberrypi/</loc>
-    <lastmod>2020-08-16T23:12:36-03:00</lastmod>
+    <lastmod>2020-08-17T03:12:36+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -204,7 +219,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/about/</loc>
-    <lastmod>2020-07-26T21:36:43-03:00</lastmod>
+    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -219,7 +234,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/tags/bash/</loc>
-    <lastmod>2020-08-21T15:45:50-03:00</lastmod>
+    <lastmod>2020-08-21T19:45:50+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -234,7 +249,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/</loc>
-    <lastmod>2020-08-21T15:45:50-03:00</lastmod>
+    <lastmod>2020-08-21T19:45:50+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -249,12 +264,12 @@
   
   <url>
     <loc>https://guinuxbr.com/en/categories/productivity/</loc>
-    <lastmod>2020-08-21T15:45:50-03:00</lastmod>
+    <lastmod>2020-08-21T19:45:50+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://guinuxbr.com/en/tags/shell/</loc>
-    <lastmod>2020-08-21T15:45:50-03:00</lastmod>
+    <lastmod>2020-08-21T19:45:50+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -269,7 +284,7 @@
   
   <url>
     <loc>https://guinuxbr.com/en/tags/zsh/</loc>
-    <lastmod>2020-08-21T15:45:50-03:00</lastmod>
+    <lastmod>2020-08-21T19:45:50+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"

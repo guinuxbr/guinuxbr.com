@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-08-21T17:27:03-03:00</updated>
+    <updated>2020-12-25T19:57:53&#43;00:00</updated>
     <id>https://guinuxbr.com/pt-br/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/pt-br/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/pt-br/atom.xml" />
@@ -15,12 +15,12 @@
                 <email>guinuxbr@gmail.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
-    <generator uri="https://gohugo.io/" version="0.74.3">Hugo</generator>
+    <generator uri="https://gohugo.io/" version="0.79.1">Hugo</generator>
         <entry>
             <title type="text">Instalando Zsh &#43; Oh-My-Zsh &#43; Starship</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/pt-br/posts/zsh&#43;oh-my-zsh&#43;starship/" />
             <id>https://guinuxbr.com/pt-br/posts/zsh&#43;oh-my-zsh&#43;starship/</id>
-            <updated>2020-07-26T21:36:43-03:00</updated>
+            <updated>2020-07-27T01:36:43&#43;01:00</updated>
             <published>2020-05-08T23:10:26-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -73,70 +73,70 @@ Os plugins devem ser colocados na sessão &lt;code&gt;plugins = (...)&lt;/code&g
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th align=&#34;left&#34;&gt;nome do plugin&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;breve descrição&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;nome do plugin&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;breve descrição&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;colored-man-pages&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona cores às páginas de manual&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;colored-man-pages&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona cores às páginas de manual&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;command-not-found&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;usa o pacote command-not-found para o Zsh apresentar pacotes sugeridos&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;command-not-found&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;usa o pacote command-not-found para o Zsh apresentar pacotes sugeridos&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;docker&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para Docker&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;docker&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para Docker&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;git&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece aliases e algumas funções úteis&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;git&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece aliases e algumas funções úteis&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;npm&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece &amp;ldquo;tab-completion&amp;rdquo; e muitos aliases úteis&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;npm&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece &amp;ldquo;tab-completion&amp;rdquo; e muitos aliases úteis&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pep8&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pep8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pep8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pep8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pip&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pip&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pip&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; para o comando pip&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;pyenv&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;carrega pyenv e pyenv-virtualenv&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;pyenv&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;carrega pyenv e pyenv-virtualenv&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;python&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona vários aliases para comandos python úteis&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;python&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona vários aliases para comandos python úteis&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;sudo&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;prefixa o comando atual com &lt;em&gt;sudo&lt;/em&gt; pressionando &lt;strong&gt;esc&lt;/strong&gt; duas vezes&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;sudo&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;prefixa o comando atual com &lt;em&gt;sudo&lt;/em&gt; pressionando &lt;strong&gt;esc&lt;/strong&gt; duas vezes&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;systemd&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece aliases úteis para systemd&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;systemd&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece aliases úteis para systemd&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;ubuntu&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; e aliases para o Ubuntu&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ubuntu&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;adiciona &amp;ldquo;tab-completion&amp;rdquo; e aliases para o Ubuntu&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-reload&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;basta digitar &lt;em&gt;src&lt;/em&gt; para recarregar a sessão do Zsh&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-reload&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;basta digitar &lt;em&gt;src&lt;/em&gt; para recarregar a sessão do Zsh&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-autosuggestions&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;sugere comandos enquanto você digita com base no histórico e nos &amp;ldquo;tab-completions&amp;rdquo;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-autosuggestions&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;sugere comandos enquanto você digita com base no histórico e nos &amp;ldquo;tab-completions&amp;rdquo;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;zsh-syntax-highlighting&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;fornece destaque de sintaxe&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;zsh-syntax-highlighting&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;fornece destaque de sintaxe&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -570,7 +570,7 @@ A instalação é muito simples, basta digitar:&lt;/p&gt;
             <title type="text">Arch linux ARM no Raspberry Pi 4</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/pt-br/posts/arch_linux_arm-raspberry_pi_4/" />
             <id>https://guinuxbr.com/pt-br/posts/arch_linux_arm-raspberry_pi_4/</id>
-            <updated>2020-07-26T21:36:43-03:00</updated>
+            <updated>2020-07-27T01:36:43&#43;01:00</updated>
             <published>2020-04-03T20:55:50-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>

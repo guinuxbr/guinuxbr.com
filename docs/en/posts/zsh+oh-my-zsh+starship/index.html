@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.74.3" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.79.1" /><meta name="theme-color" content="#fff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
@@ -14,11 +14,11 @@
 
     <title>Installing Zsh &#43; Oh-My-Zsh &#43; Starship | GuinuxBR</title>
 
-    <link rel="stylesheet" href="/en/css/meme.min.73cca31c87e3369c4d7ccc06d2b4750b6d6215cf4d7aa7f07b2be402c4af8f63.css" integrity="sha256-c8yjHIfjNpxNfMwG0rR1C21iFc9NeqfweyvkAsSvj2M=" />
+    <link rel="stylesheet" href="/en/css/meme.min.4a735ef78183647ef0ab7b74d4bdfe7027d22bbdb5e63af2c69eb2243334b934.css"/>
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.8/lunr.min.js" defer></script><script src="/en/js/meme.min.e587d41cd64ecee56415507d2c1f1328c752c054ce026e9666ad2b9583dd8338.js" integrity="sha256-5YfUHNZOzuVkFVB9LB8TKMdSwFTOAm6WZq0rlYPdgzg="></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.cb514412b40cd29cda44a0868c552758c3121da69c2d3cd68b70d1e252faa461.js"></script>
 
     
 
@@ -35,7 +35,7 @@ The objective of this article is to share my shell setup with you. I think that 
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="GuinuxBR" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="GuinuxBR" />
     <meta name="msapplication-starturl" content="../../../" />
@@ -55,7 +55,7 @@ The objective of this article is to share my shell setup with you. I think that 
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-04-03T20:59:05-03:00",
-        "dateModified": "2020-08-21T15:45:50-03:00",
+        "dateModified": "2020-08-21T19:45:50+01:00",
         "url": "https://guinuxbr.com/en/posts/zsh+oh-my-zsh+starship/",
         "headline": "Installing Zsh + Oh-My-Zsh + Starship",
         "description": "Hi, welcome to my blog!\nThe objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the “normal” bash. I hope that it helps you.",
@@ -109,7 +109,7 @@ The objective of this article is to share my shell setup with you. I think that 
         <meta property="og:image" content="https://guinuxbr.com/icons/apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-04-03T20:59:05-03:00" />
-    <meta property="article:modified_time" content="2020-08-21T15:45:50-03:00" />
+    <meta property="article:modified_time" content="2020-08-21T19:45:50&#43;01:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -138,7 +138,7 @@ The objective of this article is to share my shell setup with you. I think that 
     <body>
         <div class="container">
             
-    <header class="header" data-scroll-header>
+    <header class="header">
         
             <div class="header-wrapper">
                 <div class="header-inner single">
@@ -256,11 +256,11 @@ The objective of this article is to share my shell setup with you. I think that 
 
         
 
-        <article class="content post" data-small-caps="true" data-align="left" data-type="posts" data-toc-num="true">
+        <article class="content post h-entry" data-small-caps="true" data-align="left" data-type="posts" data-toc-num="true">
 
-            <h1 class="post-title">Installing Zsh + Oh-My-Zsh + Starship</h1>
+            <h1 class="post-title p-name">Installing Zsh + Oh-My-Zsh + Starship</h1>
 
-            <div class="post-subtitle">Increasing productivity</div>
+            <div class="post-subtitle p-name">Increasing productivity</div>
             
 
             
@@ -273,7 +273,7 @@ The objective of this article is to share my shell setup with you. I think that 
 <div class="post-meta">
     
         
-        <time datetime="2020-04-03T20:59:05-03:00" class="post-meta-item published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2020.4.3</time>
+        <time datetime="2020-04-03T20:59:05-03:00" class="post-meta-item published dt-published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2020.4.3</time>
     
     
     
@@ -282,7 +282,7 @@ The objective of this article is to share my shell setup with you. I think that 
         
         
             
-                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/en/categories/tutorials/" class="category-link">tutorials</a>/<a href="/en/categories/productivity/" class="category-link">productivity</a></span>
+                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/en/categories/tutorials/" class="category-link p-category">tutorials</a>/<a href="/en/categories/productivity/" class="category-link p-category">productivity</a></span>
             
         
     
@@ -300,7 +300,7 @@ The objective of this article is to share my shell setup with you. I think that 
 
             
 
-            <div class="post-body">
+            <div class="post-body e-content">
               <p style="text-indent:0"><span class="drop-cap">H</span>i, welcome to my blog!</p>
 <p>The objective of this article is to share my shell setup with you.
 I think that my job and day to day tasks became easier and more productive than using the &ldquo;normal&rdquo; <em>bash</em>. I hope that it helps you.</p>
@@ -344,70 +344,70 @@ Plugins should be placed in <code>plugins=(...)</code> session of the configurat
 <div class="table-container"><table>
 <thead>
 <tr>
-<th align="left">plugin name</th>
-<th align="left">brief description</th>
+<th style="text-align:left">plugin name</th>
+<th style="text-align:left">brief description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">colored-man-pages</td>
-<td align="left">adds colors to man pages</td>
+<td style="text-align:left">colored-man-pages</td>
+<td style="text-align:left">adds colors to man pages</td>
 </tr>
 <tr>
-<td align="left">command-not-found</td>
-<td align="left">uses the command-not-found package for Zsh to provide suggested packages</td>
+<td style="text-align:left">command-not-found</td>
+<td style="text-align:left">uses the command-not-found package for Zsh to provide suggested packages</td>
 </tr>
 <tr>
-<td align="left">docker</td>
-<td align="left">adds auto-completion for docker</td>
+<td style="text-align:left">docker</td>
+<td style="text-align:left">adds auto-completion for docker</td>
 </tr>
 <tr>
-<td align="left">git</td>
-<td align="left">provides many aliases and a few useful functions</td>
+<td style="text-align:left">git</td>
+<td style="text-align:left">provides many aliases and a few useful functions</td>
 </tr>
 <tr>
-<td align="left">npm</td>
-<td align="left">provides completion as well as adding many useful aliases</td>
+<td style="text-align:left">npm</td>
+<td style="text-align:left">provides completion as well as adding many useful aliases</td>
 </tr>
 <tr>
-<td align="left">pep8</td>
-<td align="left">adds completion for pep8</td>
+<td style="text-align:left">pep8</td>
+<td style="text-align:left">adds completion for pep8</td>
 </tr>
 <tr>
-<td align="left">pip</td>
-<td align="left">adds completion for pip</td>
+<td style="text-align:left">pip</td>
+<td style="text-align:left">adds completion for pip</td>
 </tr>
 <tr>
-<td align="left">pyenv</td>
-<td align="left">loads pyenv and pyenv-virtualenv</td>
+<td style="text-align:left">pyenv</td>
+<td style="text-align:left">loads pyenv and pyenv-virtualenv</td>
 </tr>
 <tr>
-<td align="left">python</td>
-<td align="left">adds several aliases for useful python commands</td>
+<td style="text-align:left">python</td>
+<td style="text-align:left">adds several aliases for useful python commands</td>
 </tr>
 <tr>
-<td align="left">sudo</td>
-<td align="left">prefix your current or previous commands with sudo by pressing esc twice</td>
+<td style="text-align:left">sudo</td>
+<td style="text-align:left">prefix your current or previous commands with sudo by pressing esc twice</td>
 </tr>
 <tr>
-<td align="left">systemd</td>
-<td align="left">provides many useful aliases for systemd</td>
+<td style="text-align:left">systemd</td>
+<td style="text-align:left">provides many useful aliases for systemd</td>
 </tr>
 <tr>
-<td align="left">ubuntu</td>
-<td align="left">This plugin adds completions and aliases for Ubuntu</td>
+<td style="text-align:left">ubuntu</td>
+<td style="text-align:left">This plugin adds completions and aliases for Ubuntu</td>
 </tr>
 <tr>
-<td align="left">zsh_reload</td>
-<td align="left">type <em>src</em> to reload Zsh session</td>
+<td style="text-align:left">zsh_reload</td>
+<td style="text-align:left">type <em>src</em> to reload Zsh session</td>
 </tr>
 <tr>
-<td align="left">zsh-autosuggestions</td>
-<td align="left">suggests commands as you type based on history and completions</td>
+<td style="text-align:left">zsh-autosuggestions</td>
+<td style="text-align:left">suggests commands as you type based on history and completions</td>
 </tr>
 <tr>
-<td align="left">zsh-syntax-highlighting</td>
-<td align="left">package provides syntax highlighting</td>
+<td style="text-align:left">zsh-syntax-highlighting</td>
+<td style="text-align:left">package provides syntax highlighting</td>
 </tr>
 </tbody>
 </table></div>
@@ -795,15 +795,11 @@ The installation is very simple, just type:</p>
 
             </div>
 
-        </article>
-
-        
-
-        
+            
     
     
         <ul class="post-copyright">
-            <li class="copyright-item author"><span class="copyright-item-text">Author</span>: <a href="https://guinuxbr.com" target="_blank" rel="noopener">Guilherme L. L. Marques</a></li>
+            <li class="copyright-item author"><span class="copyright-item-text">Author</span>: <a href="https://guinuxbr.com" class="p-author h-card" target="_blank" rel="noopener">Guilherme L. L. Marques</a></li>
             
                 
                 
@@ -818,9 +814,13 @@ The installation is very simple, just type:</p>
 
 
 
+        </article>
+
+        
+
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2020-08-21 15:45:50 -03" style="cursor:help">
+        <span title="Updated @ 2020-08-21 19:45:50 BST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2020-08-21</text><text x="915" y="140" textLength="650" transform="scale(.1)">2020-08-21</text></g></svg>
         </span></div>
@@ -905,6 +905,10 @@ The installation is very simple, just type:</p>
             <ul class="related-list">
                 
                     <li class="related-item">
+                        <a href="/en/posts/vim-cheat-sheet/" class="related-link">Vim Cheat Sheet</a>
+                    </li>
+                
+                    <li class="related-item">
                         <a href="/en/posts/secure-git-credentials-kwallet/" class="related-link">Secure GitHub credentials with KWallet</a>
                     </li>
                 
@@ -918,10 +922,6 @@ The installation is very simple, just type:</p>
                 
                     <li class="related-item">
                         <a href="/en/posts/convert-ova-to-qcow2/" class="related-link">Convert OVA to QCOW2</a>
-                    </li>
-                
-                    <li class="related-item">
-                        <a href="/en/posts/arch_linux_arm-raspberry_pi_4/" class="related-link">Arch linux ARM on Raspberry Pi 4</a>
                     </li>
                 
             </ul>
@@ -1057,18 +1057,8 @@ The installation is very simple, just type:</p>
 
         </div>
         
-    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-<script>
-    var scroll = new SmoothScroll('a[href*="#"]', {
-        speedAsDuration: true,
-        header: '[data-scroll-header]'
-    });
-</script>
-
-
-
-
+        
 
 
 
@@ -1126,10 +1116,7 @@ The installation is very simple, just type:</p>
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.min.js" type="module" defer></script>
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
 
 
 
