@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-12-25T19:59:59&#43;00:00</updated>
+    <updated>2021-08-21T19:23:39&#43;01:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -15,12 +15,12 @@
                 <email>guinuxbr@gmail.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
-    <generator uri="https://gohugo.io/" version="0.79.1">Hugo</generator>
+    <generator uri="https://gohugo.io/" version="0.87.0">Hugo</generator>
         <entry>
             <title type="text">Vim Cheat Sheet</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/vim-cheat-sheet/" />
             <id>https://guinuxbr.com/en/posts/vim-cheat-sheet/</id>
-            <updated>2020-12-25T19:59:28&#43;00:00</updated>
+            <updated>2021-08-21T19:21:28&#43;01:00</updated>
             <published>2020-12-25T19:22:19&#43;00:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -178,7 +178,7 @@
             <title type="text">Secure GitHub credentials with KWallet</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/" />
             <id>https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/</id>
-            <updated>2020-12-25T19:53:18&#43;00:00</updated>
+            <updated>2021-08-21T19:21:28&#43;01:00</updated>
             <published>2020-08-21T15:15:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -205,12 +205,12 @@ In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store y
 &lt;p&gt;Put the following content in the file:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GIT_ASKPASS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/usr/lib/ssh/ksshaskpass&amp;#39;&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
@@ -274,7 +274,7 @@ If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em
             <title type="text">Sort Linux partitions correctly</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/" />
             <id>https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/</id>
-            <updated>2020-08-21T19:18:16&#43;01:00</updated>
+            <updated>2021-08-21T19:21:28&#43;01:00</updated>
             <published>2020-08-21T15:10:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -348,7 +348,7 @@ Begin typing &lt;code&gt;sudo fdisk /dev/sda&lt;/code&gt;.&lt;/p&gt;
             <title type="text">Run Debian in Windows 10 with WSL 2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/debian-windows10-wsl2/" />
             <id>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</id>
-            <updated>2020-08-17T03:12:59&#43;01:00</updated>
+            <updated>2021-08-21T19:21:28&#43;01:00</updated>
             <published>2020-07-24T21:15:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -502,7 +502,7 @@ It is probable that when you open a Debian session your prompt show something li
             <title type="text">Convert OVA to QCOW2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/convert-ova-to-qcow2/" />
             <id>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</id>
-            <updated>2020-08-17T03:07:31&#43;01:00</updated>
+            <updated>2021-08-21T19:21:28&#43;01:00</updated>
             <published>2020-07-09T19:50:56-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -566,7 +566,7 @@ A few days ago I have to install Windows in a virtual environment to test some s
             <title type="text">Arch linux ARM on Raspberry Pi 4</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/" />
             <id>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</id>
-            <updated>2020-08-17T03:12:36&#43;01:00</updated>
+            <updated>2021-08-21T19:21:28&#43;01:00</updated>
             <published>2020-05-08T22:54:24-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -732,7 +732,7 @@ systemctl reboot&lt;/p&gt;
             <title type="text">Installing Zsh &#43; Oh-My-Zsh &#43; Starship</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/" />
             <id>https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/</id>
-            <updated>2020-08-21T19:45:50&#43;01:00</updated>
+            <updated>2021-08-21T19:21:28&#43;01:00</updated>
             <published>2020-04-03T20:59:05-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -893,7 +893,7 @@ The installation is very simple, just type:&lt;/p&gt;
 &lt;p&gt;The detailed information about every option is well described at the &lt;a href=&#34;https://starship.rs/config/&#34;&gt;official documentation&lt;/a&gt;. However, I paste the one that I&amp;rsquo;m using to serve as a reference for you.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;  1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;  1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  2
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  3
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  4
@@ -1062,7 +1062,7 @@ The installation is very simple, just type:&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;167
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;nx&#34;&gt;add_newline&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;nx&#34;&gt;add_newline&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
 
 &lt;span class=&#34;nx&#34;&gt;prompt_order&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
     &lt;span class=&#34;s2&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;

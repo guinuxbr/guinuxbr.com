@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://guinuxbr.com/pt-br/tags/bash/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -15,11 +14,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/tags/bash/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/categories/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -30,11 +27,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -45,11 +40,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/posts/zsh&#43;oh-my-zsh&#43;starship/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -60,11 +53,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/posts/zsh&#43;oh-my-zsh&#43;starship/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/tags/linux/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -75,11 +66,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/tags/linux/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/posts/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -90,11 +79,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/tags/shell/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -105,11 +92,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/tags/shell/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/tags/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -120,16 +105,12 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/categories/tutoriais/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/tags/zsh/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -140,11 +121,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/tags/zsh/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/about/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -155,11 +134,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/about/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/posts/arch_linux_arm-raspberry_pi_4/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -170,11 +147,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/posts/arch_linux_arm-raspberry_pi_4/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/tags/archlinux/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -185,11 +160,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/tags/archlinux/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/tags/arm/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -200,11 +173,9 @@
                 hreflang="pt-br"
                 href="https://guinuxbr.com/pt-br/tags/arm/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://guinuxbr.com/pt-br/tags/raspberrypi/</loc>
-    <lastmod>2020-07-27T01:36:43+01:00</lastmod>
+    <lastmod>2021-08-21T19:21:28+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -216,5 +187,4 @@
                 href="https://guinuxbr.com/pt-br/tags/raspberrypi/"
                 />
   </url>
-  
 </urlset>

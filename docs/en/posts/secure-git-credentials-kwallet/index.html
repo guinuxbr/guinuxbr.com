@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.79.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.87.0" /><meta name="theme-color" content="#fff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
@@ -14,11 +14,11 @@
 
     <title>Secure GitHub credentials with KWallet | GuinuxBR</title>
 
-    <link rel="stylesheet" href="/en/css/meme.min.4a735ef78183647ef0ab7b74d4bdfe7027d22bbdb5e63af2c69eb2243334b934.css"/>
+    <link rel="stylesheet" href="/en/css/meme.min.dc6ba27491c184b85b6183ae2ff004e20470659f7884cd2e704f8c5da1bc5e03.css"/>
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.cb514412b40cd29cda44a0868c552758c3121da69c2d3cd68b70d1e252faa461.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.4208523cf7987eb3008fbd095795df28cb961f4892c5443b4baf7cec7dd07a86.js"></script>
 
     
 
@@ -56,7 +56,7 @@ In this quick tutorial, I’ll show how to configure your KDE to store your GitH
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-08-21T15:15:00-03:00",
-        "dateModified": "2020-12-25T19:53:18+00:00",
+        "dateModified": "2021-08-21T19:21:28+01:00",
         "url": "https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/",
         "headline": "Secure GitHub credentials with KWallet",
         "description": "Hi and welcome to my blog!\nKWallet is a KDE Plasma tool to store any credentials and secrets safely. It has an interface called KWallet Manager that allows to manage credentials and secrets easily.\nIn this quick tutorial, I’ll show how to configure your KDE to store your GitHub credentials in KWallet.",
@@ -110,7 +110,7 @@ In this quick tutorial, I’ll show how to configure your KDE to store your GitH
 <meta property="og:locale" content="en" /><meta property="og:image" content="https://guinuxbr.com/img/secure-github-credentials-kwallet/kwallet.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-08-21T15:15:00-03:00" />
-    <meta property="article:modified_time" content="2020-12-25T19:53:18&#43;00:00" />
+    <meta property="article:modified_time" content="2021-08-21T19:21:28&#43;01:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -132,6 +132,9 @@ In this quick tutorial, I’ll show how to configure your KDE to store your GitH
 
 
 
+
+    
+    
 
     
 </head>
@@ -289,7 +292,7 @@ In this quick tutorial, I’ll show how to configure your KDE to store your GitH
             
 
             <div class="post-body e-content">
-              <p style="text-indent:0"><span class="drop-cap">H</span>i and welcome to my blog!</p>
+                <p style="text-indent:0"><span class="drop-cap">H</span>i and welcome to my blog!</p>
 <p>KWallet is a KDE Plasma tool to store any credentials and secrets safely. It has an interface called KWallet Manager that allows to manage credentials and secrets easily.</p>
 <p><img src="/img/secure-github-credentials-kwallet/kwallet.png" alt="kwallet"></p>
 <p>In this quick tutorial, I&rsquo;ll show how to configure your KDE to store your GitHub credentials in KWallet. This guide was tested against <a href="https://www.opensuse.org/" target="_blank" rel="noopener">openSUSE Tumbleweed</a> but should work for most Linux distributions.</p>
@@ -305,12 +308,12 @@ In this quick tutorial, I’ll show how to configure your KDE to store your GitH
 <p>Put the following content in the file:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span><span class="nb">export</span> <span class="nv">GIT_ASKPASS</span><span class="o">=</span><span class="s1">&#39;/usr/lib/ssh/ksshaskpass&#39;</span>
 
 </code></pre></td></tr></table></div>
@@ -350,9 +353,9 @@ If your wallet is already open and you will see the <em>ksshaskpass</em> dialogu
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2020-12-25 19:53:18 GMT" style="cursor:help">
+        <span title="Updated @ 2021-08-21 19:21:28 BST" style="cursor:help">
 
-<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2020-12-25</text><text x="915" y="140" textLength="650" transform="scale(.1)">2020-12-25</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2021-08-21</text><text x="915" y="140" textLength="650" transform="scale(.1)">2021-08-21</text></g></svg>
         </span></div>
 
 
@@ -526,9 +529,11 @@ If your wallet is already open and you will see the <em>ksshaskpass</em> dialogu
         
     
 
-        <div class="load-comments">
-            <div id="load-comments">Load Comments?</div>
-        </div>
+        
+            <div class="load-comments">
+                <div id="load-comments">Load Comments?</div>
+            </div>
+        
 
         
             <div id="disqus_thread"></div>
@@ -538,6 +543,7 @@ If your wallet is already open and you will see the <em>ksshaskpass</em> dialogu
 
         
 
+        
     
 
 
@@ -555,7 +561,7 @@ If your wallet is already open and you will see the <em>ksshaskpass</em> dialogu
             
     <footer id="footer" class="footer">
         <div class="footer-inner">
-            <div class="site-info">©&nbsp;2020–2020&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icon footer-icon"><path d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"/></svg>&nbsp;Guilherme L. L. Marques</div><div class="powered-by">Powered by <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a> | Theme is <a href="https://github.com/reuixiy/hugo-theme-meme" target="_blank" rel="noopener">MemE</a></div><div class="site-copyright"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
+            <div class="site-info">©&nbsp;2020–2021&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icon footer-icon"><path d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"/></svg>&nbsp;Guilherme L. L. Marques</div><div class="powered-by">Powered by <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a> | Theme is <a href="https://github.com/reuixiy/hugo-theme-meme" target="_blank" rel="noopener">MemE</a></div><div class="site-copyright"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
 
             
     
@@ -620,6 +626,8 @@ If your wallet is already open and you will see the <em>ksshaskpass</em> dialogu
         }
     }
 </script>
+
+        
 
         
 
