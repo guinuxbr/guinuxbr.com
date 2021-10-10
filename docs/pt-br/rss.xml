@@ -10,7 +10,7 @@
         <title>GuinuxBR</title>
         <link>https://guinuxbr.com/pt-br/</link>
         <description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description>
-        <generator>Hugo 0.87.0 https://gohugo.io/</generator>
+        <generator>Hugo 0.88.1 https://gohugo.io/</generator>
         
             <language>en</language>
         
@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
         
-        <lastBuildDate>Sat, 21 Aug 2021 19:23:39 &#43;0100</lastBuildDate>
+        <lastBuildDate>Sun, 10 Oct 2021 14:50:26 &#43;0100</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://guinuxbr.com/pt-br/rss.xml" />
         

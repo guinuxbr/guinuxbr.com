@@ -10,7 +10,7 @@
         <title>GuinuxBR</title>
         <link>https://guinuxbr.com/en/</link>
         <description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description>
-        <generator>Hugo 0.87.0 https://gohugo.io/</generator>
+        <generator>Hugo 0.88.1 https://gohugo.io/</generator>
         
             <language>en</language>
         
@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
         
-        <lastBuildDate>Sat, 21 Aug 2021 19:23:39 &#43;0100</lastBuildDate>
+        <lastBuildDate>Sun, 10 Oct 2021 14:50:26 &#43;0100</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://guinuxbr.com/en/rss.xml" />
         
@@ -431,7 +431,7 @@ Clicking on Debian will lead you to the user configuration screen. Choose your u
 &lt;p&gt;cat /etc/os-release&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;You should see something like the below:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;PRETTY_NAME=&amp;quot;Debian GNU/Linux 10 (buster)&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PRETTY_NAME=&amp;quot;Debian GNU/Linux 10 (buster)&amp;quot;
 NAME=&amp;quot;Debian GNU/Linux&amp;quot;
 VERSION_ID=&amp;quot;10&amp;quot;
 VERSION=&amp;quot;10 (buster)&amp;quot;
