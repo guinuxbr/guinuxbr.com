@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2021-12-30T18:22:31&#43;00:00</updated>
+    <updated>2021-12-30T18:22:46&#43;00:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -16,6 +16,97 @@
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
     <generator uri="https://gohugo.io/" version="0.90.1">Hugo</generator>
+        <entry>
+            <title type="text">Backup dotfiles to GitHub</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/backup-and-restore-dot-files/" />
+            <id>https://guinuxbr.com/en/posts/backup-and-restore-dot-files/</id>
+            <updated>2021-12-30T18:22:42&#43;00:00</updated>
+            <published>2021-12-29T13:18:49&#43;00:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">This article is about how to backup dotfiles using Git. I will try to keep it short and straightforward.
+I&amp;rsquo;m using Zsh as the shell in the examples, but other shell can be used. The commands below should be executed as a normal user in the /home directory.</summary>
+            
+                <content type="html">&lt;p&gt;This article is about how to backup dotfiles using Git. I will try to keep it short and straightforward.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m using &lt;code&gt;Zsh&lt;/code&gt; as the shell in the examples, but other shell can be used. The commands below should be executed as a normal user in the &lt;code&gt;/home&lt;/code&gt; directory.&lt;/p&gt;
+&lt;p&gt;Create a local Git repository that will be used to track the dotfiles.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git init $HOME/.dotfiles&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The default behaviour of Git commands is to run inside the project folder using information stored at the &lt;code&gt;&amp;lt;project&amp;gt;/.git&lt;/code&gt; directory, and Git assumes that the working tree is located at &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt;. To enable the execution of Git commands specifically for the &amp;ldquo;dotfiles&amp;rdquo; repository from anywhere, it is needed to create an alias that indicates the location of the Git directory and the working tree.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;alias dotfiles=&#39;/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME&#39;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Make this alias permanent.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;echo &amp;ldquo;alias dotfiles=&#39;/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME&#39;&amp;rdquo; &amp;raquo; $HOME/.zsh/aliases&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Source the &lt;code&gt;aliases&lt;/code&gt; file inside &lt;code&gt;.zshrc&lt;/code&gt; file adding the following line.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;source $HOME/.zsh/aliases&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;By default, Git will consider all the files under the working tree as untracked. To avoid this behaviour, configure Git to show only the files that are explicitly added.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dotfiles config --local status.showUntrackedFiles no&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Add the files that you want to track, for example.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dotfiles add .vimrc .zshrc .gitignore&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Link the local to the remote repository. The remote repository can be a GitHub or any other Git repository.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dotfiles remote add origin &lt;code&gt;remote-url&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Push the changes to the remote repository. This is effectively the backup of the dotfiles.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dotfiles push -u origin main&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now the dotfiles are backed up to the remote repository.&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tips/" term="tips" label="tips" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/git/" term="git" label="git" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">Vim Cheat Sheet</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/vim-cheat-sheet/" />

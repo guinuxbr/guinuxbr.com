@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://guinuxbr.com/en/posts/backup-and-restore-dot-files/</loc>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
+  </url><url>
     <loc>https://guinuxbr.com/en/categories/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -15,11 +18,11 @@
                 href="https://guinuxbr.com/en/categories/"
                 />
   </url><url>
-    <loc>https://guinuxbr.com/en/tags/editor/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <loc>https://guinuxbr.com/en/tags/git/</loc>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/</loc>
-    <lastmod>2021-12-29T13:08:44+00:00</lastmod>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -32,7 +35,7 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/tags/linux/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -45,7 +48,7 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/posts/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -58,7 +61,7 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/tags/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -71,9 +74,12 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/categories/tips/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/categories/tutorials/</loc>
+    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
+  </url><url>
+    <loc>https://guinuxbr.com/en/tags/editor/</loc>
     <lastmod>2021-12-29T11:10:45+00:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/vim/</loc>

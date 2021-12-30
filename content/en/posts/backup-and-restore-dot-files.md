@@ -2,7 +2,7 @@
 title: "Backup dotfiles to GitHub"
 subtitle: "Or any other version control system"
 date: 2021-12-29T13:18:49Z
-draft: true
+draft: false
 tags: ["linux", "git"]
 categories: ["tutorials", "tips"]
 align: left
