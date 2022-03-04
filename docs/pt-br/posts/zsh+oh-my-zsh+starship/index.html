@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.93.2" /><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -17,11 +17,11 @@
 
     <title>Instalando Zsh &#43; Oh-My-Zsh &#43; Starship | GuinuxBR</title>
 
-    <link rel="stylesheet" href="/pt-br/css/meme.min.37a8ef32879944110781991dd2ab5b478b2ea09cc239061697da6da9e3948c39.css"/>
+    <link rel="stylesheet" href="/pt-br/css/meme.min.6917a2d0a50c352c92c9e60736425f657f695200abc5b46dfc192cbc790479d3.css"/>
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/pt-br/js/meme.min.9b09d31adf461d0b84c87d1e03beb72166919d8f68296645e308622cd062cdb3.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/pt-br/js/meme.min.9612c6afa78787e0d5407e387a284b1844e3e242cbdbdf9e019bc321657a74ef.js"></script>
 
     
 
@@ -624,174 +624,174 @@ A instalação é muito simples, basta digitar:</p>
 </span><span class="lnt">167
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="nx">add_newline</span> <span class="p">=</span> <span class="kc">true</span>
-
-<span class="nx">prompt_order</span> <span class="p">=</span> <span class="p">[</span>
-    <span class="s2">&#34;username&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;memory_usage&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;hostname&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;kubernetes&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;directory&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_branch&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_commit&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_state&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_status&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;hg_branch&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;package&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;dotnet&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;elixir&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;elm&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;golang&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;haskell&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;java&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;nodejs&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;php&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;python&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;ruby&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;rust&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;terraform&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;nix_shell&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;conda&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;aws&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;env_var&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;crystal&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;line_break&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;battery&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;cmd_duration&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;jobs&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;time&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;character&#34;</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="p">[</span><span class="nx">battery</span><span class="p">]</span>
-<span class="nx">full_symbol</span> <span class="p">=</span> <span class="s2">&#34;🔋&#34;</span>
-<span class="nx">charging_symbol</span> <span class="p">=</span> <span class="s2">&#34;⚡️&#34;</span>
-<span class="nx">discharging_symbol</span> <span class="p">=</span> <span class="s2">&#34;💀&#34;</span>
-
-<span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
-<span class="nx">threshold</span> <span class="p">=</span> <span class="mi">10</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold red&#34;</span>
-
-<span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
-<span class="nx">threshold</span> <span class="p">=</span> <span class="mi">60</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-
-<span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
-<span class="nx">threshold</span> <span class="p">=</span> <span class="mi">100</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold green&#34;</span>
-
-<span class="p">[</span><span class="nx">character</span><span class="p">]</span>
-<span class="c"># symbol = &#34;➜&#34;</span>
-<span class="nx">error_symbol</span> <span class="p">=</span> <span class="s2">&#34;✗&#34;</span>
-<span class="nx">use_symbol_for_status</span> <span class="p">=</span> <span class="kc">true</span>
-
-<span class="p">[</span><span class="nx">cmd_duration</span><span class="p">]</span>
-<span class="nx">min_time</span> <span class="p">=</span> <span class="mi">500</span>
-<span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;tooks &#34;</span>
-
-<span class="p">[</span><span class="nx">directory</span><span class="p">]</span>
-<span class="nx">truncation_length</span> <span class="p">=</span> <span class="mi">6</span>
-<span class="nx">truncate_to_repo</span> <span class="p">=</span> <span class="kc">true</span>
-<span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;in &#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold cyan&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [env_var]</span>
-<span class="c"># variable = &#34;SHELL&#34;</span>
-<span class="c"># default = &#34;Zsh&#34;</span>
-<span class="c"># prefix = &#34;&lt;&#34;</span>
-<span class="c"># suffix = &#34;&gt;&#34;</span>
-
-<span class="p">[</span><span class="nx">git_branch</span><span class="p">]</span>
-<span class="c"># symbol = &#34;🌱 &#34;</span>
-<span class="nx">truncation_length</span> <span class="p">=</span> <span class="mi">8</span>
-<span class="nx">truncation_symbol</span> <span class="p">=</span> <span class="s2">&#34;...&#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold purple&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="p">[</span><span class="nx">git_state</span><span class="p">]</span>
-<span class="nx">cherry_pick</span> <span class="p">=</span> <span class="s2">&#34;CHERRY PICKING&#34;</span>
-<span class="nx">rebase</span> <span class="p">=</span> <span class="s2">&#34;REBASING&#34;</span>
-<span class="nx">merge</span> <span class="p">=</span> <span class="s2">&#34;MERGING&#34;</span>
-<span class="nx">revert</span> <span class="p">=</span> <span class="s2">&#34;REVERTING&#34;</span>
-<span class="nx">bisect</span> <span class="p">=</span> <span class="s2">&#34;BISECTING&#34;</span>
-<span class="nx">am</span> <span class="p">=</span> <span class="s2">&#34;AM&#34;</span>
-<span class="nx">am_or_rebase</span> <span class="p">=</span> <span class="s2">&#34;AM/REBASE&#34;</span>
-<span class="nx">progress_divider</span> <span class="p">=</span> <span class="s2">&#34; of &#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [git_status]</span>
-<span class="c"># conflicted = &#34;🏳&#34;</span>
-<span class="c"># ahead = &#34;🏎💨&#34;</span>
-<span class="c"># behind = &#34;😰&#34;</span>
-<span class="c"># diverged = &#34;😵&#34;</span>
-<span class="c"># untracked = &#34;🤷‍&#34;</span>
-<span class="c"># stashed = &#34;📦&#34;</span>
-<span class="c"># modified = &#34;📝&#34;</span>
-<span class="c"># staged.value = &#34;++&#34;</span>
-<span class="c"># staged.style = &#34;green&#34;</span>
-<span class="c"># staged_count.enabled = true</span>
-<span class="c"># staged_count.style = &#34;green&#34;</span>
-<span class="c"># renamed = &#34;👅&#34;</span>
-<span class="c"># deleted = &#34;🗑&#34;</span>
-
-<span class="c"># [[git_status.count]]</span>
-<span class="c"># enabled = true</span>
-
-<span class="p">[</span><span class="nx">hostname</span><span class="p">]</span>
-<span class="nx">ssh_only</span> <span class="p">=</span> <span class="kc">false</span>
-<span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;🤖&#34;</span>
-<span class="c"># suffix = &#34;⟫&#34;</span>
-<span class="nx">trim_at</span> <span class="p">=</span> <span class="s2">&#34;.&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [jobs]</span>
-<span class="c"># symbol = &#34;+ &#34;</span>
-<span class="c"># threshold = 1</span>
-
-<span class="p">[</span><span class="nx">line_break</span><span class="p">]</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [memory_usage]</span>
-<span class="c"># disabled = false</span>
-<span class="c"># show_percentage = true</span>
-<span class="c"># show_swap = false</span>
-<span class="c"># threshold = -1</span>
-<span class="c"># symbol = &#34; &#34;</span>
-<span class="c"># separator = &#34;/&#34;</span>
-<span class="c"># style = &#34;bold dimmed white&#34;</span>
-
-<span class="p">[</span><span class="nx">nodejs</span><span class="p">]</span>
-<span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;⬢ &#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold green&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [package]</span>
-<span class="c"># symbol = &#34;📦 &#34;</span>
-<span class="c"># style = &#34;bold red&#34;</span>
-<span class="c"># disabled = false</span>
-
-<span class="p">[</span><span class="nx">python</span><span class="p">]</span>
-<span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;🐍 &#34;</span>
-<span class="nx">pyenv_version_name</span> <span class="p">=</span> <span class="kc">false</span>
-<span class="nx">pyenv_prefix</span> <span class="p">=</span> <span class="s2">&#34;pyenv&#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [time]</span>
-<span class="c"># format = &#34;🕙%T&#34;</span>
-<span class="c"># style_root = &#34;bold red&#34;</span>
-<span class="c"># style_user = &#34;bold yellow&#34;</span>
-<span class="c"># show_always = true</span>
-<span class="c"># disabled = false</span>
-
-<span class="p">[</span><span class="nx">username</span><span class="p">]</span>
-<span class="nx">style_root</span> <span class="p">=</span> <span class="s2">&#34;bold red&#34;</span>
-<span class="nx">style_user</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-<span class="nx">show_always</span> <span class="p">=</span> <span class="kc">false</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">add_newline</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">prompt_order</span> <span class="p">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;username&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;memory_usage&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;hostname&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;kubernetes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;directory&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;git_branch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;git_commit&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;git_state&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;git_status&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;hg_branch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;package&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;dotnet&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;elixir&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;elm&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;golang&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;haskell&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;java&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;nodejs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;php&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;python&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ruby&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;rust&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;terraform&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;nix_shell&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;conda&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;aws&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;env_var&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;crystal&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;line_break&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;battery&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;cmd_duration&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;jobs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;time&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;character&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">battery</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">full_symbol</span> <span class="p">=</span> <span class="s2">&#34;🔋&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">charging_symbol</span> <span class="p">=</span> <span class="s2">&#34;⚡️&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">discharging_symbol</span> <span class="p">=</span> <span class="s2">&#34;💀&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">threshold</span> <span class="p">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold red&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">threshold</span> <span class="p">=</span> <span class="mi">60</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">threshold</span> <span class="p">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold green&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">character</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># symbol = &#34;➜&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">error_symbol</span> <span class="p">=</span> <span class="s2">&#34;✗&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">use_symbol_for_status</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">cmd_duration</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">min_time</span> <span class="p">=</span> <span class="mi">500</span>
+</span></span><span class="line"><span class="cl"><span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;tooks &#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">directory</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">truncation_length</span> <span class="p">=</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="nx">truncate_to_repo</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;in &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold cyan&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># [env_var]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># variable = &#34;SHELL&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># default = &#34;Zsh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># prefix = &#34;&lt;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># suffix = &#34;&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">git_branch</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># symbol = &#34;🌱 &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">truncation_length</span> <span class="p">=</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="nx">truncation_symbol</span> <span class="p">=</span> <span class="s2">&#34;...&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold purple&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">git_state</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cherry_pick</span> <span class="p">=</span> <span class="s2">&#34;CHERRY PICKING&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">rebase</span> <span class="p">=</span> <span class="s2">&#34;REBASING&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">merge</span> <span class="p">=</span> <span class="s2">&#34;MERGING&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">revert</span> <span class="p">=</span> <span class="s2">&#34;REVERTING&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">bisect</span> <span class="p">=</span> <span class="s2">&#34;BISECTING&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">am</span> <span class="p">=</span> <span class="s2">&#34;AM&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">am_or_rebase</span> <span class="p">=</span> <span class="s2">&#34;AM/REBASE&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">progress_divider</span> <span class="p">=</span> <span class="s2">&#34; of &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># [git_status]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># conflicted = &#34;🏳&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># ahead = &#34;🏎💨&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># behind = &#34;😰&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># diverged = &#34;😵&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># untracked = &#34;🤷‍&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># stashed = &#34;📦&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># modified = &#34;📝&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># staged.value = &#34;++&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># staged.style = &#34;green&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># staged_count.enabled = true</span>
+</span></span><span class="line"><span class="cl"><span class="c"># staged_count.style = &#34;green&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># renamed = &#34;👅&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># deleted = &#34;🗑&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># [[git_status.count]]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># enabled = true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">hostname</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ssh_only</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;🤖&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># suffix = &#34;⟫&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">trim_at</span> <span class="p">=</span> <span class="s2">&#34;.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># [jobs]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># symbol = &#34;+ &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># threshold = 1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">line_break</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># [memory_usage]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># disabled = false</span>
+</span></span><span class="line"><span class="cl"><span class="c"># show_percentage = true</span>
+</span></span><span class="line"><span class="cl"><span class="c"># show_swap = false</span>
+</span></span><span class="line"><span class="cl"><span class="c"># threshold = -1</span>
+</span></span><span class="line"><span class="cl"><span class="c"># symbol = &#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># separator = &#34;/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># style = &#34;bold dimmed white&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">nodejs</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;⬢ &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold green&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># [package]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># symbol = &#34;📦 &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># style = &#34;bold red&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># disabled = false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">python</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;🐍 &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">pyenv_version_name</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">pyenv_prefix</span> <span class="p">=</span> <span class="s2">&#34;pyenv&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># [time]</span>
+</span></span><span class="line"><span class="cl"><span class="c"># format = &#34;🕙%T&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># style_root = &#34;bold red&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># style_user = &#34;bold yellow&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># show_always = true</span>
+</span></span><span class="line"><span class="cl"><span class="c"># disabled = false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">username</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style_root</span> <span class="p">=</span> <span class="s2">&#34;bold red&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style_user</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">show_always</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Agora basta fechar seu terminal e abrir novamente para ver o resultado. Gostou?! 😉</p>
 <p>Espero que seja realmente útil para você e agradeço por ter lido!</p>
@@ -1019,7 +1019,7 @@ A instalação é muito simples, basta digitar:</p>
             
     <footer id="footer" class="footer">
         <div class="footer-inner">
-            <div class="site-info">©&nbsp;2020–2021&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icon footer-icon"><path d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"/></svg>&nbsp;Guilherme L. L. Marques</div><div class="powered-by">Powered by <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a> | Theme is <a href="https://github.com/reuixiy/hugo-theme-meme" target="_blank" rel="noopener">MemE</a></div><div class="site-copyright"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
+            <div class="site-info">©&nbsp;2020–2022&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icon footer-icon"><path d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"/></svg>&nbsp;Guilherme L. L. Marques</div><div class="powered-by">Powered by <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a> | Theme is <a href="https://github.com/reuixiy/hugo-theme-meme" target="_blank" rel="noopener">MemE</a></div><div class="site-copyright"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
 
             
     

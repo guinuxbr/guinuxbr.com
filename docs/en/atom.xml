@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2021-12-30T18:24:27&#43;00:00</updated>
+    <updated>2022-03-04T23:20:00&#43;00:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -15,7 +15,406 @@
                 <email>guinuxbr@gmail.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
-    <generator uri="https://gohugo.io/" version="0.90.1">Hugo</generator>
+    <generator uri="https://gohugo.io/" version="0.93.2">Hugo</generator>
+        <entry>
+            <title type="text">Raspberry Pi4 &#43; openSUSE &#43; Samba</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/opensuse_tumbleweed&#43;raspberry_pi4&#43;samba/" />
+            <id>https://guinuxbr.com/en/posts/opensuse_tumbleweed&#43;raspberry_pi4&#43;samba/</id>
+            <updated>2022-03-04T23:10:03&#43;00:00</updated>
+            <published>2022-03-04T23:00:11&#43;00:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hello, in this article, I&amp;rsquo;ll explain how to install openSUSE Tumbleweed (however, these instructions would probably work in openSUSE Leap) in Raspberry Pi 4, plus install and configure a basic Samba server to share files from an external HDD.
+The first thing to do is install the openSUSE Tumbleweed image on your Raspberry Pi 4.</summary>
+            
+                <content type="html">&lt;p&gt;Hello, in this article, I&amp;rsquo;ll explain how to install openSUSE Tumbleweed (however, these instructions would probably work in openSUSE Leap) in Raspberry Pi 4, plus install and configure a basic Samba server to share files from an external HDD.&lt;/p&gt;
+&lt;p&gt;The first thing to do is install the openSUSE Tumbleweed image on your Raspberry Pi 4. Go to the &lt;a href=&#34;https://en.opensuse.org/HCL:Raspberry_Pi4&#34;&gt;openSUSE Wiki page for Raspberry Pi 4&lt;/a&gt; and download the image that you like to use.&lt;/p&gt;
+&lt;p&gt;There are six images available. Download the image you want (Leap is stable, Tumbleweed is rolling) from here. Choose your desktop type:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JeOS - Just enough Operating System - a very basic system, no graphical desktop&lt;/li&gt;
+&lt;li&gt;E20 - Enlightenment desktop&lt;/li&gt;
+&lt;li&gt;XFCE - XFCE desktop&lt;/li&gt;
+&lt;li&gt;KDE - KDE desktop&lt;/li&gt;
+&lt;li&gt;LXQT - LXQT desktop&lt;/li&gt;
+&lt;li&gt;X11 - basic X11 system&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The direct links did not work for me, so I went to the &lt;a href=&#34;http://download.opensuse.org/ports/aarch64/tumbleweed/appliances/&#34;&gt;general download directory&lt;/a&gt; and downloaded the latest JeOS image named &lt;a href=&#34;https://download.opensuse.org/ports/aarch64/tumbleweed/appliances/openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz&#34;&gt;openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As &lt;strong&gt;root&lt;/strong&gt; extract the image onto your SD card or USB device(replace sdX with the device name of your SD card).&lt;/p&gt;
+&lt;p&gt;If possible, it is better to use a decent USB 3 device as the read and write speeds are greater than SD cards. I&amp;rsquo;ll use the USB device as the media used to install the image from now on.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;WARNING&lt;/strong&gt;: this is a destructive operation. All previous data on the device will be lost. Check first if the device you have selected is really your target device!&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;xzcat openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz | dd bs=4M of=/dev/sdX iflag=fullblock oflag=direct status=progress; sync&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After the image is extracted to the USB device, you can insert it into your Raspberry Pi 4 and turn it on.&lt;/p&gt;
+&lt;p&gt;You will need to discover the IP address of your Raspberry Pi 4. This can be done in a hundred different ways. For example, you can look at your router DHCP table for a MAC address that belongs to &amp;ldquo;Raspberry Pi Trading Ltd&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Wait 5 minutes before the first login as the OS will perform some tasks at the first boot, like resizing the ext4 filesystem to the entire disk.&lt;/p&gt;
+&lt;p&gt;SSH is enabled by default in openSUSE images so that you can log in as root with:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh root@raspberry_pi_ip_address&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The default password is &amp;ldquo;linux&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Find your keyboard layout and load it. To search your keyboard, type:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;localectl list-keymaps&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In my case, I use a Brazilian keyboard layout called &amp;ldquo;br-abnt2&amp;rdquo;. Load your keyboard layout with:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;loadkeys br-abnt2&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For security reasons, change the default &lt;strong&gt;root&lt;/strong&gt; password.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;passwd&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Type once and then confirm your new password.&lt;/p&gt;
+&lt;p&gt;Check for available system updates.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;zypper dup --details&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Install vim and vim-data to have a better editing experience. You can use the editor that you prefer.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;zypper in --details --no-recommends vim vim-data&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Change the hostname as you like.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;hostnamectl hostname your_hostname&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Create your user account.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;useradd -m -s $(which bash) your_username&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Configure the &lt;strong&gt;sudo&lt;/strong&gt; commands allowed for your account.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;visudo -f /etc/sudoers.d/your_username&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Add &lt;code&gt;your_username ALL=(ALL) ALL&lt;/code&gt; to the file and save it.&lt;/p&gt;
+&lt;p&gt;As the server administrator, I&amp;rsquo;ll give my user account the right to run all commands as root.&lt;/p&gt;
+&lt;p&gt;Now configure sudo to ask for your password instead of the root password.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;visudo&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Comment the following lines:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Defaults targetpw   &lt;span class=&#34;c1&#34;&gt;# ask for the password of the target user i.e. root&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ALL   &lt;span class=&#34;nv&#34;&gt;ALL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt;ALL&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; ALL   &lt;span class=&#34;c1&#34;&gt;# WARNING! Only use this together with &amp;#39;Defaults targetpw&amp;#39;!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Check if is everything correct with your sudo related files.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;visudo -c&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If there is some problem, you can fix it by editing the file.&lt;/p&gt;
+&lt;p&gt;Set a password for your user account.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;passwd your_username&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Reboot the system to be able to SSH with your user account instead of the root account.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;systemctl reboot&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Log in with your user account.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh your_username@raspberry_pi_ip_address&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now we will mount the external HDD to &lt;code&gt;/mnt/externalhdd/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;First we discover the UUID for the external HDD.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;lsblk --fs --output UUID,TYPE,FSTYPE,LABEL,MOUNTPOINT&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;UUID                                 TYPE FSTYPE LABEL            MOUNTPOINT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     disk                         
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;30e471a2-263e-48c2-9d57-d32445b7038a part ext4   externalhdd      
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     disk                         
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;8511-418f                            part vfat   EFI              /boot/efi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;d1ed4b63-3e1a-4aa6-9e26-1e19fe9a77b0 part swap   SWAP             
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fd388969-253a-4709-8e23-5243f0eeb33d part ext4   ROOT             /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     disk                         &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;SWAP&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Create the mount point.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkdir -p /mnt/externalhdd&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Edit the /etc/fstab file and add the line for the external HDD.
+Observe that in this case, the external HDD is formatted as ext4. Adjust according to your needs.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# System mount point&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;UUID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fd388969-253a-4709-8e23-5243f0eeb33d / ext4 noatime,nobarrier &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# EFI partition mount point&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;UUID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;1845-7210 /boot/efi vfat defaults &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# External HDD mount point&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;UUID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;30e471a2-263e-48c2-9d57-d32445b7038a /mnt/externalhdd ext4 noatime,nobarrier &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Test the mount point.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mount -a&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If everything worked correctly, you should see no output.&lt;/p&gt;
+&lt;p&gt;Now you can install the Samba server.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo zypper in --details --no-recommends samba samba-doc&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Backup the original Samba configuration file.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bkp&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To better understand the options, copy a fully commented example file from the Samba documentation.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo cp /usr/share/doc/packages/samba/examples/smb.conf.default /etc/samba/smb.conf&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In this article, other than users, I &#39;ll use a group to control the access to the shared folders.&lt;/p&gt;
+&lt;p&gt;Add a group called &lt;code&gt;smbusers&lt;/code&gt; or whatever you like.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo groupadd smbusers&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Create a Samba password for the user that will have access to the shares. This password can be different from the user account password.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo smbpasswd -a your_username&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Edit the Samba configuration file. For simplicity, I&amp;rsquo;ll omit some comments, but I strongly recommend reading the Samba documentation to properly understand the options.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo vim /etc/samba/smb.conf&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Some considerations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All shares will require the Samba password.&lt;/li&gt;
+&lt;li&gt;I&amp;rsquo;ll use &lt;code&gt;your_username&lt;/code&gt; to illustrate a real user replace with a proper user name.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Global Settings&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;global&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# workgroup = NT-Domain-Name or Workgroup-Name, eg: MIDEARTH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;workgroup&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; YOUR_WORKGROUP_NAME 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# server string is the equivalent of the NT Description field&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    server &lt;span class=&#34;nv&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; Some string to identify your server
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Server role. &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    server &lt;span class=&#34;nv&#34;&gt;role&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; standalone server
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Restrict access to your LAN network, and the &amp;#34;loopback&amp;#34; interface&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    hosts &lt;span class=&#34;nv&#34;&gt;allow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 192.168.0. 127.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Use a separate log file for each machine that connects&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    log &lt;span class=&#34;nv&#34;&gt;file&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; /var/log/samba/log.%m
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Put a capping on the size of the log files (in Kb).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    max log &lt;span class=&#34;nv&#34;&gt;size&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;50&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Backend to store user information.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   passdb &lt;span class=&#34;nv&#34;&gt;backend&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; tdbsam
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# DNS Proxy - tells Samba whether or not to try to resolve NetBIOS names via DNS nslookups. The default is NO.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   dns &lt;span class=&#34;nv&#34;&gt;proxy&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; no 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# This one is useful for people to share files&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;tmp&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;comment&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; Temporary file space
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; /mnt/externalhdd/tmp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;read&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;only&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; no
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;browsable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;writable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# A private directory, usable only by your_username. Note that your_username requires write access to the directory.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;username&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;comment&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; Private stuff &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; your_username
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; /mnt/externalhdd/your_username
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    valid &lt;span class=&#34;nv&#34;&gt;users&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; your_username
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; no
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;writable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;printable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; no
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    create &lt;span class=&#34;nv&#34;&gt;mask&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0700&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    directory &lt;span class=&#34;nv&#34;&gt;mask&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0700&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Custom shares&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# A share for pictures, accessible only by members of the group &amp;#34;smbusers&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;pictures&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;comment&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; Pictures
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; /mnt/externalhdd/pictures
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; no
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;browsable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;writable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    valid &lt;span class=&#34;nv&#34;&gt;users&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; @smbusers
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Test the Samba configuration file.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;testparm&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This final part enables the Firewall and allows the Samba ports through it.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo systemctl enable --now firewalld.service&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In this case, we are using the &amp;ldquo;home&amp;rdquo; firewall zone and the interface &amp;ldquo;eth0&amp;rdquo;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo firewall-cmd --set-default-zone=home&lt;br&gt;
+sudo firewall-cmd --zone=home --change-interface=eth0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Allow the Samba service through the Firewall.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo firewall-cmd --zone=home --permanent --add-service=samba&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Reload the firewall configuration.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo firewall-cmd --reload&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Enable and start the &lt;code&gt;smb&lt;/code&gt; and &lt;code&gt;nmb&lt;/code&gt; services.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo systemctl enable --now smb.service
+sudo systemctl enable --now nmb.service&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Reboot your Raspberry Pi, and you should have a working Samba server sharing your external HDD.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo systemctl reboot&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/raspberrypi/" term="raspberrypi" label="raspberrypi" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/opensuse/" term="opensuse" label="opensuse" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/arm/" term="arm" label="arm" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/samba/" term="samba" label="samba" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">Backup dotfiles to GitHub</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/backup-and-restore-dot-files/" />
@@ -38,11 +437,11 @@ I&amp;rsquo;m using Zsh as the shell in the examples, but other shell can be use
 &lt;/blockquote&gt;
 &lt;p&gt;The default behaviour of Git commands is to run inside the project folder using information stored at the &lt;code&gt;&amp;lt;project&amp;gt;/.git&lt;/code&gt; directory, and Git assumes that the working tree is located at &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt;. To enable the execution of Git commands specifically for the &amp;ldquo;dotfiles&amp;rdquo; repository from anywhere, it is needed to create an alias that indicates the location of the Git directory and the working tree.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;alias dotfiles=&#39;/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME&#39;&lt;/p&gt;
+&lt;p&gt;alias dotfiles=&amp;rsquo;/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME&#39;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Make this alias permanent.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;echo &amp;ldquo;alias dotfiles=&#39;/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME&#39;&amp;rdquo; &amp;raquo; $HOME/.zsh/aliases&lt;/p&gt;
+&lt;p&gt;echo &amp;ldquo;alias dotfiles=&amp;rsquo;/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME&amp;rsquo;&amp;rdquo; &amp;raquo; $HOME/.zsh/aliases&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Source the &lt;code&gt;aliases&lt;/code&gt; file inside &lt;code&gt;.zshrc&lt;/code&gt; file adding the following line.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -298,13 +697,11 @@ In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store y
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GIT_ASKPASS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/usr/lib/ssh/ksshaskpass&amp;#39;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GIT_ASKPASS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/usr/lib/ssh/ksshaskpass&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;Save and exit. Now make it executable.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -512,7 +909,7 @@ Clicking on Debian will lead you to the user configuration screen. Choose your u
 &lt;/blockquote&gt;
 &lt;p&gt;Now, replace every &amp;ldquo;stretch&amp;rdquo; entry with &amp;ldquo;buster&amp;rdquo;. You can do this with &lt;code&gt;nano&lt;/code&gt; or &lt;code&gt;vi&lt;/code&gt; or directly with &lt;code&gt;sed&lt;/code&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;sudo sed -i &amp;rsquo;s/stretch/buster/g&#39; /etc/apt/sources.list&lt;/p&gt;
+&lt;p&gt;sudo sed -i &amp;rsquo;s/stretch/buster/g&amp;rsquo; /etc/apt/sources.list&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Then update the system again.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -527,15 +924,15 @@ Clicking on Debian will lead you to the user configuration screen. Choose your u
 &lt;p&gt;cat /etc/os-release&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;You should see something like the below:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PRETTY_NAME=&amp;quot;Debian GNU/Linux 10 (buster)&amp;quot;
-NAME=&amp;quot;Debian GNU/Linux&amp;quot;
-VERSION_ID=&amp;quot;10&amp;quot;
-VERSION=&amp;quot;10 (buster)&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PRETTY_NAME=&amp;#34;Debian GNU/Linux 10 (buster)&amp;#34;
+NAME=&amp;#34;Debian GNU/Linux&amp;#34;
+VERSION_ID=&amp;#34;10&amp;#34;
+VERSION=&amp;#34;10 (buster)&amp;#34;
 VERSION_CODENAME=buster
 ID=debian
-HOME_URL=&amp;quot;https://www.debian.org/&amp;quot;
-SUPPORT_URL=&amp;quot;https://www.debian.org/support&amp;quot;
-BUG_REPORT_URL=&amp;quot;https://bugs.debian.org/&amp;quot;
+HOME_URL=&amp;#34;https://www.debian.org/&amp;#34;
+SUPPORT_URL=&amp;#34;https://www.debian.org/support&amp;#34;
+BUG_REPORT_URL=&amp;#34;https://bugs.debian.org/&amp;#34;
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;final-considerations&#34;&gt;Final considerations&lt;/h2&gt;
 &lt;p&gt;For a better file system performance, make sure to store your Linux project files in the Linux file system (not the Windows file system).
 It is probable that when you open a Debian session your prompt show something like: &lt;strong&gt;&lt;em&gt;username@hostname:/mnt/c/Users/username$&lt;/em&gt;&lt;/strong&gt; This is why WSL exposes the Windows file system through mount points placed in &lt;strong&gt;&lt;em&gt;/mnt&lt;/em&gt;&lt;/strong&gt; like &lt;strong&gt;&lt;em&gt;/mnt/c&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;/mnt/d&lt;/em&gt;&lt;/strong&gt; just type &lt;code&gt;cd ~&lt;/code&gt; to go to your real home.&lt;/p&gt;
@@ -823,17 +1220,19 @@ systemctl reboot&lt;/p&gt;
             <title type="text">Installing Zsh &#43; Oh-My-Zsh &#43; Starship</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/" />
             <id>https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/</id>
-            <updated>2021-12-29T11:10:45&#43;00:00</updated>
+            <updated>2022-03-04T22:30:00&#43;00:00</updated>
             <published>2020-04-03T20:59:05-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
                     <uri>https://guinuxbr.com</uri>
                     <email>guinuxbr@gmail.com</email>
                     </author>
-            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hi, welcome to my blog!
-The objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the &amp;ldquo;normal&amp;rdquo; bash. I hope that it helps you.</summary>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Update: Starship configurarion changed in the newer versions. This article was updated and covers the version 1.3.0.
+Hi, welcome to my blog!
+The objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the &amp;ldquo;normal&amp;rdquo; bash.</summary>
             
-                <content type="html">&lt;p&gt;Hi, welcome to my blog!&lt;/p&gt;
+                <content type="html">&lt;p&gt;Update: Starship configurarion changed in the newer versions. This article was updated and covers the version 1.3.0.&lt;/p&gt;
+&lt;p&gt;Hi, welcome to my blog!&lt;/p&gt;
 &lt;p&gt;The objective of this article is to share my shell setup with you.
 I think that my job and day to day tasks became easier and more productive than using the &amp;ldquo;normal&amp;rdquo; &lt;em&gt;bash&lt;/em&gt;. I hope that it helps you.&lt;/p&gt;
 &lt;p&gt;You will need the following tools:&lt;/p&gt;
@@ -958,7 +1357,7 @@ For &lt;em&gt;zsh-autosuggestions&lt;/em&gt;:&lt;/p&gt;
 &lt;h2 id=&#34;installing-a-better-font&#34;&gt;Installing a better font&lt;/h2&gt;
 &lt;p&gt;For better support icons and symbols, you have to install a modern font like Nerd Fonts. I use the Meslo, but you can choose your own and test it.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip&#34;&gt;Meslo Nerd Fonts&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ryanoasis/nerd-fonts/releases/&#34;&gt;Meslo Nerd Fonts&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Now you have to configure your terminal emulator to use Meslo Nerd Fonts.&lt;/p&gt;
 &lt;h2 id=&#34;theming-the-prompt-with-starship&#34;&gt;Theming the prompt with Starship&lt;/h2&gt;
@@ -984,343 +1383,189 @@ The installation is very simple, just type:&lt;/p&gt;
 &lt;p&gt;The detailed information about every option is well described at the &lt;a href=&#34;https://starship.rs/config/&#34;&gt;official documentation&lt;/a&gt;. However, I paste the one that I&amp;rsquo;m using to serve as a reference for you.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;  1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 16
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 17
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 20
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 21
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 22
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 23
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 24
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 25
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 26
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 27
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 28
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 29
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 30
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 31
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 32
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 33
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 34
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 35
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 36
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 37
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 38
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 39
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 40
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 41
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 42
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 43
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 44
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 45
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 46
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 47
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 48
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 49
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 50
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 51
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 52
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 53
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 54
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 55
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 56
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 57
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 58
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 59
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 60
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 61
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 62
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 63
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 64
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 65
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 66
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 67
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 68
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 69
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 70
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 71
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 72
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 73
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 74
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 75
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 76
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 77
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 78
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 79
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 80
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 81
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 82
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 83
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 84
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 85
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 86
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 87
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 88
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 89
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 90
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 91
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 92
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 93
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 94
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 95
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 96
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 97
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 98
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 99
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;100
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;101
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;102
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;103
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;104
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;105
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;106
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;107
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;108
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;109
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;110
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;111
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;112
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;113
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;114
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;115
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;116
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;117
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;118
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;119
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;120
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;121
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;122
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;123
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;124
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;125
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;126
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;127
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;128
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;129
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;130
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;131
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;132
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;133
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;134
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;135
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;136
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;137
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;138
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;139
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;140
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;141
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;142
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;143
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;144
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;145
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;146
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;147
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;148
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;149
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;150
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;151
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;152
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;153
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;154
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;155
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;156
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;157
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;158
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;159
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;160
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;161
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;162
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;163
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;164
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;165
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;166
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;167
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;66
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;67
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;68
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;69
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;70
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;71
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;72
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;73
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;74
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;75
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;76
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;77
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;78
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;79
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;80
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;81
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;82
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;83
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;84
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;85
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;86
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;87
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;88
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;89
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;90
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;nx&#34;&gt;add_newline&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
-
-&lt;span class=&#34;nx&#34;&gt;prompt_order&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;memory_usage&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hostname&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;kubernetes&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;directory&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_branch&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_commit&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_state&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;git_status&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;hg_branch&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;package&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;dotnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;elixir&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;elm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;golang&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;haskell&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;java&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;nodejs&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;php&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;python&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;ruby&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;rust&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;terraform&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;nix_shell&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;conda&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;aws&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;env_var&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;crystal&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;line_break&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;battery&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;cmd_duration&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;jobs&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;s2&#34;&gt;&amp;#34;character&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;full_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🔋&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;charging_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;⚡️&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;discharging_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;💀&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;threshold&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold red&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;threshold&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;60&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;battery&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;threshold&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold green&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;character&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;➜&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;error_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;✗&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;use_symbol_for_status&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cmd_duration&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;min_time&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;500&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;tooks &amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;directory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;truncation_length&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;truncate_to_repo&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;in &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold cyan&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# [env_var]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# variable = &amp;#34;SHELL&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# default = &amp;#34;Zsh&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# prefix = &amp;#34;&amp;lt;&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# suffix = &amp;#34;&amp;gt;&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;git_branch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;🌱 &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;truncation_length&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;truncation_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;...&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold purple&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;git_state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;cherry_pick&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;CHERRY PICKING&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;rebase&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;REBASING&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;merge&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;MERGING&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;revert&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;REVERTING&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;bisect&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;BISECTING&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;am&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;AM&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;am_or_rebase&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;AM/REBASE&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;progress_divider&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34; of &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# [git_status]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# conflicted = &amp;#34;🏳&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# ahead = &amp;#34;🏎💨&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# behind = &amp;#34;😰&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# diverged = &amp;#34;😵&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# untracked = &amp;#34;🤷‍&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# stashed = &amp;#34;📦&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# modified = &amp;#34;📝&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# staged.value = &amp;#34;++&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# staged.style = &amp;#34;green&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# staged_count.enabled = true&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# staged_count.style = &amp;#34;green&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# renamed = &amp;#34;👅&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# deleted = &amp;#34;🗑&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# [[git_status.count]]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# enabled = true&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;hostname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;ssh_only&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🤖&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# suffix = &amp;#34;⟫&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;trim_at&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# [jobs]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;+ &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# threshold = 1&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line_break&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# [memory_usage]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# disabled = false&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# show_percentage = true&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# show_swap = false&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# threshold = -1&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34; &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# separator = &amp;#34;/&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# style = &amp;#34;bold dimmed white&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;nodejs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;⬢ &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold green&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# [package]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# symbol = &amp;#34;📦 &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# style = &amp;#34;bold red&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# disabled = false&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;python&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🐍 &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;pyenv_version_name&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;pyenv_prefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;pyenv&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# [time]&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# format = &amp;#34;🕙%T&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# style_root = &amp;#34;bold red&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# style_user = &amp;#34;bold yellow&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# show_always = true&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# disabled = false&lt;/span&gt;
-
-&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style_root&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold red&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;style_user&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold yellow&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;show_always&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Inserts a blank line between shell prompts&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;add_newline&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Customizing the prompt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;format&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$username\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$hostname\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$shlvl\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$singularity\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$kubernetes\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$directory\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$vcsh\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$git_branch\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$git_commit\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$git_state\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$git_metrics\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$git_status\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$hg_branch\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$docker_context\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$package\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$cmake\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$cobol\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$dart\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$deno\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$dotnet\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$elixir\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$elm\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$erlang\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$golang\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$helm\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$java\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$julia\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$kotlin\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$lua\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$nim\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$nodejs\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$ocaml\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$perl\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$php\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$pulumi\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$purescript\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$python\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$rlang\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$red\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$ruby\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$rust\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$scala\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$swift\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$terraform\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$vlang\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$vagrant\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$zig\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$nix_shell\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$conda\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$memory_usage\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$aws\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$gcloud\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$openstack\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$azure\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$env_var\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$crystal\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$custom\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$sudo\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$cmd_duration\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$line_break\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$jobs\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$battery\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$time\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$status\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;$shell\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;[$character](bold green)&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Configure if and how the time is shown&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;time_format&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;%T&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;format&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🕙[$time ](bold blue)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sudo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bold green&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;💪&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;format&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;[&amp;lt;SUDO&amp;gt;$symbol]($style)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;disabled&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;bg:blue&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;🔴&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;map_symbol&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;format&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;Close and reopen your terminal to see the results. Cool! Isn&amp;rsquo;t it?!&lt;/p&gt;
 &lt;p&gt;That&amp;rsquo;s it! I hope this article can be useful. Thanks for reading!&lt;/p&gt;

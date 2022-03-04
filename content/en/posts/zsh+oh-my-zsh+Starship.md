@@ -2,11 +2,14 @@
 title: "Installing Zsh + Oh-My-Zsh + Starship"
 subtitle: "Increasing productivity"
 date: 2020-04-03T20:59:05-03:00
+lastmod: 2022-03-04T22:30:00-00:00
 draft: false
 tags: ["linux","shell", "bash", "zsh"]
 categories: ["tutorials", "productivity"]
 align: left
 ---
+
+Update: Starship configurarion changed in the newer versions. This article was updated and covers the version 1.3.0.
 
 Hi, welcome to my blog!  
 
@@ -90,7 +93,7 @@ And for zsh-syntax-highlighting:
 
 For better support icons and symbols, you have to install a modern font like Nerd Fonts. I use the Meslo, but you can choose your own and test it.
 
-* [Meslo Nerd Fonts](<https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip>)
+* [Meslo Nerd Fonts](<https://github.com/ryanoasis/nerd-fonts/releases/>)
 
 Now you have to configure your terminal emulator to use Meslo Nerd Fonts.
 
@@ -118,173 +121,96 @@ After this, you have to fill the file with the options that you wish to change t
 The detailed information about every option is well described at the [official documentation](https://starship.rs/config/). However, I paste the one that I'm using to serve as a reference for you.
 
 ```toml
+# Inserts a blank line between shell prompts
 add_newline = true
 
-prompt_order = [
-    "username",
-    "memory_usage",
-    "hostname",
-    "kubernetes",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "hg_branch",
-    "package",
-    "dotnet",
-    "elixir",
-    "elm",
-    "golang",
-    "haskell",
-    "java",
-    "nodejs",
-    "php",
-    "python",
-    "ruby",
-    "rust",
-    "terraform",
-    "nix_shell",
-    "conda",
-    "aws",
-    "env_var",
-    "crystal",
-    "line_break",
-    "battery",
-    "cmd_duration",
-    "jobs",
-    "time",
-    "character",
-]
+# Customizing the prompt
+format = """
+$username\
+$hostname\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$cobol\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+[$character](bold green)"""
 
-[battery]
-full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "💀"
+# Configure if and how the time is shown
+[time]
+disabled = false
+time_format = "%T"
+format = "🕙[$time ](bold blue)"
 
-[[battery.display]]
-threshold = 10
-style = "bold red"
-
-[[battery.display]]
-threshold = 60
-style = "bold yellow"
-
-[[battery.display]]
-threshold = 100
+[sudo]
+disabled = false
 style = "bold green"
+symbol = "💪"
+format = "[<SUDO>$symbol]($style)"
 
-[character]
-# symbol = "➜"
-error_symbol = "✗"
-use_symbol_for_status = true
-
-[cmd_duration]
-min_time = 500
-prefix = "tooks "
-
-[directory]
-truncation_length = 6
-truncate_to_repo = true
-prefix = "in "
-style = "bold cyan"
+[status]
 disabled = false
-
-# [env_var]
-# variable = "SHELL"
-# default = "Zsh"
-# prefix = "<"
-# suffix = ">"
-
-[git_branch]
-# symbol = "🌱 "
-truncation_length = 8
-truncation_symbol = "..."
-style = "bold purple"
-disabled = false
-
-[git_state]
-cherry_pick = "CHERRY PICKING"
-rebase = "REBASING"
-merge = "MERGING"
-revert = "REVERTING"
-bisect = "BISECTING"
-am = "AM"
-am_or_rebase = "AM/REBASE"
-progress_divider = " of "
-style = "bold yellow"
-disabled = false
-
-# [git_status]
-# conflicted = "🏳"
-# ahead = "🏎💨"
-# behind = "😰"
-# diverged = "😵"
-# untracked = "🤷‍"
-# stashed = "📦"
-# modified = "📝"
-# staged.value = "++"
-# staged.style = "green"
-# staged_count.enabled = true
-# staged_count.style = "green"
-# renamed = "👅"
-# deleted = "🗑"
-
-# [[git_status.count]]
-# enabled = true
-
-[hostname]
-ssh_only = false
-prefix = "🤖"
-# suffix = "⟫"
-trim_at = "."
-disabled = false
-
-# [jobs]
-# symbol = "+ "
-# threshold = 1
-
-[line_break]
-disabled = false
-
-# [memory_usage]
-# disabled = false
-# show_percentage = true
-# show_swap = false
-# threshold = -1
-# symbol = " "
-# separator = "/"
-# style = "bold dimmed white"
-
-[nodejs]
-symbol = "⬢ "
-style = "bold green"
-disabled = false
-
-# [package]
-# symbol = "📦 "
-# style = "bold red"
-# disabled = false
-
-[python]
-symbol = "🐍 "
-pyenv_version_name = false
-pyenv_prefix = "pyenv"
-style = "bold yellow"
-disabled = false
-
-# [time]
-# format = "🕙%T"
-# style_root = "bold red"
-# style_user = "bold yellow"
-# show_always = true
-# disabled = false
-
-[username]
-style_root = "bold red"
-style_user = "bold yellow"
-show_always = false
-disabled = false
+style = "bg:blue"
+symbol = "🔴"
+map_symbol = true
+format = '[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) '
 ```
 
 Close and reopen your terminal to see the results. Cool! Isn't it?!

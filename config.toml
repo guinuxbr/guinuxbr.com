@@ -1,4 +1,4 @@
-##########################################
+########################################
 # Site Settings
 
 baseURL = "https://guinuxbr.com"
@@ -12,7 +12,7 @@ copyright = "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0
 publishDir = "docs"
 
 # Name of theme
-theme = ["meme"]
+theme = "meme"
 
 # `hugo new` automatically opened text editor
 newContentEditor = ""
@@ -191,7 +191,18 @@ uglyURLs = false
 #               values for header layout
 #               flex: `theme-switcher`,
 #               `lang-switcher`, `search`)
-
+    #######################################
+    # Language definition
+[languages]
+  [languages.en] 
+    contentDir = "content/en" # English
+    languageName = "EN"
+    weight = 10
+  [languages.pt-br]
+    contentDir = "content/pt-br" # Brazilian Portuguese
+    languageName = "PT-BR"
+    weight = 20
+    
 [menu]
     ## Menu bar
     # [[menu.main]]
@@ -1373,15 +1384,3 @@ uglyURLs = false
     fofVideoMp4 = ""
     # Note: you can leave these two
     #       options empty("")
-    
-    #######################################
-    # Language definition
-[languages]
-  [languages.en] 
-    contentDir = "content/en" # English
-    languageName = "EN"
-    weight = 10
-  [languages.pt-br]
-    contentDir = "content/pt-br" # Brazilian Portuguese
-    languageName = "PT-BR"
-    weight = 20

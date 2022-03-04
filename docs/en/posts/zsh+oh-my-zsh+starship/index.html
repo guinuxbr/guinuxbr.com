@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.93.2" /><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -17,11 +17,11 @@
 
     <title>Installing Zsh &#43; Oh-My-Zsh &#43; Starship | GuinuxBR</title>
 
-    <link rel="stylesheet" href="/en/css/meme.min.37a8ef32879944110781991dd2ab5b478b2ea09cc239061697da6da9e3948c39.css"/>
+    <link rel="stylesheet" href="/en/css/meme.min.6917a2d0a50c352c92c9e60736425f657f695200abc5b46dfc192cbc790479d3.css"/>
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.4208523cf7987eb3008fbd095795df28cb961f4892c5443b4baf7cec7dd07a86.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.029489a69a9b4dbe2532d28f9b0059a7bbbc84d24639cdfb8930f8f3314e8bf0.js"></script>
 
     
 
@@ -30,8 +30,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM&#43;Plex&#43;Serif:ital,wght@0,400;0,500;0,700;1,400;1,700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" media="print" onload="this.media='all'" />
         <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM&#43;Plex&#43;Serif:ital,wght@0,400;0,500;0,700;1,400;1,700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" /></noscript>
 
-    <meta name="author" content="Guilherme L. L. Marques" /><meta name="description" content="Hi, welcome to my blog!
-The objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the “normal” bash. I hope that it helps you." />
+    <meta name="author" content="Guilherme L. L. Marques" /><meta name="description" content="Update: Starship configurarion changed in the newer versions. This article was updated and covers the version 1.3.0.
+Hi, welcome to my blog!
+The objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the “normal” bash." />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#2a6df4" />
@@ -58,13 +59,13 @@ The objective of this article is to share my shell setup with you. I think that 
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-04-03T20:59:05-03:00",
-        "dateModified": "2021-12-29T11:10:45+00:00",
+        "dateModified": "2022-03-04T22:30:00+00:00",
         "url": "https://guinuxbr.com/en/posts/zsh+oh-my-zsh+starship/",
         "headline": "Installing Zsh + Oh-My-Zsh + Starship",
-        "description": "Hi, welcome to my blog!\nThe objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the “normal” bash. I hope that it helps you.",
+        "description": "Update: Starship configurarion changed in the newer versions. This article was updated and covers the version 1.3.0.\nHi, welcome to my blog!\nThe objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the “normal” bash.",
         "inLanguage" : "en",
         "articleSection": "posts",
-        "wordCount":  1347 ,
+        "wordCount":  1031 ,
         "image": "https://guinuxbr.com/icons/apple-touch-icon.png",
         "author": {
             "@type": "Person",
@@ -103,8 +104,9 @@ The objective of this article is to share my shell setup with you. I think that 
 
 
 <meta property="og:title" content="Installing Zsh &#43; Oh-My-Zsh &#43; Starship" />
-<meta property="og:description" content="Hi, welcome to my blog!
-The objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the “normal” bash. I hope that it helps you." />
+<meta property="og:description" content="Update: Starship configurarion changed in the newer versions. This article was updated and covers the version 1.3.0.
+Hi, welcome to my blog!
+The objective of this article is to share my shell setup with you. I think that my job and day to day tasks became easier and more productive than using the “normal” bash." />
 <meta property="og:url" content="https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/" />
 <meta property="og:site_name" content="GuinuxBR" />
 <meta property="og:locale" content="en" />
@@ -112,7 +114,7 @@ The objective of this article is to share my shell setup with you. I think that 
         <meta property="og:image" content="https://guinuxbr.com/icons/apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-04-03T20:59:05-03:00" />
-    <meta property="article:modified_time" content="2021-12-29T11:10:45&#43;00:00" />
+    <meta property="article:modified_time" content="2022-03-04T22:30:00&#43;00:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -294,11 +296,11 @@ The objective of this article is to share my shell setup with you. I think that 
     
     
         
-        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;1347</span>
+        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;1031</span>
     
     
         
-        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;7&nbsp;mins</span>
+        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;5&nbsp;mins</span>
     
     
     
@@ -307,7 +309,8 @@ The objective of this article is to share my shell setup with you. I think that 
             
 
             <div class="post-body e-content">
-                <p style="text-indent:0"><span class="drop-cap">H</span>i, welcome to my blog!</p>
+                <p style="text-indent:0"><span class="drop-cap">U</span>pdate: Starship configurarion changed in the newer versions. This article was updated and covers the version 1.3.0.</p>
+<p>Hi, welcome to my blog!</p>
 <p>The objective of this article is to share my shell setup with you.
 I think that my job and day to day tasks became easier and more productive than using the &ldquo;normal&rdquo; <em>bash</em>. I hope that it helps you.</p>
 <p>You will need the following tools:</p>
@@ -432,7 +435,7 @@ For <em>zsh-autosuggestions</em>:</p>
 <h2 id="installing-a-better-font"><a href="#installing-a-better-font" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Installing a better font</h2>
 <p>For better support icons and symbols, you have to install a modern font like Nerd Fonts. I use the Meslo, but you can choose your own and test it.</p>
 <ul>
-<li><a href="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip" target="_blank" rel="noopener">Meslo Nerd Fonts</a></li>
+<li><a href="https://github.com/ryanoasis/nerd-fonts/releases/" target="_blank" rel="noopener">Meslo Nerd Fonts</a></li>
 </ul>
 <p>Now you have to configure your terminal emulator to use Meslo Nerd Fonts.</p>
 <h2 id="theming-the-prompt-with-starship"><a href="#theming-the-prompt-with-starship" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Theming the prompt with Starship</h2>
@@ -458,343 +461,189 @@ The installation is very simple, just type:</p>
 <p>The detailed information about every option is well described at the <a href="https://starship.rs/config/" target="_blank" rel="noopener">official documentation</a>. However, I paste the one that I&rsquo;m using to serve as a reference for you.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span><span class="lnt">163
-</span><span class="lnt">164
-</span><span class="lnt">165
-</span><span class="lnt">166
-</span><span class="lnt">167
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="nx">add_newline</span> <span class="p">=</span> <span class="kc">true</span>
-
-<span class="nx">prompt_order</span> <span class="p">=</span> <span class="p">[</span>
-    <span class="s2">&#34;username&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;memory_usage&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;hostname&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;kubernetes&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;directory&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_branch&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_commit&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_state&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;git_status&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;hg_branch&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;package&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;dotnet&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;elixir&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;elm&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;golang&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;haskell&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;java&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;nodejs&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;php&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;python&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;ruby&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;rust&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;terraform&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;nix_shell&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;conda&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;aws&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;env_var&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;crystal&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;line_break&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;battery&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;cmd_duration&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;jobs&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;time&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;character&#34;</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="p">[</span><span class="nx">battery</span><span class="p">]</span>
-<span class="nx">full_symbol</span> <span class="p">=</span> <span class="s2">&#34;🔋&#34;</span>
-<span class="nx">charging_symbol</span> <span class="p">=</span> <span class="s2">&#34;⚡️&#34;</span>
-<span class="nx">discharging_symbol</span> <span class="p">=</span> <span class="s2">&#34;💀&#34;</span>
-
-<span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
-<span class="nx">threshold</span> <span class="p">=</span> <span class="mi">10</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold red&#34;</span>
-
-<span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
-<span class="nx">threshold</span> <span class="p">=</span> <span class="mi">60</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-
-<span class="p">[[</span><span class="nx">battery</span><span class="p">.</span><span class="nx">display</span><span class="p">]]</span>
-<span class="nx">threshold</span> <span class="p">=</span> <span class="mi">100</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold green&#34;</span>
-
-<span class="p">[</span><span class="nx">character</span><span class="p">]</span>
-<span class="c"># symbol = &#34;➜&#34;</span>
-<span class="nx">error_symbol</span> <span class="p">=</span> <span class="s2">&#34;✗&#34;</span>
-<span class="nx">use_symbol_for_status</span> <span class="p">=</span> <span class="kc">true</span>
-
-<span class="p">[</span><span class="nx">cmd_duration</span><span class="p">]</span>
-<span class="nx">min_time</span> <span class="p">=</span> <span class="mi">500</span>
-<span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;tooks &#34;</span>
-
-<span class="p">[</span><span class="nx">directory</span><span class="p">]</span>
-<span class="nx">truncation_length</span> <span class="p">=</span> <span class="mi">6</span>
-<span class="nx">truncate_to_repo</span> <span class="p">=</span> <span class="kc">true</span>
-<span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;in &#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold cyan&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [env_var]</span>
-<span class="c"># variable = &#34;SHELL&#34;</span>
-<span class="c"># default = &#34;Zsh&#34;</span>
-<span class="c"># prefix = &#34;&lt;&#34;</span>
-<span class="c"># suffix = &#34;&gt;&#34;</span>
-
-<span class="p">[</span><span class="nx">git_branch</span><span class="p">]</span>
-<span class="c"># symbol = &#34;🌱 &#34;</span>
-<span class="nx">truncation_length</span> <span class="p">=</span> <span class="mi">8</span>
-<span class="nx">truncation_symbol</span> <span class="p">=</span> <span class="s2">&#34;...&#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold purple&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="p">[</span><span class="nx">git_state</span><span class="p">]</span>
-<span class="nx">cherry_pick</span> <span class="p">=</span> <span class="s2">&#34;CHERRY PICKING&#34;</span>
-<span class="nx">rebase</span> <span class="p">=</span> <span class="s2">&#34;REBASING&#34;</span>
-<span class="nx">merge</span> <span class="p">=</span> <span class="s2">&#34;MERGING&#34;</span>
-<span class="nx">revert</span> <span class="p">=</span> <span class="s2">&#34;REVERTING&#34;</span>
-<span class="nx">bisect</span> <span class="p">=</span> <span class="s2">&#34;BISECTING&#34;</span>
-<span class="nx">am</span> <span class="p">=</span> <span class="s2">&#34;AM&#34;</span>
-<span class="nx">am_or_rebase</span> <span class="p">=</span> <span class="s2">&#34;AM/REBASE&#34;</span>
-<span class="nx">progress_divider</span> <span class="p">=</span> <span class="s2">&#34; of &#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [git_status]</span>
-<span class="c"># conflicted = &#34;🏳&#34;</span>
-<span class="c"># ahead = &#34;🏎💨&#34;</span>
-<span class="c"># behind = &#34;😰&#34;</span>
-<span class="c"># diverged = &#34;😵&#34;</span>
-<span class="c"># untracked = &#34;🤷‍&#34;</span>
-<span class="c"># stashed = &#34;📦&#34;</span>
-<span class="c"># modified = &#34;📝&#34;</span>
-<span class="c"># staged.value = &#34;++&#34;</span>
-<span class="c"># staged.style = &#34;green&#34;</span>
-<span class="c"># staged_count.enabled = true</span>
-<span class="c"># staged_count.style = &#34;green&#34;</span>
-<span class="c"># renamed = &#34;👅&#34;</span>
-<span class="c"># deleted = &#34;🗑&#34;</span>
-
-<span class="c"># [[git_status.count]]</span>
-<span class="c"># enabled = true</span>
-
-<span class="p">[</span><span class="nx">hostname</span><span class="p">]</span>
-<span class="nx">ssh_only</span> <span class="p">=</span> <span class="kc">false</span>
-<span class="nx">prefix</span> <span class="p">=</span> <span class="s2">&#34;🤖&#34;</span>
-<span class="c"># suffix = &#34;⟫&#34;</span>
-<span class="nx">trim_at</span> <span class="p">=</span> <span class="s2">&#34;.&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [jobs]</span>
-<span class="c"># symbol = &#34;+ &#34;</span>
-<span class="c"># threshold = 1</span>
-
-<span class="p">[</span><span class="nx">line_break</span><span class="p">]</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [memory_usage]</span>
-<span class="c"># disabled = false</span>
-<span class="c"># show_percentage = true</span>
-<span class="c"># show_swap = false</span>
-<span class="c"># threshold = -1</span>
-<span class="c"># symbol = &#34; &#34;</span>
-<span class="c"># separator = &#34;/&#34;</span>
-<span class="c"># style = &#34;bold dimmed white&#34;</span>
-
-<span class="p">[</span><span class="nx">nodejs</span><span class="p">]</span>
-<span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;⬢ &#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold green&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [package]</span>
-<span class="c"># symbol = &#34;📦 &#34;</span>
-<span class="c"># style = &#34;bold red&#34;</span>
-<span class="c"># disabled = false</span>
-
-<span class="p">[</span><span class="nx">python</span><span class="p">]</span>
-<span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;🐍 &#34;</span>
-<span class="nx">pyenv_version_name</span> <span class="p">=</span> <span class="kc">false</span>
-<span class="nx">pyenv_prefix</span> <span class="p">=</span> <span class="s2">&#34;pyenv&#34;</span>
-<span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="c"># [time]</span>
-<span class="c"># format = &#34;🕙%T&#34;</span>
-<span class="c"># style_root = &#34;bold red&#34;</span>
-<span class="c"># style_user = &#34;bold yellow&#34;</span>
-<span class="c"># show_always = true</span>
-<span class="c"># disabled = false</span>
-
-<span class="p">[</span><span class="nx">username</span><span class="p">]</span>
-<span class="nx">style_root</span> <span class="p">=</span> <span class="s2">&#34;bold red&#34;</span>
-<span class="nx">style_user</span> <span class="p">=</span> <span class="s2">&#34;bold yellow&#34;</span>
-<span class="nx">show_always</span> <span class="p">=</span> <span class="kc">false</span>
-<span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Inserts a blank line between shell prompts</span>
+</span></span><span class="line"><span class="cl"><span class="nx">add_newline</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Customizing the prompt</span>
+</span></span><span class="line"><span class="cl"><span class="nx">format</span> <span class="p">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">$username\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$hostname\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$shlvl\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$singularity\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$kubernetes\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$directory\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$vcsh\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$git_branch\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$git_commit\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$git_state\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$git_metrics\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$git_status\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$hg_branch\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$docker_context\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$package\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$cmake\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$cobol\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$dart\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$deno\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$dotnet\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$elixir\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$elm\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$erlang\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$golang\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$helm\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$java\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$julia\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$kotlin\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$lua\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$nim\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$nodejs\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$ocaml\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$perl\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$php\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$pulumi\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$purescript\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$python\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$rlang\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$red\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$ruby\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$rust\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$scala\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$swift\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$terraform\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$vlang\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$vagrant\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$zig\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$nix_shell\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$conda\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$memory_usage\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$aws\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$gcloud\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$openstack\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$azure\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$env_var\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$crystal\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$custom\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$sudo\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$cmd_duration\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$line_break\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$jobs\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$battery\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$time\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$status\
+</span></span></span><span class="line"><span class="cl"><span class="s2">$shell\
+</span></span></span><span class="line"><span class="cl"><span class="s2">[$character](bold green)&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Configure if and how the time is shown</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">time</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">time_format</span> <span class="p">=</span> <span class="s2">&#34;%T&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">format</span> <span class="p">=</span> <span class="s2">&#34;🕙[$time ](bold blue)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">sudo</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bold green&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;💪&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">format</span> <span class="p">=</span> <span class="s2">&#34;[&lt;SUDO&gt;$symbol]($style)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">disabled</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">style</span> <span class="p">=</span> <span class="s2">&#34;bg:blue&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">symbol</span> <span class="p">=</span> <span class="s2">&#34;🔴&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">map_symbol</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="nx">format</span> <span class="p">=</span> <span class="s1">&#39;[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) &#39;</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Close and reopen your terminal to see the results. Cool! Isn&rsquo;t it?!</p>
 <p>That&rsquo;s it! I hope this article can be useful. Thanks for reading!</p>
@@ -826,9 +675,9 @@ The installation is very simple, just type:</p>
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2021-12-29 11:10:45 GMT" style="cursor:help">
+        <span title="Updated @ 2022-03-04 22:30:00 GMT" style="cursor:help">
 
-<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2021-12-29</text><text x="915" y="140" textLength="650" transform="scale(.1)">2021-12-29</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2022-03-04</text><text x="915" y="140" textLength="650" transform="scale(.1)">2022-03-04</text></g></svg>
         </span></div>
 
 
@@ -859,7 +708,7 @@ The installation is very simple, just type:</p>
             
                 <div class="share-item linkedin">
                     
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/&amp;title=Installing%20Zsh%20&#43;%20Oh-My-Zsh%20&#43;%20Starship&amp;summary=Hi,%20welcome%20to%20my%20blog!%0aThe%20objective%20of%20this%20article%20is%20to%20share%20my%20shell%20setup%20with%20you.%20I%20think%20that%20my%20job%20and%20day%20to%20day%20tasks%20became%20easier%20and%20more%20productive%20than%20using%20the%20%e2%80%9cnormal%e2%80%9d%20bash.%20I%20hope%20that%20it%20helps%20you.&amp;source=GuinuxBR" title="Share on LinkedIn" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon linkedin-icon"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://guinuxbr.com/en/posts/zsh&#43;oh-my-zsh&#43;starship/&amp;title=Installing%20Zsh%20&#43;%20Oh-My-Zsh%20&#43;%20Starship&amp;summary=Update:%20Starship%20configurarion%20changed%20in%20the%20newer%20versions.%20This%20article%20was%20updated%20and%20covers%20the%20version%201.3.0.%0aHi,%20welcome%20to%20my%20blog!%0aThe%20objective%20of%20this%20article%20is%20to%20share%20my%20shell%20setup%20with%20you.%20I%20think%20that%20my%20job%20and%20day%20to%20day%20tasks%20became%20easier%20and%20more%20productive%20than%20using%20the%20%e2%80%9cnormal%e2%80%9d%20bash.&amp;source=GuinuxBR" title="Share on LinkedIn" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon linkedin-icon"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
                 </div>
             
 
@@ -1038,7 +887,7 @@ The installation is very simple, just type:</p>
             
     <footer id="footer" class="footer">
         <div class="footer-inner">
-            <div class="site-info">©&nbsp;2020–2021&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icon footer-icon"><path d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"/></svg>&nbsp;Guilherme L. L. Marques</div><div class="powered-by">Powered by <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a> | Theme is <a href="https://github.com/reuixiy/hugo-theme-meme" target="_blank" rel="noopener">MemE</a></div><div class="site-copyright"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
+            <div class="site-info">©&nbsp;2020–2022&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icon footer-icon"><path d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"/></svg>&nbsp;Guilherme L. L. Marques</div><div class="powered-by">Powered by <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a> | Theme is <a href="https://github.com/reuixiy/hugo-theme-meme" target="_blank" rel="noopener">MemE</a></div><div class="site-copyright"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
 
             
     
