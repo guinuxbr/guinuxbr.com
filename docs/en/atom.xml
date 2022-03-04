@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2022-03-04T23:21:08&#43;00:00</updated>
+    <updated>2022-03-04T23:23:34&#43;00:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -18,8 +18,8 @@
     <generator uri="https://gohugo.io/" version="0.93.2">Hugo</generator>
         <entry>
             <title type="text">Raspberry Pi4 &#43; openSUSE &#43; Samba</title>
-            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/opensuse_tumbleweed&#43;raspberry_pi4&#43;samba/" />
-            <id>https://guinuxbr.com/en/posts/opensuse_tumbleweed&#43;raspberry_pi4&#43;samba/</id>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/raspberry_pi4&#43;opensuse_tumbleweed&#43;samba/" />
+            <id>https://guinuxbr.com/en/posts/raspberry_pi4&#43;opensuse_tumbleweed&#43;samba/</id>
             <updated>2022-03-04T23:10:03&#43;00:00</updated>
             <published>2022-03-04T23:00:11&#43;00:00</published>
             <author>
