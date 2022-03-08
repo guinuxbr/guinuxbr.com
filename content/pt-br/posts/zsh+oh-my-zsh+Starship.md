@@ -5,8 +5,10 @@ date: 2020-05-08T23:10:26-03:00
 draft: false
 tags: ["linux","shell", "bash", "zsh"]
 categories: ["tutoriais"]
-align: justify
+align: left
 ---
+
+Post atulizado: [Installing Zsh + Oh-My-Zsh + Starship](https://guinuxbr.com/en/posts/zsh+oh-my-zsh+starship/)
 
 Olá, seja bem-vindo ao meu blog!
 

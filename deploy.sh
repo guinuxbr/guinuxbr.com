@@ -3,7 +3,7 @@
 # If a command fails then the deploy stops
 set -e
 
-printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
+echo "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 
 # Removing "docs" directory.
 rm -rf docs
@@ -18,7 +18,8 @@ cp CNAME docs/
 git add .
 
 # Commit changes.
-msg="Rebuilding site $(date)"
+echo "Add a commit message:"
+read msg
 if [ -n "$*" ]; then
 	msg="$*"
 fi

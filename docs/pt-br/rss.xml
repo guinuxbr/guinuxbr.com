@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
         
-        <lastBuildDate>Fri, 04 Mar 2022 23:24:22 &#43;0000</lastBuildDate>
+        <lastBuildDate>Tue, 08 Mar 2022 16:14:59 &#43;0000</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://guinuxbr.com/pt-br/rss.xml" />
         
@@ -38,7 +38,8 @@
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
                 
-                    <description>&lt;p&gt;Olá, seja bem-vindo ao meu blog!&lt;/p&gt;
+                    <description>&lt;p&gt;Post atulizado: &lt;a href=&#34;https://guinuxbr.com/en/posts/zsh+oh-my-zsh+starship/&#34;&gt;Installing Zsh + Oh-My-Zsh + Starship&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Olá, seja bem-vindo ao meu blog!&lt;/p&gt;
 &lt;p&gt;O objetivo deste artigo é compartilhar minha configuração de shell com você.
 Penso que o meu trabalho e as tarefas do dia a dia se tornaram mais fáceis e produtivas comparando com o &lt;em&gt;bash&lt;/em&gt; &amp;ldquo;normal&amp;rdquo;. Espero que seja útil para você.&lt;/p&gt;
 &lt;p&gt;Você precisará das seguintes ferramentas:&lt;/p&gt;

@@ -5,7 +5,7 @@ date: 2020-04-03T20:55:50-03:00
 draft: false
 tags: ["linux", "raspberrypi", "arm", "archlinux"]
 categories: ["tutoriais"]
-align: justify
+align: left
 ---
 
 Olá, bem-vindo ao meu blog!
