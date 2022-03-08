@@ -3,7 +3,7 @@
 # If a command fails then the deploy stops
 set -e
 
-echo "\033[0;32mDeploying updates to GitHub...\033[0m\n"
+echo "Deploying updates to GitHub..."
 
 # Removing "docs" directory.
 rm -rf docs
