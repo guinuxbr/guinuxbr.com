@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
         
-        <lastBuildDate>Sun, 03 Jul 2022 20:30:13 &#43;0100</lastBuildDate>
+        <lastBuildDate>Sun, 03 Jul 2022 20:34:23 &#43;0100</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://guinuxbr.com/en/rss.xml" />
         
@@ -64,7 +64,7 @@
 &lt;/blockquote&gt;
 &lt;p&gt;Create the &lt;code&gt;.desktop&lt;/code&gt; file that will be automatically parsed at KDE Plasma start-up.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;vim .config/autostart/ssh-add.sh.desktop&lt;/p&gt;
+&lt;p&gt;vim .config/autostart/ssh-add.desktop&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -98,7 +98,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;SSH_ASKPASS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/usr/libexec/ssh/ksshaskpass&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;In the next login, a dialog window asking for your SSH key password will appear for each added key. Ensure to mark the option &amp;ldquo;Remember password&amp;rdquo;.
+&lt;/div&gt;&lt;p&gt;In the next login, a dialogue window asking for your SSH key password will appear for each added key. Ensure to mark the option &amp;ldquo;Remember password&amp;rdquo;.
 &lt;img src=&#34;https://guinuxbr.com/img/load-ssh-keys-kwallet/ksshaskpass.png&#34; alt=&#34;ksshaskpass&#34;&gt;&lt;/p&gt;
 </description>
                 

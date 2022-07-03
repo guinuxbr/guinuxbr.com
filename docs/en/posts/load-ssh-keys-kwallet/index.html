@@ -62,7 +62,7 @@ Add all the needed keys using ssh-add -q." />
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2022-07-03T14:12:33+01:00",
-        "dateModified": "2022-07-03T20:29:33+01:00",
+        "dateModified": "2022-07-03T20:33:39+01:00",
         "url": "https://guinuxbr.com/en/posts/load-ssh-keys-kwallet/",
         "headline": "Load SSH keys via Kwallet",
         "description": "This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running KDE Plasma.\nInstall ksshaskpass5 via Zypper.\nsudo zypper in --details ksshaskpass5\nCreate the script that will run ssh-add.\nvim ~/bin/startup-scripts/ssh-add.sh\nAdd all the needed keys using ssh-add -q.",
@@ -119,7 +119,7 @@ Add all the needed keys using ssh-add -q." />
 <meta property="og:locale" content="en" /><meta property="og:image" content="https://guinuxbr.com/img/load-ssh-keys-kwallet/ksshaskpass.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2022-07-03T14:12:33&#43;01:00" />
-    <meta property="article:modified_time" content="2022-07-03T20:29:33&#43;01:00" />
+    <meta property="article:modified_time" content="2022-07-03T20:33:39&#43;01:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -327,7 +327,7 @@ Add all the needed keys using ssh-add -q." />
 </blockquote>
 <p>Create the <code>.desktop</code> file that will be automatically parsed at KDE Plasma start-up.</p>
 <blockquote>
-<p>vim .config/autostart/ssh-add.sh.desktop</p>
+<p>vim .config/autostart/ssh-add.desktop</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
@@ -361,7 +361,7 @@ Add all the needed keys using ssh-add -q." />
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">export</span> <span class="nv">SSH_ASKPASS</span><span class="o">=</span><span class="s1">&#39;/usr/libexec/ssh/ksshaskpass&#39;</span>
 </span></span></code></pre></td></tr></table></div>
 </div>
-</div><p>In the next login, a dialog window asking for your SSH key password will appear for each added key. Ensure to mark the option &ldquo;Remember password&rdquo;.
+</div><p>In the next login, a dialogue window asking for your SSH key password will appear for each added key. Ensure to mark the option &ldquo;Remember password&rdquo;.
 <img src="/img/load-ssh-keys-kwallet/ksshaskpass.png" alt="ksshaskpass"></p>
 
             </div>
@@ -391,7 +391,7 @@ Add all the needed keys using ssh-add -q." />
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 03-07-2022 20:29:33 BST" style="cursor:help">
+        <span title="Updated @ 03-07-2022 20:33:39 BST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">03-07-2022</text><text x="915" y="140" textLength="650" transform="scale(.1)">03-07-2022</text></g></svg>
         </span></div>

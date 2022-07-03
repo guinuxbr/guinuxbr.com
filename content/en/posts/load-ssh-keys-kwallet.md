@@ -27,7 +27,7 @@ Give execution permission to the script.
 > chmod +x ~/bin/startup-scripts/ssh-add.sh
 
 Create the `.desktop` file that will be automatically parsed at KDE Plasma start-up.
-> vim .config/autostart/ssh-add.sh.desktop
+> vim .config/autostart/ssh-add.desktop
 
 ```bash
 [Desktop Entry]
@@ -46,5 +46,5 @@ Create another script in `~/.config/plasma-workspace/env/` to set the environmen
 export SSH_ASKPASS='/usr/libexec/ssh/ksshaskpass'
 ```
 
-In the next login, a dialog window asking for your SSH key password will appear for each added key. Ensure to mark the option "Remember password".
+In the next login, a dialogue window asking for your SSH key password will appear for each added key. Ensure to mark the option "Remember password".
 ![ksshaskpass](/img/load-ssh-keys-kwallet/ksshaskpass.png)
