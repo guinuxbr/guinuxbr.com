@@ -2,21 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://guinuxbr.com/en/tags/arm/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="https://guinuxbr.com/pt-br/tags/arm/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://guinuxbr.com/en/tags/arm/"
-                />
-  </url><url>
     <loc>https://guinuxbr.com/en/categories/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -29,7 +16,7 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -41,8 +28,11 @@
                 href="https://guinuxbr.com/en/"
                 />
   </url><url>
+    <loc>https://guinuxbr.com/en/tags/kde/</loc>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
+  </url><url>
     <loc>https://guinuxbr.com/en/tags/linux/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -54,11 +44,14 @@
                 href="https://guinuxbr.com/en/tags/linux/"
                 />
   </url><url>
+    <loc>https://guinuxbr.com/en/posts/load-ssh-keys-kwallet/</loc>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
+  </url><url>
     <loc>https://guinuxbr.com/en/tags/opensuse/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -70,27 +63,8 @@
                 href="https://guinuxbr.com/en/posts/"
                 />
   </url><url>
-    <loc>https://guinuxbr.com/en/posts/raspberry_pi4&#43;opensuse&#43;samba/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
-  </url><url>
-    <loc>https://guinuxbr.com/en/tags/raspberrypi/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="https://guinuxbr.com/pt-br/tags/raspberrypi/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://guinuxbr.com/en/tags/raspberrypi/"
-                />
-  </url><url>
-    <loc>https://guinuxbr.com/en/tags/samba/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
-  </url><url>
     <loc>https://guinuxbr.com/en/tags/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -103,58 +77,87 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/categories/tutorials/</loc>
-    <lastmod>2022-03-04T23:10:03+00:00</lastmod>
+    <lastmod>2022-07-03T20:29:33+01:00</lastmod>
+  </url><url>
+    <loc>https://guinuxbr.com/en/tags/arm/</loc>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/arm/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/arm/"
+                />
+  </url><url>
+    <loc>https://guinuxbr.com/en/posts/raspberry_pi4&#43;opensuse&#43;samba/</loc>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
+  </url><url>
+    <loc>https://guinuxbr.com/en/tags/raspberrypi/</loc>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://guinuxbr.com/pt-br/tags/raspberrypi/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://guinuxbr.com/en/tags/raspberrypi/"
+                />
+  </url><url>
+    <loc>https://guinuxbr.com/en/tags/samba/</loc>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/backup-and-restore-dot-files/</loc>
-    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/git/</loc>
-    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/categories/tips/</loc>
-    <lastmod>2021-12-30T18:22:42+00:00</lastmod>
+    <lastmod>2022-07-03T20:23:33+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/editor/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/vim/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/vim-cheat-sheet/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
-  </url><url>
-    <loc>https://guinuxbr.com/en/tags/kde/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T20:23:33+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/partitions/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/windows/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/wsl/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/wsl2/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/tags/virtualization/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
   </url><url>
     <loc>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -167,7 +170,7 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/tags/archlinux/</loc>
-    <lastmod>2021-12-29T11:10:45+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -180,7 +183,7 @@
                 />
   </url><url>
     <loc>https://guinuxbr.com/en/about/</loc>
-    <lastmod>2021-12-29T13:08:44+00:00</lastmod>
+    <lastmod>2022-07-03T14:01:35+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"

@@ -10,7 +10,7 @@
         <title>GuinuxBR</title>
         <link>https://guinuxbr.com/en/</link>
         <description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description>
-        <generator>Hugo 0.93.2 https://gohugo.io/</generator>
+        <generator>Hugo 0.101.0 https://gohugo.io/</generator>
         
             <language>en</language>
         
@@ -23,10 +23,124 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
         
-        <lastBuildDate>Tue, 08 Mar 2022 18:18:49 &#43;0000</lastBuildDate>
+        <lastBuildDate>Sun, 03 Jul 2022 20:30:13 &#43;0100</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://guinuxbr.com/en/rss.xml" />
         
+        
+            <item>
+                <title>Load SSH keys via Kwallet</title>
+                <link>https://guinuxbr.com/en/posts/load-ssh-keys-kwallet/</link>
+                <guid isPermaLink="true">https://guinuxbr.com/en/posts/load-ssh-keys-kwallet/</guid>
+                <pubDate>Sun, 03 Jul 2022 14:12:33 &#43;0100</pubDate>
+                
+                    <author>guinuxbr@gmail.com (Guilherme L. L. Marques)</author>
+                
+                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
+                
+                    <description>&lt;p&gt;This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running KDE Plasma.&lt;/p&gt;
+&lt;p&gt;Install &lt;code&gt;ksshaskpass5&lt;/code&gt; via Zypper.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo zypper in --details ksshaskpass5&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Create the script that will run &lt;code&gt;ssh-add&lt;/code&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vim ~/bin/startup-scripts/ssh-add.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Add all the needed keys using &lt;code&gt;ssh-add -q&lt;/code&gt;. The &amp;ldquo;q&amp;rdquo; here stands for quiet.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;ssh-add -q &lt;span class=&#34;nv&#34;&gt;$HOME&lt;/span&gt;/.ssh/key1 &lt;span class=&#34;nv&#34;&gt;$HOME&lt;/span&gt;/.ssh/key2 &amp;lt; /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Give execution permission to the script.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;chmod +x ~/bin/startup-scripts/ssh-add.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Create the &lt;code&gt;.desktop&lt;/code&gt; file that will be automatically parsed at KDE Plasma start-up.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vim .config/autostart/ssh-add.sh.desktop&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;Desktop Entry&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/your_user_name/bin/startup-scripts/ssh-add.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Icon&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;dialog-scripts
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ssh-add.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Application
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;X-KDE-AutostartScript&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Create another script in &lt;code&gt;~/.config/plasma-workspace/env/&lt;/code&gt; to set the environment variable &lt;code&gt;SSH_ASKPASS&lt;/code&gt; to use &lt;strong&gt;ksshaskpass&lt;/strong&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vim ~/.config/plasma-workspace/env/ksshaskpass.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;SSH_ASKPASS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/usr/libexec/ssh/ksshaskpass&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;In the next login, a dialog window asking for your SSH key password will appear for each added key. Ensure to mark the option &amp;ldquo;Remember password&amp;rdquo;.
+&lt;img src=&#34;https://guinuxbr.com/img/load-ssh-keys-kwallet/ksshaskpass.png&#34; alt=&#34;ksshaskpass&#34;&gt;&lt;/p&gt;
+</description>
+                
+                
+                
+                
+                
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://guinuxbr.com/en/categories/tutorials/">tutorials</category>
+                                
+                            
+                        
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://guinuxbr.com/en/tags/linux/">linux</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://guinuxbr.com/en/tags/kde/">kde</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://guinuxbr.com/en/tags/opensuse/">opensuse</category>
+                                
+                            
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>Raspberry Pi4 &#43; openSUSE &#43; Samba</title>
@@ -704,7 +818,7 @@ sudo systemctl enable --now nmb.service&lt;/p&gt;
 &lt;p&gt;chmod +x ~/.config/plasma-workspace/env/askpass.sh&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Next time you log in, open Konsole and try to clone some of your private GitHub repositories.
-If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em&gt; dialogue asking for your user name and then asking for your password. Just make sure to mark &amp;ldquo;Remember password&amp;rdquo; in both dialogues to save your credentials safely in your wallet.&lt;/p&gt;
+If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em&gt; dialogue asking for your user name and then asking for your password. Ensure to mark &amp;ldquo;Remember password&amp;rdquo; to save your credentials safely in your wallet.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/secure-github-credentials-kwallet/ksshaskpass.png&#34; alt=&#34;ksshaskpass&#34;&gt;&lt;/p&gt;
 </description>
                 

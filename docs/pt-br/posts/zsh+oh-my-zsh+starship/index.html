@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.93.2" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.101.0" /><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/pt-br/js/meme.min.26ea1796ea7bd091c51516175e054f36e5a240ef4c0ba5c8a4c485d0d1a859b0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/pt-br/js/meme.min.c38f446520510da4c77135f4171ece77aff8d59a3e199c86e19a82d232d355fe.js"></script>
 
     
 
@@ -59,7 +59,7 @@ O objetivo deste artigo é compartilhar minha configuração de shell com você.
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-05-08T23:10:26-03:00",
-        "dateModified": "2022-03-08T13:58:07+00:00",
+        "dateModified": "2022-07-03T14:01:35+01:00",
         "url": "https://guinuxbr.com/pt-br/posts/zsh+oh-my-zsh+starship/",
         "headline": "Instalando Zsh + Oh-My-Zsh + Starship",
         "description": "Post atulizado: Installing Zsh + Oh-My-Zsh + Starship\nOlá, seja bem-vindo ao meu blog!\nO objetivo deste artigo é compartilhar minha configuração de shell com você. Penso que o meu trabalho e as tarefas do dia a dia se tornaram mais fáceis e produtivas comparando com o bash “normal”.",
@@ -114,7 +114,7 @@ O objetivo deste artigo é compartilhar minha configuração de shell com você.
         <meta property="og:image" content="https://guinuxbr.com/icons/apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-05-08T23:10:26-03:00" />
-    <meta property="article:modified_time" content="2022-03-08T13:58:07&#43;00:00" />
+    <meta property="article:modified_time" content="2022-07-03T14:01:35&#43;01:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -826,9 +826,9 @@ A instalação é muito simples, basta digitar:</p>
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 08-03-2022 13:58:07 GMT" style="cursor:help">
+        <span title="Updated @ 03-07-2022 14:01:35 BST" style="cursor:help">
 
-<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">08-03-2022</text><text x="915" y="140" textLength="650" transform="scale(.1)">08-03-2022</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">03-07-2022</text><text x="915" y="140" textLength="650" transform="scale(.1)">03-07-2022</text></g></svg>
         </span></div>
 
 
@@ -885,9 +885,9 @@ A instalação é muito simples, basta digitar:</p>
                     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
 <script>
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData('https:\/\/guinuxbr.com\/pt-br\/posts\/zsh\u002boh-my-zsh\u002bstarship\/');
     qr.make();
     document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
@@ -1063,14 +1063,17 @@ A instalação é muito simples, basta digitar:</p>
         
             <script>
     function loadComments() {
+        if (!document.getElementById('disqus_thread')) {
+            return;
+        }
         if (typeof DISQUS === 'undefined') {
-            var disqus_config = function() {
+            const disqus_config = function() {
                 this.page.url = 'https:\/\/guinuxbr.com\/pt-br\/posts\/zsh\u002boh-my-zsh\u002bstarship\/';
                 this.page.identifier = '\/pt-br\/posts\/zsh\u002boh-my-zsh\u002bstarship\/';
                 this.page.title = 'Instalando Zsh \u002b Oh-My-Zsh \u002b Starship';
             };
             (function() {
-                var d = document, s = d.createElement('script'); s.async = true;
+                const d = document, s = d.createElement('script'); s.async = true;
                 s.src = 'https://guinuxbr.disqus.com/embed.js';
                 s.setAttribute('data-timestamp', +new Date());
                 (d.head || d.body).appendChild(s);
@@ -1115,7 +1118,6 @@ A instalação é muito simples, basta digitar:</p>
 
 
     <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
-
 
 
 

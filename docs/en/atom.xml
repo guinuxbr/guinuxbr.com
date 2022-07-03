@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">GuinuxBR</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2022-03-08T18:18:49&#43;00:00</updated>
+    <updated>2022-07-03T20:30:13&#43;01:00</updated>
     <id>https://guinuxbr.com/en/</id>
     <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/" />
     <link rel="self" type="application/atom&#43;xml" href="https://guinuxbr.com/en/atom.xml" />
@@ -15,12 +15,134 @@
                 <email>guinuxbr@gmail.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights>
-    <generator uri="https://gohugo.io/" version="0.93.2">Hugo</generator>
+    <generator uri="https://gohugo.io/" version="0.101.0">Hugo</generator>
+        <entry>
+            <title type="text">Load SSH keys via Kwallet</title>
+            <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/load-ssh-keys-kwallet/" />
+            <id>https://guinuxbr.com/en/posts/load-ssh-keys-kwallet/</id>
+            <updated>2022-07-03T20:29:33&#43;01:00</updated>
+            <published>2022-07-03T14:12:33&#43;01:00</published>
+            <author>
+                    <name>Guilherme L. L. Marques</name>
+                    <uri>https://guinuxbr.com</uri>
+                    <email>guinuxbr@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running KDE Plasma.
+Install ksshaskpass5 via Zypper.
+sudo zypper in --details ksshaskpass5
+Create the script that will run ssh-add.
+vim ~/bin/startup-scripts/ssh-add.sh
+Add all the needed keys using ssh-add -q.</summary>
+            
+                <content type="html">&lt;p&gt;This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running KDE Plasma.&lt;/p&gt;
+&lt;p&gt;Install &lt;code&gt;ksshaskpass5&lt;/code&gt; via Zypper.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo zypper in --details ksshaskpass5&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Create the script that will run &lt;code&gt;ssh-add&lt;/code&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vim ~/bin/startup-scripts/ssh-add.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Add all the needed keys using &lt;code&gt;ssh-add -q&lt;/code&gt;. The &amp;ldquo;q&amp;rdquo; here stands for quiet.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;ssh-add -q &lt;span class=&#34;nv&#34;&gt;$HOME&lt;/span&gt;/.ssh/key1 &lt;span class=&#34;nv&#34;&gt;$HOME&lt;/span&gt;/.ssh/key2 &amp;lt; /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Give execution permission to the script.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;chmod +x ~/bin/startup-scripts/ssh-add.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Create the &lt;code&gt;.desktop&lt;/code&gt; file that will be automatically parsed at KDE Plasma start-up.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vim .config/autostart/ssh-add.sh.desktop&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;Desktop Entry&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/your_user_name/bin/startup-scripts/ssh-add.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Icon&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;dialog-scripts
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ssh-add.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Application
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;X-KDE-AutostartScript&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Create another script in &lt;code&gt;~/.config/plasma-workspace/env/&lt;/code&gt; to set the environment variable &lt;code&gt;SSH_ASKPASS&lt;/code&gt; to use &lt;strong&gt;ksshaskpass&lt;/strong&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vim ~/.config/plasma-workspace/env/ksshaskpass.sh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;SSH_ASKPASS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/usr/libexec/ssh/ksshaskpass&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;In the next login, a dialog window asking for your SSH key password will appear for each added key. Ensure to mark the option &amp;ldquo;Remember password&amp;rdquo;.
+&lt;img src=&#34;https://guinuxbr.com/img/load-ssh-keys-kwallet/ksshaskpass.png&#34; alt=&#34;ksshaskpass&#34;&gt;&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/categories/tutorials/" term="tutorials" label="tutorials" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/linux/" term="linux" label="linux" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/kde/" term="kde" label="kde" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://guinuxbr.com/en/tags/opensuse/" term="opensuse" label="opensuse" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">Raspberry Pi4 &#43; openSUSE &#43; Samba</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/raspberry_pi4&#43;opensuse&#43;samba/" />
             <id>https://guinuxbr.com/en/posts/raspberry_pi4&#43;opensuse&#43;samba/</id>
-            <updated>2022-03-04T23:10:03&#43;00:00</updated>
+            <updated>2022-07-03T14:01:35&#43;01:00</updated>
             <published>2022-03-04T23:00:11&#43;00:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -419,7 +541,7 @@ sudo systemctl enable --now nmb.service&lt;/p&gt;
             <title type="text">Backup dotfiles to GitHub</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/backup-and-restore-dot-files/" />
             <id>https://guinuxbr.com/en/posts/backup-and-restore-dot-files/</id>
-            <updated>2021-12-30T18:22:42&#43;00:00</updated>
+            <updated>2022-07-03T14:01:35&#43;01:00</updated>
             <published>2021-12-29T13:18:49&#43;00:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -510,7 +632,7 @@ I&amp;rsquo;m using Zsh as the shell in the examples, but other shell can be use
             <title type="text">Vim Cheat Sheet</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/vim-cheat-sheet/" />
             <id>https://guinuxbr.com/en/posts/vim-cheat-sheet/</id>
-            <updated>2021-12-29T11:10:45&#43;00:00</updated>
+            <updated>2022-07-03T14:01:35&#43;01:00</updated>
             <published>2020-12-25T19:22:19&#43;00:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -668,7 +790,7 @@ I&amp;rsquo;m using Zsh as the shell in the examples, but other shell can be use
             <title type="text">Secure GitHub credentials with KWallet</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/" />
             <id>https://guinuxbr.com/en/posts/secure-git-credentials-kwallet/</id>
-            <updated>2021-12-29T11:10:45&#43;00:00</updated>
+            <updated>2022-07-03T20:23:33&#43;01:00</updated>
             <published>2020-08-21T15:15:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -708,7 +830,7 @@ In this quick tutorial, I&amp;rsquo;ll show how to configure your KDE to store y
 &lt;p&gt;chmod +x ~/.config/plasma-workspace/env/askpass.sh&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Next time you log in, open Konsole and try to clone some of your private GitHub repositories.
-If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em&gt; dialogue asking for your user name and then asking for your password. Just make sure to mark &amp;ldquo;Remember password&amp;rdquo; in both dialogues to save your credentials safely in your wallet.&lt;/p&gt;
+If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em&gt; dialogue asking for your user name and then asking for your password. Ensure to mark &amp;ldquo;Remember password&amp;rdquo; to save your credentials safely in your wallet.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/img/secure-github-credentials-kwallet/ksshaskpass.png&#34; alt=&#34;ksshaskpass&#34;&gt;&lt;/p&gt;
 </content>
             
@@ -762,7 +884,7 @@ If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em
             <title type="text">Sort Linux partitions correctly</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/" />
             <id>https://guinuxbr.com/en/posts/sort-linux-partitions-correctly/</id>
-            <updated>2021-12-29T11:10:45&#43;00:00</updated>
+            <updated>2022-07-03T14:01:35&#43;01:00</updated>
             <published>2020-08-21T15:10:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -771,7 +893,7 @@ If your wallet is already open and you will see the &lt;em&gt;ksshaskpass&lt;/em
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">Hi and welcome to my blog! Here goes a quick tip on how to properly sort partitions number in Linux.
 Let&amp;rsquo;s think that we had a disk /dev/sda with 4 partitions:
-/dev/sda1 /dev/sda2 /dev/sda3 /dev/sda4  Now, if we have to repartition our disk and delete /dev/sda2 and /dev/sda3 to make /dev/sda1 larger, occasionally you will end up with /dev/sda1 and /dev/sda4 when it should be only /dev/sda1 and /dev/sda2.</summary>
+/dev/sda1 /dev/sda2 /dev/sda3 /dev/sda4 Now, if we have to repartition our disk and delete /dev/sda2 and /dev/sda3 to make /dev/sda1 larger, occasionally you will end up with /dev/sda1 and /dev/sda4 when it should be only /dev/sda1 and /dev/sda2.</summary>
             
                 <content type="html">&lt;p&gt;Hi and welcome to my blog!
 Here goes a quick tip on how to properly sort partitions number in Linux.&lt;/p&gt;
@@ -836,7 +958,7 @@ Begin typing &lt;code&gt;sudo fdisk /dev/sda&lt;/code&gt;.&lt;/p&gt;
             <title type="text">Run Debian in Windows 10 with WSL 2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/debian-windows10-wsl2/" />
             <id>https://guinuxbr.com/en/posts/debian-windows10-wsl2/</id>
-            <updated>2021-12-29T11:10:45&#43;00:00</updated>
+            <updated>2022-07-03T14:01:35&#43;01:00</updated>
             <published>2020-07-24T21:15:00-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -990,7 +1112,7 @@ It is probable that when you open a Debian session your prompt show something li
             <title type="text">Convert OVA to QCOW2</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/convert-ova-to-qcow2/" />
             <id>https://guinuxbr.com/en/posts/convert-ova-to-qcow2/</id>
-            <updated>2021-12-29T11:10:45&#43;00:00</updated>
+            <updated>2022-07-03T14:01:35&#43;01:00</updated>
             <published>2020-07-09T19:50:56-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>
@@ -1054,7 +1176,7 @@ A few days ago I have to install Windows in a virtual environment to test some s
             <title type="text">Arch linux ARM on Raspberry Pi 4</title>
             <link rel="alternate" type="text/html" href="https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/" />
             <id>https://guinuxbr.com/en/posts/arch_linux_arm-raspberry_pi_4/</id>
-            <updated>2021-12-29T11:10:45&#43;00:00</updated>
+            <updated>2022-07-03T14:01:35&#43;01:00</updated>
             <published>2020-05-08T22:54:24-03:00</published>
             <author>
                     <name>Guilherme L. L. Marques</name>

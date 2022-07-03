@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.93.2" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.101.0" /><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.029489a69a9b4dbe2532d28f9b0059a7bbbc84d24639cdfb8930f8f3314e8bf0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.cfbed0895a4086079988b437fa592cde65a2e6f954b17f69c99c35cc889677fa.js"></script>
 
     
 
@@ -734,9 +734,9 @@ The installation is very simple, just type:</p>
                     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
 <script>
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData('https:\/\/guinuxbr.com\/en\/posts\/zsh\u002boh-my-zsh\u002bstarship\/');
     qr.make();
     document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
@@ -928,14 +928,17 @@ The installation is very simple, just type:</p>
         
             <script>
     function loadComments() {
+        if (!document.getElementById('disqus_thread')) {
+            return;
+        }
         if (typeof DISQUS === 'undefined') {
-            var disqus_config = function() {
+            const disqus_config = function() {
                 this.page.url = 'https:\/\/guinuxbr.com\/en\/posts\/zsh\u002boh-my-zsh\u002bstarship\/';
                 this.page.identifier = '\/en\/posts\/zsh\u002boh-my-zsh\u002bstarship\/';
                 this.page.title = 'Installing Zsh \u002b Oh-My-Zsh \u002b Starship';
             };
             (function() {
-                var d = document, s = d.createElement('script'); s.async = true;
+                const d = document, s = d.createElement('script'); s.async = true;
                 s.src = 'https://guinuxbr.disqus.com/embed.js';
                 s.setAttribute('data-timestamp', +new Date());
                 (d.head || d.body).appendChild(s);
@@ -980,7 +983,6 @@ The installation is very simple, just type:</p>
 
 
     <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
-
 
 
 

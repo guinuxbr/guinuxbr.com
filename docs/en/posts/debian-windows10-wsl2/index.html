@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.93.2" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.101.0" /><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.029489a69a9b4dbe2532d28f9b0059a7bbbc84d24639cdfb8930f8f3314e8bf0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/en/js/meme.min.cfbed0895a4086079988b437fa592cde65a2e6f954b17f69c99c35cc889677fa.js"></script>
 
     
 
@@ -58,7 +58,7 @@ We use Windows in our workstations at my current job (it was not my choice 🙊)
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-07-24T21:15:00-03:00",
-        "dateModified": "2021-12-29T11:10:45+00:00",
+        "dateModified": "2022-07-03T14:01:35+01:00",
         "url": "https://guinuxbr.com/en/posts/debian-windows10-wsl2/",
         "headline": "Run Debian in Windows 10 with WSL 2",
         "description": "Hello and welcome to my blog.\nWe use Windows in our workstations at my current job (it was not my choice 🙊), but there is a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: “This would be a lot simple with cat, grep, sort, etc.",
@@ -111,7 +111,7 @@ We use Windows in our workstations at my current job (it was not my choice 🙊)
 <meta property="og:locale" content="en" /><meta property="og:image" content="https://guinuxbr.com/img/debian-windows10-wsl2/wsl2.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-07-24T21:15:00-03:00" />
-    <meta property="article:modified_time" content="2021-12-29T11:10:45&#43;00:00" />
+    <meta property="article:modified_time" content="2022-07-03T14:01:35&#43;01:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -413,9 +413,9 @@ It is probable that when you open a Debian session your prompt show something li
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 29-12-2021 11:10:45 GMT" style="cursor:help">
+        <span title="Updated @ 03-07-2022 14:01:35 BST" style="cursor:help">
 
-<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">29-12-2021</text><text x="915" y="140" textLength="650" transform="scale(.1)">29-12-2021</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">03-07-2022</text><text x="915" y="140" textLength="650" transform="scale(.1)">03-07-2022</text></g></svg>
         </span></div>
 
 
@@ -472,9 +472,9 @@ It is probable that when you open a Debian session your prompt show something li
                     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
 <script>
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData('https:\/\/guinuxbr.com\/en\/posts\/debian-windows10-wsl2\/');
     qr.make();
     document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
@@ -670,14 +670,17 @@ It is probable that when you open a Debian session your prompt show something li
         
             <script>
     function loadComments() {
+        if (!document.getElementById('disqus_thread')) {
+            return;
+        }
         if (typeof DISQUS === 'undefined') {
-            var disqus_config = function() {
+            const disqus_config = function() {
                 this.page.url = 'https:\/\/guinuxbr.com\/en\/posts\/debian-windows10-wsl2\/';
                 this.page.identifier = '\/en\/posts\/debian-windows10-wsl2\/';
                 this.page.title = 'Run Debian in Windows 10 with WSL 2';
             };
             (function() {
-                var d = document, s = d.createElement('script'); s.async = true;
+                const d = document, s = d.createElement('script'); s.async = true;
                 s.src = 'https://guinuxbr.disqus.com/embed.js';
                 s.setAttribute('data-timestamp', +new Date());
                 (d.head || d.body).appendChild(s);
@@ -722,7 +725,6 @@ It is probable that when you open a Debian session your prompt show something li
 
 
     <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
-
 
 
 

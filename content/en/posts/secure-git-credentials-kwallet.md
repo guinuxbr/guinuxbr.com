@@ -39,6 +39,6 @@ Save and exit. Now make it executable.
 >chmod +x ~/.config/plasma-workspace/env/askpass.sh
 
 Next time you log in, open Konsole and try to clone some of your private GitHub repositories.
-If your wallet is already open and you will see the _ksshaskpass_ dialogue asking for your user name and then asking for your password. Just make sure to mark "Remember password" in both dialogues to save your credentials safely in your wallet.
+If your wallet is already open and you will see the _ksshaskpass_ dialogue asking for your user name and then asking for your password. Ensure to mark "Remember password" to save your credentials safely in your wallet.
 
 ![ksshaskpass](/img/secure-github-credentials-kwallet/ksshaskpass.png)
