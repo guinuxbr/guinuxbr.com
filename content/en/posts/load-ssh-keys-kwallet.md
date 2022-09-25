@@ -13,30 +13,18 @@ This quick tip was tested on openSUSE Tumbleweed. However, it will probably work
 Install `ksshaskpass5` via Zypper.
 > sudo zypper in \-\-details ksshaskpass5
 
-Create the script that will run `ssh-add`.
-> vim ~/bin/startup-scripts/ssh-add.sh  
-
-Add all the needed keys using `ssh-add -q`. The "q" here stands for quiet.
-
-```bash
-#!/bin/sh
-ssh-add -q $HOME/.ssh/key1 $HOME/.ssh/key2 < /dev/null
-```
-
-Give execution permission to the script.
-> chmod +x ~/bin/startup-scripts/ssh-add.sh
-
-Create the `.desktop` file that will be automatically parsed at KDE Plasma start-up.
-> vim .config/autostart/ssh-add.desktop
+Create the `.desktop` file that will be automatically parsed at KDE Plasma start-up. Add all the needed keys using `ssh-add -q`. The "q" here stands for quiet.
+> vim ~/.config/autostart/ssh-add.desktop
 
 ```bash
 [Desktop Entry]
-Exec=/home/your_user_name/bin/startup-scripts/ssh-add.sh
+Exec=ssh-add -q /home/user_name/.ssh/key1 /home/user_name/.ssh/key2 < /dev/null
 Icon=dialog-scripts
 Name=ssh-add.sh
 Type=Application
 X-KDE-AutostartScript=true
 ```
+For the `Exec` command, I've used the `/home/user_name/` path because `~` or `$HOME` did not work as expected.
 
 Create another script in `~/.config/plasma-workspace/env/` to set the environment variable `SSH_ASKPASS` to use **ksshaskpass**.
 > vim ~/.config/plasma-workspace/env/ksshaskpass.sh
@@ -46,5 +34,7 @@ Create another script in `~/.config/plasma-workspace/env/` to set the environmen
 export SSH_ASKPASS='/usr/libexec/ssh/ksshaskpass'
 ```
 
-In the next login, a dialogue window asking for your SSH key password will appear for each added key. Ensure to mark the option "Remember password".
+Now reboot the machine. In the next login, a dialogue window asking for your SSH key password will appear for each added key.  
+Ensure to mark the option "Remember password".  
+
 ![ksshaskpass](/img/load-ssh-keys-kwallet/ksshaskpass.png)
