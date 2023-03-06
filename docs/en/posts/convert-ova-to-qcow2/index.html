@@ -58,13 +58,13 @@ A few days ago I have to install Windows in a virtual environment to test some s
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-07-09T19:50:56-03:00",
-        "dateModified": "2023-03-04T15:52:40+00:00",
+        "dateModified": "2023-03-06T20:54:01+00:00",
         "url": "https://guinuxbr.com/en/posts/convert-ova-to-qcow2/",
         "headline": "Convert OVA to QCOW2",
         "description": "Hello! In this quick tutorial, I will show you how to convert OVA file to a QCOW2.\nA few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at https://developer.",
         "inLanguage" : "en",
         "articleSection": "posts",
-        "wordCount":  219 ,
+        "wordCount":  218 ,
         "image": ["https://guinuxbr.com/img/convert-ova-to-qcow2/kvm.png"],
         "author": {
             "@type": "Person",
@@ -111,7 +111,7 @@ A few days ago I have to install Windows in a virtual environment to test some s
 <meta property="og:locale" content="en" /><meta property="og:image" content="https://guinuxbr.com/img/convert-ova-to-qcow2/kvm.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-07-09T19:50:56-03:00" />
-    <meta property="article:modified_time" content="2023-03-04T15:52:40&#43;00:00" />
+    <meta property="article:modified_time" content="2023-03-06T20:54:01&#43;00:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -280,7 +280,7 @@ A few days ago I have to install Windows in a virtual environment to test some s
     
     
         
-        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;219</span>
+        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;218</span>
     
     
         
@@ -294,8 +294,8 @@ A few days ago I have to install Windows in a virtual environment to test some s
 
             <div class="post-body e-content">
                 <p style="text-indent:0"><span class="drop-cap">H</span>ello! In this quick tutorial, I will show you how to convert OVA file to a QCOW2.</p>
-<p><img src="/img/convert-ova-to-qcow2/kvm.png" alt="kvm"></p>
-<p>A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/" target="_blank" rel="noopener">https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/</a> but there are no images to use with KVM. So, what if it would be possible to convert some of the provided formats to a KVM compatible format?</p>
+<p><img src="/img/convert-ova-to-qcow2/kvm.png" alt="KVM"></p>
+<p>A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/" target="_blank" rel="noopener">https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/</a> but there are no images to use with KVM. So, what if it would be possible to convert some of the provided formats to a KVM-compatible format?</p>
 <p>Well, this is possible and much easier than I thought it was. Follow me!</p>
 <p>First, we have to extract the files from the OVA file.</p>
 <blockquote>
@@ -305,8 +305,8 @@ A few days ago I have to install Windows in a virtual environment to test some s
 <blockquote>
 <p>qemu-img convert MSEdge-Win10-disk001.vmdk the_name_you_want.qcow2 -O qcow2</p>
 </blockquote>
-<p>Observe that I&rsquo;ve renamed the file MSEdge - Win10-disk001.vmdk to remove the blank spaces. I always try to do this before work with files in the command line.</p>
-<p>That&rsquo;s it! Now we can just move our converted the_name_you_want.qcow2 to the images directory that is usually /var/lib/libvirt/images, but you can place it wherever you wish and import it.</p>
+<p>Observe that I&rsquo;ve renamed the file MSEdge - Win10-disk001.vmdk to remove the blank spaces. I always try to do this before working with files in the command line.</p>
+<p>That&rsquo;s it! Now we can just move our converted the_name_you_want.qcow2 to the images directory which is usually /var/lib/libvirt/images, but you can place it wherever you wish and import it.</p>
 
             </div>
 
@@ -335,9 +335,9 @@ A few days ago I have to install Windows in a virtual environment to test some s
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 04-03-2023 15:52:40 GMT" style="cursor:help">
+        <span title="Updated @ 06-03-2023 20:54:01 GMT" style="cursor:help">
 
-<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">04-03-2023</text><text x="915" y="140" textLength="650" transform="scale(.1)">04-03-2023</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">06-03-2023</text><text x="915" y="140" textLength="650" transform="scale(.1)">06-03-2023</text></g></svg>
         </span></div>
 
 

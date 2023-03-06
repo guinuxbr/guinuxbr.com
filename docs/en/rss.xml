@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
         
-        <lastBuildDate>Mon, 06 Mar 2023 20:42:45 &#43;0000</lastBuildDate>
+        <lastBuildDate>Mon, 06 Mar 2023 21:02:13 &#43;0000</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://guinuxbr.com/en/rss.xml" />
         
@@ -1096,8 +1096,8 @@ It is probable that when you open a Debian session your prompt show something li
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright>
                 
                     <description>&lt;p&gt;Hello! In this quick tutorial, I will show you how to convert OVA file to a QCOW2.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/en/img/convert-ova-to-qcow2/kvm.png&#34; alt=&#34;kvm&#34;&gt;&lt;/p&gt;
-&lt;p&gt;A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at &lt;a href=&#34;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&#34;&gt;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&lt;/a&gt; but there are no images to use with KVM. So, what if it would be possible to convert some of the provided formats to a KVM compatible format?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://guinuxbr.com/en/img/convert-ova-to-qcow2/kvm.png&#34; alt=&#34;KVM&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A few days ago I have to install Windows in a virtual environment to test some stuff. Then, I found that Microsoft provides some test images officially at &lt;a href=&#34;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&#34;&gt;https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/&lt;/a&gt; but there are no images to use with KVM. So, what if it would be possible to convert some of the provided formats to a KVM-compatible format?&lt;/p&gt;
 &lt;p&gt;Well, this is possible and much easier than I thought it was. Follow me!&lt;/p&gt;
 &lt;p&gt;First, we have to extract the files from the OVA file.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1107,8 +1107,8 @@ It is probable that when you open a Debian session your prompt show something li
 &lt;blockquote&gt;
 &lt;p&gt;qemu-img convert MSEdge-Win10-disk001.vmdk the_name_you_want.qcow2 -O qcow2&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Observe that I&amp;rsquo;ve renamed the file MSEdge - Win10-disk001.vmdk to remove the blank spaces. I always try to do this before work with files in the command line.&lt;/p&gt;
-&lt;p&gt;That&amp;rsquo;s it! Now we can just move our converted the_name_you_want.qcow2 to the images directory that is usually /var/lib/libvirt/images, but you can place it wherever you wish and import it.&lt;/p&gt;
+&lt;p&gt;Observe that I&amp;rsquo;ve renamed the file MSEdge - Win10-disk001.vmdk to remove the blank spaces. I always try to do this before working with files in the command line.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s it! Now we can just move our converted the_name_you_want.qcow2 to the images directory which is usually /var/lib/libvirt/images, but you can place it wherever you wish and import it.&lt;/p&gt;
 </description>
                 
                 
