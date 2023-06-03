@@ -490,16 +490,16 @@ enableGitInfo = false
         simple_view = false
       # giscus comment config
       [params.page.comment.giscus]
-        enable = false
+        enable = true
         # owner/repo
-        dataRepo = ""
-        dataRepoId = ""
-        dataCategory = ""
-        dataCategoryId = ""
+        dataRepo = "guinuxbr/guinuxbr.com"
+        dataRepoId = "MDEwOlJlcG9zaXRvcnkyODI3NTgwMzc="
+        dataCategory = "Announcements"
+        dataCategoryId = "DIC_kwDOENqLlc4CW8C4"
         dataMapping = "pathname"
         dataReactionsEnabled = "1"
         dataEmitMetadata = "0"
-        dataInputPosition = "bottom"
+        dataInputPosition = "top"
         lightTheme = "light"
         darkTheme = "dark"
         dataLang = "en"
