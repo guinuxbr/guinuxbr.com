@@ -12,7 +12,7 @@ theme = "DoIt"
 enableGitInfo = false
 
 # Tell Hugo to export the static site to "docs" folder
-publishDir = "docs"
+# publishDir = "docs"
 
 [params]
   # DoIt theme version
