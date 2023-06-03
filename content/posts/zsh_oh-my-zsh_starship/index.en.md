@@ -7,11 +7,14 @@ draft: false
 tags: ["Linux", "Shell", "Bash", "Zsh"]
 categories: ["tutorials", "productivity"]
 align: left
+featuredImage: zsh_oh-my-zsh_starship.png
 ---
 
 ## Introduction
 
-**Update**: Starship configuration changed in the newer versions. This article was updated and covers version 1.3.0.
+{{< admonition type=info title="Update" open=true >}}
+Starship configuration changed in the newer versions. This article was updated and covers version 1.3.0.
+{{< /admonition >}}
 
 Hi, welcome to my blog!  
 

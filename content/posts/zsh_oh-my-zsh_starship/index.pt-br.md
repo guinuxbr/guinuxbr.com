@@ -6,6 +6,7 @@ draft: false
 tags: ["Linux", "Shell", "Bash", "Zsh"]
 categories: ["tutoriais"]
 align: left
+featuredImage: zsh_oh-my-zsh_starship.png
 ---
 
 ## Introdução
