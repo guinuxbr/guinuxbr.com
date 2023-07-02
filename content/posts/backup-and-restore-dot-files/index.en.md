@@ -28,13 +28,13 @@ git init $HOME/.dotfiles
 The default behaviour of Git commands is to run inside the project folder using information stored at the `<project>/.git` directory and Git assumes that the working tree is located at `<project>`. To enable the execution of Git commands specifically for the "dotfiles" repository from anywhere, it is needed to create an alias that indicates the location of the Git directory and the working tree.
 
 ```shell
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 ```
 
 Make this alias permanent.
 
 ```shell
-echo "alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'" >> $HOME/.zsh/aliases
+echo "alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'" >> $HOME/.zsh/aliases
 ```
 
 Source the `aliases` file inside the `.zshrc` file by adding the following line.
@@ -88,8 +88,10 @@ git clone --bare <remote-url> $HOME/.dotfiles
 Before checking out, ensure that none of the repository files exist in the local filesystem. If there are existing files, backup them by renaming them to something like `filename.old` and then run the following command.
 
 ```shell
-/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME checkout
+/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 ```
+
+Close the terminal and re-open it. All the configurations should be enabled now as the dotfiles should be at the right places.
 
 ## Conclusion
 
