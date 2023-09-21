@@ -2,7 +2,7 @@
 title: "Linux Check Ghost Files"
 date: 2023-09-21T21:37:50+01:00
 draft: true
-tags: ["Linux", ""]
+tags: ["Linux", "Shell"]
 categories: ["quick tips"]
 align: left
 ---
