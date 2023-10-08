@@ -71,67 +71,117 @@ On Linux, USB drives usually appears as `sdx1`, `sdbx1`, etc. Remember to remove
 sudo dd if=archlinux-RELEASE_VERSION-x86_64.iso of=/dev/sdx bs=4M status=progress oflag=sync
 ```
 
-### Boot the installer
+### Booting the installer
 
-Insert USB installer into target device and boot. Installer auto-logins as root.
-1.2.1 Optional: Continue install from another Linux system via SSH
+Insert USB device with the installer and set your device to boot from it. The installer will auto-login as `root`.
 
-Enable SSH on the target device ...
+#### Setting the keyboard layout
 
-systemctl start sshd.service
+The default console keymap is `us`. It is a good idea to match the keyboard layout with the one used in the installation. This will prevent errors when creating the needed passwords.
 
-Set password for root ...
+List available layouts:
 
-passwd
-
-Look up IP address ...
-
-ip a
-
-Now, from the other system, ssh into the Arch installer ...
-
-ssh <root@ip.address.of.arch-target-device>
-
-1.3 Keyboard and font
-
-Default console keymap is us.
-
-Optional: List available layouts ...
-
+```bash
 localectl list-keymaps
+```
 
-Load a different keymap (example: colemak) ...
+Load the appropriate keymap:
 
-loadkeys colemak
+```bash
+loadkeys uk
+```
 
-Default font in the installer is very small on high resolution displays. Alternative fonts are available in /usr/share/kbd/consolefonts.
+#### Setting the font
 
-Switch to a larger font size (example: terminus ter-v24n) ...
+The default font can be small if you are using a high-resolution display. Check `/usr/share/kbd/consolefonts` for other fonts.
 
+You can check some previews [here](https://adeverteuil.github.io/linux-console-fonts-screenshots/). Then, set the font.
+
+```bash
 setfont ter-v24n
+```
 
-1.4 Verify boot mode
+#### Checking the boot mode
 
-If UEFI mode is enabled on a UEFI motherboard, the installer will boot Arch accordingly.
+The installer should boot Arch in UEFI mode if the system is configured accordingly. It is worth to check though.
 
-Verify system is booted via UEFI by listing contents of efivars ...
-
+```bash
 ls /sys/firmware/efi/efivars
+```
 
-If the directory does not exist, the system is booted in BIOS mode.
+If the directory does not exist, the system did not boot in UEFI mode. Reboot the machine and check the configuration.
 
-Note: If the target device has been manufactured within the last decade, chances are its a UEFI-capable device. All my current devices use UEFI boot mode and this HOWTO is based on UEFI. Some of the instructions below - drive partitioning and GRUB setup in particular - will need to be modified if using BIOS mode. Check out the Arch Wiki for details.
-1.5 Connect to internet
+{{< admonition type=note title="NOTE:" open=true >}}
+Although it is possible to use this guide to install Arch in a BIOS system, all steps were tested in my UEFI based laptop. Pay special attention about the drive partitioning steps.
+{{< /admonition >}}
 
-Ethernet: Auto-configured
+#### Connect to internet
 
-Wireless: Wireless network configuration
-1.6 Update system clock
+The ethernet adapter will be configured automatically using DHCP.
 
+For wireless connection behind WPA2 (most common scenario), `iwd` can be used. The instructions below can be used as a reference. More details can be found at the Arch Wiki article [iwd](https://wiki.archlinux.org/title/iwd)
+
+{{< admonition type=tip title="TIP:" open=true >}}
+
+- In the `iwctl` prompt you can auto-complete commands and device names by hitting `Tab`.
+- To exit the interactive prompt, send EOF by pressing `Ctrl+d`.
+- You can use all commands as command line arguments without entering an interactive prompt. For example: `iwctl device wlan0 show`.
+{{< /admonition >}}
+
+```bash
+iwctl
+```
+
+The interactive prompt is then displayed with a prefix of `[iwd]#`.
+
+| iw command | Description |
+|----------|----------|
+| device list | Get the wireless interface name.  |
+| device <device_name> set-property Powered on | Turn the device on. |
+| adapter <adapter_name> set-property Powered on | Turn the adapter on. |
+| station <device_name> scan | Scanning for available access points. |
+| station <device_name> get-networks | List all available networks. |
+| station device connect SSID | Connect to a network. |
+
+#### Configuring the system clock
+
+Enable the Network Time Protocol.
+
+```bash
 timedatectl set-ntp true
-timedatectl status
+```
 
-1.7 Set disk for install
+Check the avaialble timezones.
+
+```bash
+timedatectl list-timezones
+```
+
+Seti the desired timezone.
+
+```bash
+timedatectl set-timezone Europe/London
+```
+
+Check the time status.
+
+```bash
+timedatectl status
+```
+
+It should shouw something similar to:
+
+```bash
+Local time: Sun 2023-10-08 18:35:20 BST
+Universal time: Sun 2023-10-08 17:35:20 UTC
+RTC time: Sun 2023-10-08 17:35:20
+Time zone: Europe/London (BST, +0100)
+System clock synchronized: yes
+NTP service: active
+RTC in local TZ: no
+```
+
+#### Configuring the disk
 
 Identify the internal storage device where Arch Linux will be installed by running lsblk -f.
 
