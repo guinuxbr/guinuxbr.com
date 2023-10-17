@@ -53,7 +53,7 @@ There are different methods to "burn" the ISO to the USB drive, I'll list only t
 
 If you already use [Ventoy](https://www.ventoy.net/en/index.html), this is the easiest way. The Ventoy setup and usage is out of scope for this article.
 
-To see the Arch Linux option in Ventoy's boot menu, just copy the downloaded iso `archlinux-YYYY.MM.DD-x86_64.iso` to the USB drive in the same directory of other ISO images and reboot. Ventoy should generate a menu entry for Arch Linux automatically.
+To see the Arch Linux option in Ventoy's boot menu, just copy the downloaded ISO `archlinux-YYYY.MM.DD-x86_64.iso` to the USB drive in the same directory of other ISO images and reboot. Ventoy should generate a menu entry for Arch Linux automatically.
 
 #### Using `dd`
 
@@ -77,7 +77,7 @@ Insert USB device with the installer and set your device to boot from it. The in
 
 #### Setting the keyboard layout
 
-The default console keymap is `us`. It is a good idea to match the keyboard layout with the one used in the installation. This will prevent errors when creating the needed passwords.
+The default console key map is `us`. It is a good idea to match the keyboard layout with the one used in the installation. This will prevent errors when creating the needed passwords.
 
 List available layouts:
 
@@ -85,7 +85,7 @@ List available layouts:
 localectl list-keymaps
 ```
 
-Load the appropriate keymap:
+Load the appropriate key map:
 
 ```bash
 loadkeys uk
@@ -117,13 +117,13 @@ Although it is possible to use this guide to install Arch in a BIOS system, all 
 
 #### Connect to internet
 
-The ethernet adapter will be configured automatically using DHCP.
+The Ethernet adapter will be configured automatically using DHCP.
 
 For wireless connection behind WPA2 (most common scenario), `iwd` can be used. The instructions below can be used as a reference. More details can be found at the Arch Wiki article [iwd](https://wiki.archlinux.org/title/iwd)
 
 {{< admonition type=tip title="TIP:" open=true >}}
 
-- In the `iwctl` prompt you can auto-complete commands and device names by hitting `Tab`.
+- In the `iwctl` prompt, commands and devices can be auto-completed by hitting `Tab`.
 - To exit the interactive prompt, send EOF by pressing `Ctrl+d`.
 - You can use all commands as command line arguments without entering an interactive prompt. For example: `iwctl device wlan0 show`.
 {{< /admonition >}}
@@ -151,13 +151,13 @@ Enable the Network Time Protocol.
 timedatectl set-ntp true
 ```
 
-Check the avaialble timezones.
+Check the available time zones.
 
 ```bash
 timedatectl list-timezones
 ```
 
-Seti the desired timezone.
+Set the desired timezone.
 
 ```bash
 timedatectl set-timezone Europe/London
@@ -169,7 +169,7 @@ Check the time status.
 timedatectl status
 ```
 
-It should shouw something similar to:
+It should show something similar to:
 
 ```bash
 Local time: Sun 2023-10-08 18:35:20 BST
@@ -183,66 +183,74 @@ RTC in local TZ: no
 
 #### Configuring the disk
 
-Identify the internal storage device where Arch Linux will be installed by running lsblk -f.
+Check what is the device name where the system will be installed with `lsblk -f`.
 
-Set a disk variable for use in installation commands.
+In my case I have two potential devices `nvme0n1` and `nvme1n1`. On Linux, devices are located in `/dev`, therefore, my devices are `/dev/nvme0n1` and `/dev/nvme1n1`.
 
-Example: In this HOWTO I'm installing to my internal storage device identified as nvme0n1 ...
+In this guide I'll use `/dev/nvme0n1`
 
+```bash
 export disk="/dev/nvme0n1"
+```
 
-1.8 Delete old partition layout
+#### Delete old partition layout
 
+{{< admonition type=warning title="WARNING" open=true >}}
+The following commands perform destructive operations, you must proceed with care!
+{{< /admonition >}}
+
+```bash
 wipefs -af $disk
+```
+
+```bash
 sgdisk --zap-all --clear $disk
+```
+
+```bash
 partprobe $disk
+```
 
-1.8.1 Optional: Fill disk with random data
+#### Partition the drive
 
-Plain dm-crypt is used for a very fast wipe with randomness.
+Use `sgdisk` to list the partition type and its codes.
 
-Create a temporary crypt device (example: target) ...
-
-cryptsetup open --type plain -d /dev/urandom $disk target
-
-This maps the container under /dev/mapper/target with a random password.
-
-Fill the container with a stream of zeros using dd ...
-
-dd if=/dev/zero of=/dev/mapper/target bs=1M status=progress oflag=direct
-
-Using if=/dev/urandom is not required as the dm-crypt cipher is used for randomness.
-
-When dd is finished, remove the mapping ...
-
-cryptsetup close target
-
-Links: ArchWiki: Dm-crypt drive preparation and Cryptsetup FAQ
-1.9 Partition disk
-
-Use sgdisk to create partitions.
-
-List partition type codes ...
-
+```bash
 sgdisk --list-types
+```
 
-I use a layout for a single SSD with a GPT partition table that contains two partitions:
+I'll use a simple layout for a single drive with a GPT (not the Chat one :D) partition table containing two partitions:
 
-    Partition 1 - EFI partition (ESP) - size 512MiB, code ef00
-    Partition 2 - encrypted partition (LUKS) - remaining storage, code 8309
+- EFI partition (ESP)
+  - size: 512 MiB
+  - code `ef00`
+- Encrypted partition (LUKS)
+  - size: the rest of space in the drive
+  - code `8309`
 
+```bash
 sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:esp $disk
+```
+
+```bash
 sgdisk -n 0:0:0 -t 0:8309 -c 0:luks $disk
+```
+
+```bash
 partprobe $disk
+```
 
-Print the new partition table...
+Display the new partition table.
 
+```bash
 sgdisk -p $disk
+```
 
-In lieu of using a swapfile or dedicated swap partition as system swap, I create a swap device in RAM after the install is complete and I've rebooted into my new Arch environment.
+In lieu of using a swapfile or dedicated swap partition as system swap, I create a swap device in RAM after the installation is complete, and I've rebooted into my new Arch environment.
 
 Link: Managing partitions with sgdisk
-1.10 Encrypt partition
+
+#### Encrypt partition
 
 Latest GRUB (2.06) has added limited support for LUKS2. Note, however, that when /boot is placed on a LUKS2 partition and using GRUB as the boot loader ...
 
