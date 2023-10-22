@@ -1,12 +1,12 @@
 ---
-title: "Archlinux Install Btrfs Encryption"
+title: "Archlinux Install BTRFS Encryption"
 date: 2023-09-16T18:52:06+01:00
 draft: true
 ---
 
-Arch Linux is an excellent Linux for a hands-on, daily use system when you are curious and motivated - practically required - to dig into the nitty gritty.
+Arch Linux is an excellent Linux for a hands-on, daily use system when you are curious and motivated - practically required - to dig into the nitty-gritty.
 
-In this article, I'll describe the steps for a minimal Arch Linux installation using LUKS for disk encryption (excluding `/boot`, more on that later) and using BTRFS as main filesystem.
+In this article, I'll describe the steps for a minimal Arch Linux installation using LUKS for disk encryption (excluding `/boot`, more on that later) and using BTRFS as main file system.
 
 Some relevant details about the environment:
 
@@ -14,9 +14,9 @@ Some relevant details about the environment:
 - wired network connection
 - Arch Linux is the only OS on a dual disk laptop
 - GPT partition table with two partitions:
-  - unencryted `/boot` and EFI system partition (ESP)
+  - unencrypted `/boot` and EFI system partition (ESP)
   - LUKS encrypted `/` partition
-- BTRFS as main filesystem with multiple subvolumes
+- BTRFS as main file system with multiple sub volumes
 - unlock system at boot with single passphrase
 - GRUB as bootloader
 
@@ -189,10 +189,6 @@ In my case I have two potential devices `nvme0n1` and `nvme1n1`. On Linux, devic
 
 In this guide I'll use `/dev/nvme0n1`
 
-```bash
-export disk="/dev/nvme0n1"
-```
-
 #### Delete old partition layout
 
 {{< admonition type=warning title="WARNING" open=true >}}
@@ -200,15 +196,15 @@ The following commands perform destructive operations, you must proceed with car
 {{< /admonition >}}
 
 ```bash
-wipefs -af $disk
+wipefs -af /dev/nvme0n1
 ```
 
 ```bash
-sgdisk --zap-all --clear $disk
+sgdisk --zap-all --clear /dev/nvme0n1
 ```
 
 ```bash
-partprobe $disk
+partprobe /dev/nvme0n1
 ```
 
 #### Partition the drive
@@ -229,169 +225,318 @@ I'll use a simple layout for a single drive with a GPT (not the Chat one :D) par
   - code `8309`
 
 ```bash
-sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:esp $disk
+sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:esp /dev/nvme0n1
 ```
 
 ```bash
-sgdisk -n 0:0:0 -t 0:8309 -c 0:luks $disk
+sgdisk -n 0:0:0 -t 0:8309 -c 0:luks /dev/nvme0n1
 ```
 
 ```bash
-partprobe $disk
+partprobe /dev/nvme0n1
 ```
 
 Display the new partition table.
 
 ```bash
-sgdisk -p $disk
+sgdisk -p /dev/nvme0n1
 ```
 
-In lieu of using a swapfile or dedicated swap partition as system swap, I create a swap device in RAM after the installation is complete, and I've rebooted into my new Arch environment.
-
-Link: Managing partitions with sgdisk
+Regarding the Swap file/partition, I'll use [zram-generator](https://github.com/systemd/zram-generator), to create a swap device compressed in the RAM.
 
 #### Encrypt partition
 
-Latest GRUB (2.06) has added limited support for LUKS2. Note, however, that when /boot is placed on a LUKS2 partition and using GRUB as the boot loader ...
+At the time of this writing GRUB 2.06 has limited support for LUKS2. [See GRUB bug #55093](https://savannah.gnu.org/bugs/?55093). However, when `/boot` is placed on a LUKS2 partition and using GRUB as the bootloader ...
 
-    [O]nly the PBKDF2 key derival function is supported. This can mostly attributed to the fact that the libgcrypt library currently has no support for either Argon2i or Argon2id, which are the remaining KDFs supported by LUKS2.
-
-In all circumstances, LUKS1 is successful. So that is what I use.
-
-If the disk variable created earlier was set as a nvme-type storage device (as in this HOWTO), then the LUKS partition will be ${disk}p2. Otherwise, it will be ${disk}2 (drop the p).
+As LUKS1 is completely supported, it will be used in this guide.
 
 Initialize the encrypted partition (partition #2) ...
 
-cryptsetup --type luks1 -v -y luksFormat ${disk}p2
+```bash
+cryptsetup --type luks1 --cipher aes-xts-plain64 --hash sha512 --use-random --verify-passphrase luksFormat /dev/nvme0n1p2
+```
 
-1.11 Format partitions
+Here is a brief explanation of the command options used:
 
-ESP partition (partition #1) is formatted with the vfat filesystem, and the Linux root partition (partition #2) uses btrfs ...
+`--type luks1`: as mentioned above, due to GRUB still not fully support LUKS2, version 1 will be used. LUKS1 is the older version of the LUKS standard, but it is still widely supported.
 
-cryptsetup open ${disk}p2 cryptdev
-mkfs.vfat -F32 -n ESP ${disk}p1
-mkfs.btrfs -L archlinux /dev/mapper/cryptdev
+`--cipher aes-xts-plain64`: specifies the encryption cipher to be used. `AES-XTS` is a strong and secure encryption algorithm.
 
-1.12 Mount root device
+`--hash sha512`: specifies the hash algorithm to be used for key derivation. SHA-512 is a fast and secure hash algorithm which works very well with x64 CPUs.
 
-mount /dev/mapper/cryptdev /mnt
+`--use-random`: tells `cryptsetup` to use random data for key generation. This is important for security, as it makes the encryption keys more difficult to guess.
 
-1.13 Create BTRFS subvolumes
+`--verify-passphrase`: tells `cryptsetup` to prompt the user to enter the passphrase twice, to ensure that it is entered correctly.
 
-Each BTRFS filesystem has a top-level subvolume with ID=5. A subvolume is a part of the filesystem with its own independent data.
+`luksFormat`: format the specified device with LUKS encryption.
 
-Creating subvolumes on a BTRFS filesystem allows the separation of data. This is particularly useful when creating backup snapshots of the system. An example scenario might be where its desirable to rollback a system after a broken upgrade, but any changes made in a user's /home directory should be left alone.
+#### Format partitions
 
-Changing subvolume layouts is made simpler by not mounting the top-level subvolume as / (the default). Instead, create a subvolume that contains the actual data, and mount that to /.
+The ESP partition (partition #1) is formatted with the `vfat` file system, and the Linux `root` partition (partition #2) uses `btrfs`.
 
-Use @ for the name of this new subvolume (which is the default for Snapper, a tool for making backup snapshots) ...
+```bash
+cryptsetup open /dev/nvme0n1p2 cryptoarch
+```
 
-btrfs subvolume create /mnt/@
+```bash
+mkfs.vfat -F32 -n ESP /dev/nvme0n1p1
+```
 
-I create additional subvolumes for more fine-grained control over rolling back the system to a previous state, while preserving the current state of other directories. These subvolumes will be excluded from any root subvolume snapshots:
+```bash
+mkfs.btrfs -L ArchLinux /dev/mapper/cryptoarch
+```
 
-Subvolume -- Mountpoint
+#### Mount root device
 
-    @home -- /home (preserve user data)
-    @snapshots -- /.snapshots
-    @cache -- /var/cache
-    @libvirt -- /var/lib/libvirt (virtual machine images)
-    @log -- /var/log (excluding log files makes troubleshooting easier after reverting /)
-    @tmp -- /var/tmp
+```bash
+mount /dev/mapper/cryptoarch /mnt
+```
 
-The reasoning behind not excluding the entire /var out of the root snapshot is that /var/lib/pacman database in particular should mirror the rolled back state of installed packages.
+#### Create BTRFS sub volumes
 
-Create the subvolumes ...
+Every BTRFS file system has a primary sub-volume with the identifier "ID=5". A sub-volume is a self-contained section of the file system with its own independent data.
 
-btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@snapshots
-btrfs subvolume create /mnt/@cache
-btrfs subvolume create /mnt/@libvirt
-btrfs subvolume create /mnt/@log
-btrfs subvolume create /mnt/@tmp
+Creating sub-volumes within a BTRFS file system enables data segmentation. This is especially beneficial when creating backup snapshots of the system. Consider a situation where you want to revert a system after a faulty upgrade, but any modifications made in a user's `/home` directory should be preserved.
 
-1.14 Mount subvolumes
+To simplify sub-volume layout modifications, avoid mounting the top-level sub-volume as `/` (the default). Instead, create a sub-volume to hold the actual data and mount it to `/`.
 
-Unmount the root partition ...
+I named the new sub-volume "@" as it is the default for [Snapper](https://github.com/openSUSE/snapper), a tool for creating backup snapshots which I will speak more later.
 
+```bash
+btrfs sub volume create /mnt/@
+```
+
+It is nice to have additional sub-volumes to better control over rolling back the system to a previous state, while preserving the current state of other directories. These sub-volumes will be excluded from any root sub-volume snapshots. There are an unlimited way to configure the sub-volumes, it will depend on the user needs. Here is the structure used in this guide:
+
+| sub-volume | mount point                                                                   |
+| ---------- | ----------------------------------------------------------------------------- |
+| @home      | /home (preserve user data)                                                    |
+| @snapshots | /.snapshots                                                                   |
+| @cache     | /var/cache                                                                    |
+| @libvirt   | /var/lib/libvirt (virtual machine images)                                     |
+| @log       | /var/log (excluding log files makes troubleshooting easier after reverting /) |
+| @tmp       | /var/tmp                                                                      |
+
+The reasoning behind not excluding the entire /var out of the root snapshot is that `/var/lib/pacman` database in particular should mirror the rolled back state of installed packages.
+
+To create the sub-volumes, `btrfs` provides the sub-command `sub-volume` with the option `create`.
+
+```bash
+btrfs sub-volume create /mnt/@home
+```
+
+```bash
+btrfs sub-volume create /mnt/@snapshots
+```
+
+```bash
+btrfs sub-volume create /mnt/@cache
+```
+
+```bash
+btrfs sub-volume create /mnt/@libvirt
+```
+
+```bash
+btrfs sub-volume create /mnt/@log
+```
+
+```bash
+btrfs sub-volume create /mnt/@tmp
+```
+
+#### Mount sub volumes
+
+Unmount the `root` partition to be able to mount the sub-volumes.
+
+```bash
 umount /mnt
+```
 
-Set mount options for the subvolumes ...
+Mount the new BTRFS root sub-volume with `subvol=@`.
 
-export sv_opts="rw,noatime,compress-force=zstd:1,space_cache=v2"
+```bash
+mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@ /dev/mapper/cryptoarch /mnt
+```
 
-Options:
+Create mount points for the additional sub volumes.
 
-    noatime increases performance and reduces SSD writes.
-    compress-force=zstd:1 is optimal for NVME devices. Omit the :1 to use the default level of 3. Zstd accepts a value range of 1-15, with higher levels trading speed and memory for higher compression ratios.
-    space_cache=v2 creates cache in memory for greatly improved performance.
-
-Mount the new BTRFS root subvolume with subvol=@ ...
-
-mount -o ${sv_opts},subvol=@ /dev/mapper/cryptdev /mnt
-
-Create mountpoints for the additional subvolumes ...
-
+```bash
 mkdir -p /mnt/{home,.snapshots,var/cache,var/lib/libvirt,var/log,var/tmp}
+```
 
-Mount the additional subvolumes ...
+Mount each sub-volume using the mount options. After typing the first command, use the up arrow key (⬆️) to repeat the previous command and adjust the options `subvol=@` and `/mnt/` to point to the correct sub-volume name and mount point.
 
-mount -o ${sv_opts},subvol=@home /dev/mapper/cryptdev /mnt/home
-mount -o ${sv_opts},subvol=@snapshots /dev/mapper/cryptdev /mnt/.snapshots
-mount -o ${sv_opts},subvol=@cache /dev/mapper/cryptdev /mnt/var/cache
-mount -o ${sv_opts},subvol=@libvirt /dev/mapper/cryptdev /mnt/var/lib/libvirt
-mount -o ${sv_opts},subvol=@log /dev/mapper/cryptdev /mnt/var/log
-mount -o ${sv_opts},subvol=@tmp /dev/mapper/cryptdev /mnt/var/tmp
+```bash
+mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@home /dev/mapper/cryptoarch /mnt/home
+```
 
-Links: What BTRFS subvolume mount options should I use? and btrfs-man5(5)
-1.15 Mount ESP partition
+```bash
+mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@snapshots /dev/mapper/cryptoarch /mnt/.snapshots
+```
 
+```bash
+mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@cache /dev/mapper/cryptoarch /mnt/var/cache
+```
+
+```bash
+mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@libvirt /dev/mapper/cryptoarch /mnt/var/lib/libvirt
+```
+
+```bash
+mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@log /dev/mapper/cryptoarch /mnt/var/log
+```
+
+```bash
+mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@tmp /dev/mapper/cryptoarch /mnt/var/tmp
+```
+
+BTRFS supports several mount options. Here is a brief explanation of the command options used:
+
+`noatime`: disables the updating of file access timestamps (`atime`) when files are read. This can improve performance by reducing the amount of disk I/O required.
+
+`compress-force=zstd:1`: forces BTRFS to compress all files using the `zstd` compression algorithm with a compression level of 1. This will save disk space and improve performance, especially for files that are not frequently accessed.
+
+`ssd`: enables SSD-specific optimizations in BTRFS. This can improve performance by reducing the amount of unnecessary disk I/O.
+
+`space_cache=v2`: enables the use of the v2 space cache algorithm. This can improve performance by reducing the amount of time required to find free space on the disk.
+
+Detailed information can be found in [BTRFS documentation](https://btrfs.readthedocs.io/en/latest/btrfs-man5.html)
+
+#### Mount ESP partition
+
+```bash
 mkdir /mnt/efi
-mount ${disk}p1 /mnt/efi
+```
 
-1.16 Select package mirrors
+```bash
+mount /dev/nvme0n1p1 /mnt/efi
+```
 
-Synchronize package databases ...
+#### Select package mirrors
 
+Choose the faster mirrors to perform the package installation can drastically improve the installation speed.
+
+```bash
 pacman -Syy
+```
 
-Generate a new mirror selection using reflector.
+Use [reflector](https://xyne.dev/projects/reflector) to generate a new set of mirrors to be user by Arch Linux package manager, `pacman`.
 
-Example: Verbosely select the 5 most recently synchronized HTTPS mirrors located in either Canada or Germany, sort them by download speed, and overwrite mirrorlist ...
+```bash
+reflector --verbose --protocol https --latest 10 --sort rate --country GB --country IR --save /etc/pacman.d/mirrorlist
+```
 
-reflector --verbose --protocol https --latest 5 --sort rate --country Canada --country Germany --save /etc/pacman.d/mirrorlist
+This will get the most recently synchronized 10 mirrors hosted in the UK or Ireland which uses `https` and sort them by speed. The result will be saved to `/etc/pacman.d/mirrorlist` which is the default location where `pacman` will search for mirrors definition.
 
-1.17 Install base system
+#### Install base system
 
-Select an appropriate microcode package to load updates and security fixes from processor vendors.
+The package selection here depends on user needs. From the packages below, `vim` and `zsh` are optional, but recommended.
 
-View cpuinfo ...
+```bash
+pacstrap /mnt base base-devel git dracut intel-ucode btrfs-progs networkmanager cryptsetup vim sudo zsh
+```
 
-grep vendor_id /proc/cpuinfo
+#### Configure /etc/fstab
 
-Depending on the processor, set microcode for Intel ...
-
-export microcode="intel-ucode"
-
-For AMD ...
-
-export microcode="amd-ucode"
-
-Install the base system ...
-
-pacstrap /mnt base base-devel ${microcode} btrfs-progs linux linux-firmware bash-completion cryptsetup htop man-db mlocate neovim networkmanager openssh pacman-contrib pkgfile reflector sudo terminus-font tmux
-
-1.18 Fstab
-
+```bash
 genfstab -U -p /mnt >> /mnt/etc/fstab
+```
 
-1. Configure
+#### Start configuring the base system
 
-Chroot into the base system to configure ...
+Now that the base system is installed, we can use `arch-chroot` to mount it and start the configuration.
 
+```bash
 arch-chroot /mnt /bin/bash
+```
 
-2.1 Timezone
+#### Define the `root` user password
+
+```bash
+passwd
+```
+
+Choose a strong password and type it twice. You can use [Bitwarden](https://bitwarden.com/password-generator/) in another device if you are out of ideas.
+
+#### Add a standard user
+
+Create a standard user and give it Administrator privileges using `sudo`.
+
+```bash
+useradd -m -G wheel -s $(which zsh) foo
+```
+
+Define the password for the newly created user.
+
+```bash
+passwd foo
+```
+
+#### Enable the dracut-hook
+
+Become the recently created non-root user.
+
+```bash
+su - guinuxbr
+```
+
+Get the `dracut-hook` repository source code.
+
+```bash
+git clone https://aur.archlinux.org/dracut-hook.git
+```
+
+Enter the cloned directory.
+
+```bash
+cd dracut-hook
+```
+
+Build and install the package.
+
+```bash
+makepkg -si
+```
+
+After the installation finishes, press `CTRL+d` to return to the `root` prompt.
+
+#### Configure Dracut options
+
+Using [vim](https://github.com/vim/vim), create the file `/etc/dracut.conf.d/10-custom.conf`.
+
+```bash
+vim /etc/dracut.conf.d/10-custom.conf
+```
+
+And add the content below.
+
+```bash
+omit_dracutmodules+=" network cifs nfs brltty "
+compress="zstd"
+```
+
+Again, Using [vim](https://github.com/vim/vim), create the file `/etc/dracut.conf.d/20-encryption.conf`.
+
+```bash
+vim etc/dracut.conf.d/20-encryption.conf
+```
+
+And add the content below.
+
+```bash
+install_items+=" /etc/crypttab /crypto_keyfile.bin "
+```
+
+#### Install the kernel
+
+```bash
+pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware
+```
+
+If everything went fine, `dracut-hook` will detect a newly installed kernel and will build the `initrams` accordingly.
+
+#### Timezone
 
 Set desired timezone (example: America/Toronto) and update the system clock ...
 
@@ -437,19 +582,6 @@ Set a system-wide default editor (example: neovim) ...
 
 echo "EDITOR=nvim" > /etc/environment && echo "VISUAL=nvim" >> /etc/environment
 
-2.6 Root password
-
-Assign password to root ...
-
-passwd
-
-2.7 Add user
-
-Create a user account (example: foo) with superuser privileges ...
-
-useradd -m -G wheel -s /bin/bash foo
-passwd foo
-
 Activate wheel group access for sudo ...
 
 sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
@@ -470,7 +602,7 @@ systemctl enable sshd.service
 After the install is complete and system has rebooted, secure remote access using SSH keys.
 2.10 Keyfile
 
-Keeping /boot on the encrypted partition results in being prompted twice for the LUKS passphrase: first instance, for GRUB to unlock and access /boot in the early stage of the boot process; second instance, to unlock the root filesystem itself as implemented in the initramfs.
+Keeping /boot on the encrypted partition results in being prompted twice for the LUKS passphrase: first instance, for GRUB to unlock and access /boot in the early stage of the boot process; second instance, to unlock the root file system itself as implemented in the initramfs.
 
 To unlock system at boot by entering the passphrase a single time:
 
@@ -501,7 +633,7 @@ FILES=(/crypto_keyfile.bin)
 
 MODULES
 
-Add btrfs support to mount the root filesystem ...
+Add btrfs support to mount the root file system ...
 
 MODULES=(btrfs)
 
@@ -509,7 +641,7 @@ HOOKS
 
 Set hooks ...
 
-HOOKS=(base udev keyboard autodetect keymap consolefont modconf block encrypt filesystems fsck)
+HOOKS=(base udev keyboard autodetect keymap consolefont modconf block encrypt file systems fsck)
 
 Order of the hooks matters:
 
@@ -519,7 +651,7 @@ Order of the hooks matters:
     keymap and consolefont loads the specified keymap and font from /etc/vconsole.conf
     modconf includes modprobe configuration files.
     block adds all block device modules.
-    encrypt is required to detect and unlock an encrypted root partition. This must be placed before filesystems.
+    encrypt is required to detect and unlock an encrypted root partition. This must be placed before file systems.
 
 Recreate the initramfs image ...
 
@@ -543,11 +675,11 @@ GRUB_CMDLINE_LINUX_DEFAULT
 
 Set ...
 
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptdevice=UUID=UUID_OF_ENCRYPTED_PARTITION:cryptdev"
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptoarchice=UUID=UUID_OF_ENCRYPTED_PARTITION:cryptoarch"
 
 Example: If the UUID of the encrypted partition was 180901b5-151a-45e3-ba87-28f02b124666, then ...
 
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptdevice=UUID=180901b5-151a-45e3-ba87-28f02b124666:cryptdev"
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptoarchice=UUID=180901b5-151a-45e3-ba87-28f02b124666:cryptoarch"
 
 GRUB_PRELOAD_MODULES
 
