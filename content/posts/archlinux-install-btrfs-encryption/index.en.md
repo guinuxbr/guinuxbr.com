@@ -939,10 +939,6 @@ makepkg -si
 
 Consult the `paru` documentation to learn how to use it.
 
-### Enabling system snapshots
-
-Create BTRFS snapshots and manage Arch system rollbacks using a combination of `btrfs-assistant` + `snap-pac` + `grub-btrfs`.
-
 ### Desktop Environment
 
 There are several choices for Linux Desktops Environments, my preferred one is, by far, [KDE Plasma](https://kde.org/).
@@ -963,7 +959,150 @@ sudo systemctl enable sddm
 
 Reboot the system, then enjoy your Arch Linux fresh installation.
 
+### Enabling system snapshots
+
+One of the main advantages of using the BTRFS file system is the possibility to have snapshots and system rollbacks. To achieve this, we can use a combination of `snapper`, `snap-pac` and `grub-btrfs`.
+
+- [snapper](https://github.com/openSUSE/snapper): Manage filesystem snapshots and allow undoing of system modifications
+- [snap-pac](https://github.com/wesbarnett/snap-pac): Arch Linux `pacman` hooks that use snapper to create pre/post BTRFS snapshots like [openSUSE's YaST](https://github.com/yast/)
+- [grub-btrfs](https://github.com/Antynea/grub-btrfs): Include BTRFS snapshots at boot options. (Grub menu)
+
+Install all needed packages.
+
+```bash
+sudo pacman -S snapper snap-pac grub-btrfs
+```
+
+#### Creating `snapper` configuration for root sub volume
+
+The first step is to get rid of the existing `/.snapshots` directory, because `snapper` will create it when we create the configuration.
+
+```bash
+sudo umount /.snapshots
+```
+
+```bash
+sudo rm -rf /.snapshots
+```
+
+Now we can create the `snapper` configuration. `root` is only the configuration name, you can change it as you see fit.
+
+```bash
+sudo snapper -c root create-config /
+```
+
+The above command generates:
+
+- A configuration file named `root` in `/etc/snapper/configs`
+- Add the `root` entry to the `SNAPPER_CONFIGS` field in `/etc/conf.d/snapper`
+- The sub volume `.snapshots` where future snapshots for this configuration will be stored.
+
+#### Configuring the snapshots
+
+Because we used `@` to identify all other sub volumes, we will remove the sub volume `.snapshots` automatically created by `snapper`.
+
+```bash
+sudo btrfs subvolume delete .snapshots
+```
+
+Now, re-create and mount the directory `./snapshots`
+
+```bash
+sudo mkdir /.snapshots
+```
+
+```bash
+sudo mount -a
+```
+
+Configure the permissions for `./snapshots`. The directory owner must be `root`, and members of the `wheel` group will have read and execute permissions which will allow then to browse into the directory.
+
+```bash
+sudo chmod 750 /.snapshots
+```
+
+```bash
+sudo chown :wheel /.snapshots
+```
+
+#### Configuring `grub-btrfs`
+
+In order to automatically update `grub` configuration upon snapshot creation or deletion, start and enable the `grub-btrfsd` service.
+
+```bash
+sudo systemctl enable --now grub-btrfsd
+```
+
+#### Configuring automatic snapshots
+
+The configuration of the `root` configuration created above is controlled by the file `/etc/snapper/configs/root`.
+
+In the below example, I followed the [ArchWiki recommendation](https://wiki.archlinux.org/title/snapper#Set_snapshot_limits) for the limits and added the user to `ALLOW_USERS`
+
+```bash
+# subvolume to snapshot
+SUBVOLUME="/"
+
+# filesystem type
+FSTYPE="btrfs"
+
+# btrfs qgroup for space aware cleanup algorithms
+QGROUP=""
+
+# fraction or absolute size of the filesystems space the snapshots may use
+SPACE_LIMIT="0.5"
+
+# fraction or absolute size of the filesystems space that should be free
+FREE_LIMIT="0.2"
+
+# users and groups allowed to work with config
+ALLOW_USERS="kermit"
+ALLOW_GROUPS=""
+
+# sync users and groups from ALLOW_USERS and ALLOW_GROUPS to .snapshots
+# directory
+SYNC_ACL="no"
+
+# start comparing pre- and post-snapshot in background after creating
+# post-snapshot
+BACKGROUND_COMPARISON="yes"
+
+# run daily number cleanup
+NUMBER_CLEANUP="yes"
+
+# limit for number cleanup
+NUMBER_MIN_AGE="1800"
+NUMBER_LIMIT="50"
+NUMBER_LIMIT_IMPORTANT="10"
+
+# create hourly snapshots
+TIMELINE_CREATE="yes"
+
+# cleanup hourly snapshots after some time
+TIMELINE_CLEANUP="yes"
+
+# limits for timeline cleanup
+TIMELINE_MIN_AGE="1800"
+TIMELINE_LIMIT_HOURLY="5"
+TIMELINE_LIMIT_DAILY="7"
+TIMELINE_LIMIT_WEEKLY="0"
+TIMELINE_LIMIT_MONTHLY="0"
+TIMELINE_LIMIT_YEARLY="0"
+
+# cleanup empty pre-post-pairs
+EMPTY_PRE_POST_CLEANUP="yes"
+
+# limits for empty pre-post-pair cleanup
+EMPTY_PRE_POST_MIN_AGE="1800"
+```
+
+Start and enable snapper-timeline.timer to launch the automatic snapshot timeline, and snapper-cleanup.timer to periodically clean up older snapshots...
+
+$ sudo systemctl enable --now snapper-timeline.timer
+$ sudo systemctl enable --now snapper-cleanup.timer
+
 ## References
 
 - [ArchWiki](https://wiki.archlinux.org/title/Main_page)
 - [A(rch) to Z(ram): Install Arch Linux with (almost) full disk encryption and BTRFS](https://www.dwarmstrong.org/archlinux-install/)
+- [Ventoy](https://www.ventoy.net/en/doc_news.html)
