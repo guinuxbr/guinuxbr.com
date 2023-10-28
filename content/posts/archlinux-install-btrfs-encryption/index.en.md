@@ -136,14 +136,14 @@ iwctl
 
 The interactive prompt is then displayed with a prefix of `[iwd]#`.
 
-| iw command | Description |
-|----------|----------|
-| device list | Get the wireless interface name.  |
-| device <device_name> set-property Powered on | Turn the device on. |
-| adapter <adapter_name> set-property Powered on | Turn the adapter on. |
-| station <device_name> scan | Scanning for available access points. |
-| station <device_name> get-networks | List all available networks. |
-| station device connect SSID | Connect to a network. |
+| `iw` command                                     | Description                           |
+| ------------------------------------------------ | ------------------------------------- |
+| `device list`                                    | Get the wireless interface name.      |
+| `device <device_name> set-property Powered on`   | Turn the device on.                   |
+| `adapter <adapter_name> set-property Powered on` | Turn the adapter on.                  |
+| `station <device_name> scan`                     | Scanning for available access points. |
+| `station <device_name> get-networks`             | List all available networks.          |
+| `station device connect <SSID>`                  | Connect to a network.                 |
 
 #### Configuring the system clock
 
@@ -751,7 +751,7 @@ systemctl reboot
 
 If everything worked as intended, the prompt to type the LUKS password should appear even before the GRUB screen.
 
-{{< admonition type=tip title="This is a tip" open=false >}}
+{{< admonition type=info title="Important" open=false >}}
 It can take a half-minute or more for the partition to be decrypted. This delay can be shortened by setting a lower `--iter-time` when running `cryptsetup luksAddkey`, however, the downside is a reduction in the security.
 {{< /admonition >}}
 
@@ -761,154 +761,209 @@ If the password is correct, the `GRUB` menu will appear, and you can choose your
 
 Now that Arch Linux is installed, the base system is running, but no UI is available. As much as we love the console interface, let's configure the system, add a DE (Desktop Environment) and some useful packages.
 
-These are a few things I like to do next ...
-3.1 Check for errors
+### Configuring `pacman` package manager
 
-Failed systemd services ...
+The file `/etc/pacman.conf` is responsible to configure the options for the Arch Linux package manager [pacman](https://wiki.archlinux.org/title/pacman). Observe the comments for each option.
 
-$ systemctl --failed
-
-High priority errors in the systemd journal ...
-
-$ journalctl -p 3 -xb
-
-3.2 Sudo
-
-Allow a user (example: kermit) to execute superuser commands using sudo without being prompted for a password.
-
-Create the file /etc/sudoers.d/sudoer_kermit with ...
-
-echo "kermit ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sudoer_kermit
-
-3.3 Package manager
-
-Bring some color and the spirit of Pacman to pacman with Color and ILoveCandy options.
-
-Modify /etc/pacman.conf ...
-
+```bash
 # Misc options
+#UseSyslog # Log action messages through syslog(). This will insert log entries into /var/log/messages or equivalent.
+Color # Automatically enable colors only when pacman’s output is on a tty.
+#NoProgressBar #Disables progress bars. This is useful for terminals which do not support escape characters.
+CheckSpace # Enable space-checking functionality for all packages.
+VerbosePkgLists # See old and new versions of available packages when pacman -Syu is invoked.
+ParallelDownloads = 8 # Enable parallel connections to speed up downloads.
+ILoveCandy # Add a Pac-Man style to pacman.
+```
 
-Color
-ILoveCandy
+### Updating the system
 
-Update system ...
+```bash
+sudo pacman -Syu
+```
 
-$ sudo pacman -Syu
+### Swap on RAM
 
-3.4 Pinky clean
+Instead of having a file or partition based `swap`, we will use a compressed device stored in RAM.
 
-Part of good system hygiene is keeping the system regularly updated and clearing away cruft. Read more
-3.5 SSH keys
+Install the package [zram-generator](https://github.com/systemd/zram-generator).
 
-Create cryptographic keys and disable password logins to make remote logins more secure. Read more
-3.6 Linux LTS kernel
+```bash
+sudo pacman -S zram-generator
+```
 
-Install the Long-Term Support (LTS) Linux kernel as a fallback option to Arch's default kernel ...
+Copy the sample configuration file.
 
-$ sudo pacman -S linux-lts
+```bash
+sudo cp /usr/share/doc/zram-generator/zram-generator.conf.example /etc/systemd/zram-generator.conf
+```
 
-Register the new kernel in the GRUB boot loader ...
+Check the online documentation and modify the file as needed.
 
-$ sudo grub-mkconfig -o /efi/grub/grub.cfg
+```bash
+# This file is part of the zram-generator project
+# https://github.com/systemd/zram-generator
 
-Reboot and select LTS kernel to test.
+[zram0]
+# This section describes the settings for /dev/zram0.
+#
+# The maximum amount of memory (in MiB). If the machine has more RAM
+# than this, zram device will not be created.
+#
+# "host-memory-limit = none" may be used to disable this limit. This
+# is also the default.
+host-memory-limit = none
 
-Confirm that running kernel is indeed -lts ...
+# The size of the zram device, as a function of MemTotal, both in MB.
+# For example, if the machine has 1 GiB, and zram-size=ram/4,
+# then the zram device will have 256 MiB.
+# Fractions in the range 0.1–0.5 are recommended.
+#
+# The default is "min(ram / 2, 4096)".
+zram-size = ram / 4
 
-$ uname -r
-5.15.59-2-lts
+# The compression algorithm to use for the zram device,
+# or leave unspecified to keep the kernel default.
+compression-algorithm = zstd
 
-Optional: If you want to use LTS as the default boot kernel, it is safe to remove Arch's linux kernel ...
+# By default, file systems and swap areas are trimmed on-the-go
+# by setting "discard".
+# Setting this to the empty string clears the option.
+options =
 
-$ sudo pacman -R linux
+# Write incompressible pages to this device,
+# as there's no gain from keeping them in RAM
+#writeback-device = /dev/zvol/tarta-zoot/swap-writeback
 
-Re-run grub-mkconfig to generate an updated boot config.
-3.7 Swap
+# The following options are deprecated, and override zram-size.
+# These values would be equivalent to the zram-size setting above.
+#zram-fraction = 0.10
+#max-zram-size = 2048
+```
 
-In lieu of using a swapfile or dedicated swap partition as system swap, I create a swap device in RAM using the Linux kernel module zram. Read more
-3.8 Command: 'locate'
+### Install a 'locate' command
 
-Find files by name.
+[plocate](https://plocate.sesse.net/) is a modern version of `locate`, a member of the GNU suite [findutils](https://www.gnu.org/software/findutils/). It uses an index to speed up the searches, and it is very fast.
 
-Install and update database ...
+```bash
+sudo pacman -S plocate
+```
 
-$ sudo pacman -S mlocate
-$ sudo updatedb
+Update the file database.
 
-Package mlocate contains an updatedb.timer unit, which invokes a database update each day. The timer is enabled after install.
-3.9 TRIM
+```bash
+sudo updatedb
+```
 
-Periodic TRIM optimizes performance on SSD storage.
+The package `plocate` provides a `Systemd` timer that will periodically scan the system and keep the file database updated.
 
-Enable a weekly task that discards unused blocks on the drive ...
+To enable the timer.
 
-$ sudo systemctl enable fstrim.timer
+```bash
+sudo systemctl enable --now plocate-updatedb.timer
+```
 
-3.10 Command-not-found
+### Enabling SSD TRIM
 
-Automatically search the official repositories when entering an unrecognized command, courtesy of pkgfile ...
+Periodic [TRIM](https://wiki.archlinux.org/title/Solid_state_drive#TRIM) optimizes performance on SSD storage.
 
-$ sudo pacman -S pkgfile
-$ sudo pkgfile --update
+Using BTRFS, asynchronous discard is [enabled](https://wiki.archlinux.org/title/Btrfs#SSD_TRIM) by default since kernel 6.2.
 
-Edit ~/.bashrc ...
+By enabling `fstrim.timer` the system will perform a periodic TRIM and span the SSD device life.
 
-if [[ -f /usr/share/doc/pkgfile/command-not-found.bash ]]; then
-    . /usr/share/doc/pkgfile/command-not-found.bash
+```bash
+sudo systemctl enable fstrim.timer
+```
+
+### Enabling 'command-not-found'
+
+When a command is typed, but not found in the system, the `command-not-found` functionality provided by the `pkgfile` package, will suggest an option based on the available packages in the Arch Linux repositories.
+
+Install the package.
+
+```bash
+sudo pacman -S pkgfile
+```
+
+Update the package's database.
+
+```bash
+sudo pkgfile --update
+```
+
+Configure the shell to load the `command-no-found` rules. Edit the file `~/.zshrc` and add `command-not-found.zsh` to it.
+
+```bash
+if [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]]; then
+    . /usr/share/doc/pkgfile/command-not-found.zsh
 fi
+```
 
-Source: .bashrc
-3.11 Sound
+### Installing the sound server
 
-Default Arch installation already includes the kernel sound system (ALSA).
+Some modern Linux distribution are using [pipewire](https://pipewire.org/) as sound server.
 
-Install pipewire as sound server ...
+Installing the needed packages.
 
-$ sudo pacman -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber alsa-utils
+```bash
+sudo pacman -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber alsa-utils sof-firmware
+```
 
-Reboot.
+The package `sof-firmware` was required for my laptop, but may be not required for all systems.
 
-Test ...
+### Installing an AUR helper
 
-$ pactl info | grep Pipe
-Server Name: PulseAudio (on PipeWire 0.3.48)
-$ speaker-test -c 2 -t wav -l 1
+[Arch User Repository (AUR)](https://aur.archlinux.org/) is a community-driven repository for Arch users. It is one of the best things about Arch Linux. You can find almost every package available for Linux there.
 
-3.12 AUR
+{{< admonition type=warning title="Warning" open=true >}}
+AUR packages are user produced content. Any use of the provided files is at your own risk.
+{{< /admonition >}}
 
-Arch User Repository (AUR) is a community-driven software package repository.
+To be able to interact with AUR in a straightforward manner, an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) is needed. I like the use [paru](https://github.com/morganamilo/paru).
 
-Compile/install/upgrade packages manually or use an AUR helper application.
+```bash
+sudo pacman -S --needed base-devel
+```
 
-Example: Install AUR helper yay ...
+```bash
+git clone https://aur.archlinux.org/paru-bin.git
+```
 
-$ git clone <https://aur.archlinux.org/yay-git.git>
-$ cd yay-git
-$ makepkg -si
+```bash
+cd paru-bin
+```
 
-3.13 Snapshots
+```bash
+makepkg -si
+```
 
-Create BTRFS snapshots and manage Arch system rollbacks using a combination of Snapper + snap-pac + grub-btrfs. Read more
-3.14 Desktop
+Consult the `paru` documentation to learn how to use it.
 
-Many choices! Install a full-featured desktop such as GNOME, or put together a custom desktop built around a lightweight window manager.
+### Enabling system snapshots
 
-I like Openbox. Read more
-3.15 Arch news
+Create BTRFS snapshots and manage Arch system rollbacks using a combination of `btrfs-assistant` + `snap-pac` + `grub-btrfs`.
 
-Keep up-to-date with the latest news from the Arch development team by subscribing to:
+### Desktop Environment
 
-    Mail: arch-annouce
-    Arch News: RSS
+There are several choices for Linux Desktops Environments, my preferred one is, by far, [KDE Plasma](https://kde.org/).
 
-Welcome to Arch!
-Thanks for reading! Read other posts?
+You can install the full KDE Plasma with the majority of the applications that are part of the project. However, I prefer a more minimal KDE Plasma installation.
 
-» Next: BTRFS snapshots and system rollbacks on Arch Linux
+Install the following packages to have a minimal, but functional, KDE Plasma installation.
 
-« Previous: Keep Arch updated and pinky clean
-Home • Mastodon • GitLab • Contact
+```bash
+sudo pacman -S plasma-desktop plasma-wayland-session konsole dolphin plasma-pa plasma-nm sddm 
+```
 
-We are alone in the universe, or we are not. Either way, the implication is staggering. -- Arthur C. Clarke
+Enable `sddm` to start during boot and become the default login screen.
 
-© 2023 Daniel Wayne Armstrong • Created with ♥ using Zola
+```bash
+sudo systemctl enable sddm
+```
+
+Reboot the system, then enjoy your Arch Linux fresh installation.
+
+## References
+
+- [ArchWiki](https://wiki.archlinux.org/title/Main_page)
+- [A(rch) to Z(ram): Install Arch Linux with (almost) full disk encryption and BTRFS](https://www.dwarmstrong.org/archlinux-install/)
