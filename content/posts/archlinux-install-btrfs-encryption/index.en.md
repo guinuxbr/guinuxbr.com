@@ -6,7 +6,7 @@ draft: true
 
 Arch Linux is an excellent Linux for a hands-on, daily use system when you are curious and motivated - practically required - to dig into the nitty-gritty.
 
-In this article, I'll describe the steps for a minimal Arch Linux installation using LUKS for disk encryption (excluding `/boot`, more on that later) and using BTRFS as main file system.
+In this article, I'll describe the steps for a minimal Arch Linux installation using LUKS for disk encryption (excluding `/boot/efi`, more on that later) and using BTRFS as main file system.
 
 Some relevant details about the environment:
 
@@ -14,7 +14,7 @@ Some relevant details about the environment:
 - wired network connection
 - Arch Linux is the only OS on a dual disk laptop
 - GPT partition table with two partitions:
-  - unencrypted `/boot` and EFI system partition (ESP)
+  - unencrypted `/boot/efi` EFI system partition (ESP)
   - LUKS encrypted `/` partition
 - BTRFS as main file system with multiple sub volumes
 - unlock system at boot with single passphrase
@@ -22,7 +22,7 @@ Some relevant details about the environment:
 
 ## Installation
 
-### Prepare USB install media
+### Preparing the USB install media
 
 Download the latest ISO image from <https://archlinux.org/download/>. The needed ISO file name have the format `archlinux-YYYY.MM.DD-x86_64.iso`.
 
@@ -74,6 +74,8 @@ sudo dd if=archlinux-RELEASE_VERSION-x86_64.iso of=/dev/sdx bs=4M status=progres
 ### Booting the installer
 
 Insert USB device with the installer and set your device to boot from it. The installer will auto-login as `root`.
+
+### Preparing the system for the installation
 
 #### Setting the keyboard layout
 
@@ -157,7 +159,7 @@ Check the available time zones.
 timedatectl list-timezones
 ```
 
-Set the desired timezone.
+Set the desired time zone.
 
 ```bash
 timedatectl set-timezone Europe/London
@@ -181,7 +183,7 @@ NTP service: active
 RTC in local TZ: no
 ```
 
-#### Configuring the disk
+### Configuring the disk
 
 Check what is the device name where the system will be installed with `lsblk -f`.
 
@@ -189,7 +191,7 @@ In my case I have two potential devices `nvme0n1` and `nvme1n1`. On Linux, devic
 
 In this guide I'll use `/dev/nvme0n1`
 
-#### Delete old partition layout
+#### Deleting old partition layout
 
 {{< admonition type=warning title="WARNING" open=true >}}
 The following commands perform destructive operations, you must proceed with care!
@@ -207,7 +209,7 @@ sgdisk --zap-all --clear /dev/nvme0n1
 partprobe /dev/nvme0n1
 ```
 
-#### Partition the drive
+#### Partitioning the drive
 
 Use `sgdisk` to list the partition type and its codes.
 
@@ -244,13 +246,11 @@ sgdisk -p /dev/nvme0n1
 
 Regarding the Swap file/partition, I'll use [zram-generator](https://github.com/systemd/zram-generator), to create a swap device compressed in the RAM.
 
-#### Encrypt partition
+## Encrypting the partition
 
-At the time of this writing GRUB 2.06 has limited support for LUKS2. [See GRUB bug #55093](https://savannah.gnu.org/bugs/?55093). However, when `/boot` is placed on a LUKS2 partition and using GRUB as the bootloader ...
+At the time of this writing GRUB 2.06 has limited support for LUKS2. [See GRUB bug #55093](https://savannah.gnu.org/bugs/?55093). As LUKS1 is completely supported, it will be used in this guide.
 
-As LUKS1 is completely supported, it will be used in this guide.
-
-Initialize the encrypted partition (partition #2) ...
+Configure the encrypted partition.
 
 ```bash
 cryptsetup --type luks1 --cipher aes-xts-plain64 --hash sha512 --use-random --verify-passphrase luksFormat /dev/nvme0n1p2
@@ -270,9 +270,13 @@ Here is a brief explanation of the command options used:
 
 `luksFormat`: format the specified device with LUKS encryption.
 
-#### Format partitions
+{{< admonition type=info title="Important" open=true >}}
+Before the boot, the default keyboard layout `us` is the only one available, therefore, you must pay attention to this detail when you generate the password when using a keyboard with a different layout.
+{{< /admonition >}}
 
-The ESP partition (partition #1) is formatted with the `vfat` file system, and the Linux `root` partition (partition #2) uses `btrfs`.
+### Formatting the partitions
+
+The ESP partition is formatted with the `vfat` file system, and the Linux `root` partition uses `btrfs`.
 
 ```bash
 cryptsetup open /dev/nvme0n1p2 cryptoarch
@@ -286,13 +290,13 @@ mkfs.vfat -F32 -n ESP /dev/nvme0n1p1
 mkfs.btrfs -L ArchLinux /dev/mapper/cryptoarch
 ```
 
-#### Mount root device
+### Mounting the root device
 
 ```bash
 mount /dev/mapper/cryptoarch /mnt
 ```
 
-#### Create BTRFS sub volumes
+### Creating BTRFS sub volumes
 
 Every BTRFS file system has a primary sub-volume with the identifier "ID=5". A sub-volume is a self-contained section of the file system with its own independent data.
 
@@ -345,7 +349,7 @@ btrfs sub-volume create /mnt/@log
 btrfs sub-volume create /mnt/@tmp
 ```
 
-#### Mount sub volumes
+### Mounting the BTRFS sub volumes
 
 Unmount the `root` partition to be able to mount the sub-volumes.
 
@@ -403,17 +407,17 @@ BTRFS supports several mount options. Here is a brief explanation of the command
 
 Detailed information can be found in [BTRFS documentation](https://btrfs.readthedocs.io/en/latest/btrfs-man5.html)
 
-#### Mount ESP partition
+### Mounting the ESP partition
 
 ```bash
-mkdir /mnt/efi
+mkdir -p /mnt/boot/efi
 ```
 
 ```bash
-mount /dev/nvme0n1p1 /mnt/efi
+mount /dev/nvme0n1p1 /mnt/boot/efi
 ```
 
-#### Select package mirrors
+### Selecting package mirrors
 
 Choose the faster mirrors to perform the package installation can drastically improve the installation speed.
 
@@ -429,7 +433,7 @@ reflector --verbose --protocol https --latest 10 --sort rate --country GB --coun
 
 This will get the most recently synchronized 10 mirrors hosted in the UK or Ireland which uses `https` and sort them by speed. The result will be saved to `/etc/pacman.d/mirrorlist` which is the default location where `pacman` will search for mirrors definition.
 
-#### Install base system
+## Installing base system
 
 The package selection here depends on user needs. From the packages below, `vim` and `zsh` are optional, but recommended.
 
@@ -437,13 +441,13 @@ The package selection here depends on user needs. From the packages below, `vim`
 pacstrap /mnt base base-devel git dracut intel-ucode btrfs-progs networkmanager cryptsetup vim sudo zsh
 ```
 
-#### Configure /etc/fstab
+### Configuring the /etc/fstab
 
 ```bash
 genfstab -U -p /mnt >> /mnt/etc/fstab
 ```
 
-#### Start configuring the base system
+### Start configuring the base system
 
 Now that the base system is installed, we can use `arch-chroot` to mount it and start the configuration.
 
@@ -451,7 +455,7 @@ Now that the base system is installed, we can use `arch-chroot` to mount it and 
 arch-chroot /mnt /bin/bash
 ```
 
-#### Define the `root` user password
+### Defining the `root` user password
 
 ```bash
 passwd
@@ -459,21 +463,22 @@ passwd
 
 Choose a strong password and type it twice. You can use [Bitwarden](https://bitwarden.com/password-generator/) in another device if you are out of ideas.
 
-#### Add a standard user
+### Adding a standard user
 
 Create a standard user and give it Administrator privileges using `sudo`.
 
 ```bash
-useradd -m -G wheel -s $(which zsh) foo
+useradd -m -G wheel -s $(which zsh) kermit
 ```
 
+Further down I explain
 Define the password for the newly created user.
 
 ```bash
-passwd foo
+passwd kermit
 ```
 
-#### Enable the dracut-hook
+### Enabling the dracut-hook
 
 Become the recently created non-root user.
 
@@ -501,7 +506,7 @@ makepkg -si
 
 After the installation finishes, press `CTRL+d` to return to the `root` prompt.
 
-#### Configure Dracut options
+### Configuring Dracut custom options
 
 Using [vim](https://github.com/vim/vim), create the file `/etc/dracut.conf.d/10-custom.conf`.
 
@@ -516,7 +521,137 @@ omit_dracutmodules+=" network cifs nfs brltty "
 compress="zstd"
 ```
 
-Again, Using [vim](https://github.com/vim/vim), create the file `/etc/dracut.conf.d/20-encryption.conf`.
+Further we will configure some other options and generate the `initramfs`.
+
+### Configuring the time zone
+
+Configure the system time zone and the system clock.
+
+List the available time zones based on your continent.
+
+```bash
+ls -lha /usr/share/zoneinfo/Europe
+```
+
+Link the chosen time zone to `/etc/localtime`
+
+```bash
+ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
+```
+
+Set the system time to the hardware clock.
+
+```bash
+hwclock --systohc
+```
+
+### Configuring the hostname
+
+Configure the system hostname.
+
+```bash
+echo "archer" > /etc/hostname
+```
+
+Add the entries to `/etc/hosts`
+
+```bash
+cat > /etc/hosts <<EOF
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   archer.localdomain archer
+EOF
+```
+
+### Configuring the system locale(s)
+
+Configure the system locales.
+
+Edit `/etc/locale.gen` and uncomment your preferred locale. In my case it is `en_GB.UTF-8 UTF-8`.
+
+```bash
+vim /etc/locale.gen
+```
+
+Add the preferred locale in `/etc/locale.conf`
+
+```bash
+echo "LANG=en_GB.UTF-8" > /etc/locale.conf
+```
+
+Finally, generate the locales.
+
+```bash
+locale-gen
+```
+
+### Configuring the system font and key map
+
+Configure the font to be used in the console.
+
+```bash
+echo "FONT=ter-v24n" > /etc/vconsole.conf
+```
+
+Now, configure the keyboard layout.
+
+```bash
+echo "KEYMAP=uk" >> /etc/vconsole.conf
+```
+
+### Setting the default editor
+
+Configure the default system editor.
+
+```bash
+echo "EDITOR=nvim" > /etc/environment && echo "VISUAL=vim" >> /etc/environment
+```
+
+### Configuring `sudo` privileges
+
+Enable the members of the `wheel` group to type all commands with `sudo`.
+
+{{< admonition type=warning title="WARNING" open=true >}}
+This gives `root` powers to users who are members of `wheel` group. While it is fine for single user PC/laptop, it can be dangerous in most situations. On production systems, prefer to create a file under `/etc/sudoers.d` and define granular `sudo` permissions for each user or even use a centralized system to control the permissions each user can have. Always remember of the [Principle of Least Privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
+{{< /admonition >}}
+
+We can use [sed](https://www.gnu.org/software/sed/) to replace `# %wheel ALL=(ALL:ALL) ALL` with `%wheel ALL=(ALL:ALL) ALL`
+
+```bash
+sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
+```
+
+### Configuring the system network
+
+There are different Linux packages that can be used to control the system network. I choose to use `NetworkManager` because it is simple and works out of the box.
+
+Enable `NetworkManager` to start during system boot.
+
+```bash
+systemctl enable NetworkManager
+```
+
+The wired network connection will be configured via `DHCP` by default. In case you need to configure a wireless connection, `nmtui` can be used.
+
+### Using a key file to unlock the system
+
+To avoid the need to type the LUKS password twice, one to decrypt `/boot` to reach `/bbot/efi` and another to decrypt the root partition `/`, we can use a key file embedded in the `initramfs`.
+
+Create hidden key file `.crypto_keyfile.bin` under `/`.
+
+```bash
+dd bs=512 count=4 iflag=fullblock if=/dev/random of=/.crypto_keyfile.bin
+```
+
+Adjust the permissions to allow only `root` to have access to the file.
+
+```bash
+chmod 600 /.crypto_keyfile.bin
+```
+
+### Configuring Dracut encryption options
+
+Create the file `/etc/dracut.conf.d/20-encryption.conf`.
 
 ```bash
 vim etc/dracut.conf.d/20-encryption.conf
@@ -525,217 +660,106 @@ vim etc/dracut.conf.d/20-encryption.conf
 And add the content below.
 
 ```bash
-install_items+=" /etc/crypttab /crypto_keyfile.bin "
+install_items+=" /etc/crypttab /.crypto_keyfile.bin "
 ```
 
-#### Install the kernel
+### Installing the kernel
+
+Finally, install the desired kernel, the kernel headers and the package `linux-firmware`.
 
 ```bash
 pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware
 ```
 
-If everything went fine, `dracut-hook` will detect a newly installed kernel and will build the `initrams` accordingly.
+If everything went fine, `dracut-hook` will detect a newly installed kernel and will build the `initrams` using the custom configurations created previously.
 
-#### Timezone
+### Installing and configuring the GRUB bootloader
 
-Set desired timezone (example: America/Toronto) and update the system clock ...
+Install the needed packages.
 
-ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
-hwclock --systohc
-
-2.2 Hostname
-
-Assign a hostname (example: foobox) ...
-
-echo "foobox" > /etc/hostname
-
-Add matching entries to /etc/hosts ...
-
-cat > /etc/hosts <<EOF
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   foobox.localdomain foobox
-EOF
-
-2.3 Locale
-
-Set locale (example: en_CA.UTF-8) ...
-
-export locale="en_CA.UTF-8"
-sed -i "s/^#\(${locale}\)/\1/" /etc/locale.gen
-echo "LANG=${locale}" > /etc/locale.conf
-locale-gen
-
-2.4 Font and keymap
-
-Set a console font (example: terminus ter-224n) ...
-
-echo "FONT=ter-v24n" > /etc/vconsole.conf
-
-Set a keyboard layout choice (example: colemak) ...
-
-echo "KEYMAP=colemak" >> /etc/vconsole.conf
-
-2.5 Editor
-
-Set a system-wide default editor (example: neovim) ...
-
-echo "EDITOR=nvim" > /etc/environment && echo "VISUAL=nvim" >> /etc/environment
-
-Activate wheel group access for sudo ...
-
-sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
-
-2.8 NetworkManager
-
-Enable NetworkManager to start at boot ...
-
-systemctl enable NetworkManager
-
-Wired network connection is activated by default. Run nmtui in the console and choose Activate a connection to setup a wireless connection.
-2.9 SSH
-
-Enable sshd server ...
-
-systemctl enable sshd.service
-
-After the install is complete and system has rebooted, secure remote access using SSH keys.
-2.10 Keyfile
-
-Keeping /boot on the encrypted partition results in being prompted twice for the LUKS passphrase: first instance, for GRUB to unlock and access /boot in the early stage of the boot process; second instance, to unlock the root file system itself as implemented in the initramfs.
-
-To unlock system at boot by entering the passphrase a single time:
-
-    Create a keyfile that will be embedded in the initramfs
-    Add keyfile and encrypt hook to configure initramfs to auto-unlock encrypted root
-
-Create keyfile crypto_keyfile.bin and restrict access to root ...
-
-dd bs=512 count=4 iflag=fullblock if=/dev/random of=/crypto_keyfile.bin
-chmod 600 /crypto_keyfile.bin
-
-Add this keyfile to LUKS ...
-
-cryptsetup luksAddKey ${disk}p2 /crypto_keyfile.bin
-
-Initramfs generated by mkinitcpio uses permission 600 by default, so regular users are not able to read the keyfile.
-
-In the next step, include keyfile in the FILES array and encrypt in HOOKS inside mkinitcpio.conf.
-2.11 Mkinitcpio
-
-Set necessary FILES and MODULES and HOOKS in /etc/mkinitcpio.conf:
-
-FILES
-
-Add the keyfile ...
-
-FILES=(/crypto_keyfile.bin)
-
-MODULES
-
-Add btrfs support to mount the root file system ...
-
-MODULES=(btrfs)
-
-HOOKS
-
-Set hooks ...
-
-HOOKS=(base udev keyboard autodetect keymap consolefont modconf block encrypt file systems fsck)
-
-Order of the hooks matters:
-
-    base sets up all initial directories and installs base utilities and libraries.
-    udev starts the udev daemon and processes uevents from the kernel; creating device nodes.
-    keyboard should be placed before autodetect to include all keyboard drivers in initramfs. Systems that boot with different hardware configurations (example: laptops used both with USB external and built-in keyboards) require this at boot to unlock the encrypted device.
-    keymap and consolefont loads the specified keymap and font from /etc/vconsole.conf
-    modconf includes modprobe configuration files.
-    block adds all block device modules.
-    encrypt is required to detect and unlock an encrypted root partition. This must be placed before file systems.
-
-Recreate the initramfs image ...
-
-mkinitcpio -P
-
-2.12 Boot loader: GRUB
-
-Install ...
-
+```bash
 pacman -S grub efibootmgr
+```
 
-Determine the UUID of the encrypted partition ...
+Check the `UUID` of the encrypted `root` partition.
 
-blkid -s UUID -o value ${disk}p2
+```bash
+blkid -s UUID -o value /dev/nvme0n1p2
+```
 
-This string of characters is used in the GRUB_CMDLINE_LINUX_DEFAULT variable.
+Edit the `GRUB_CMDLINE_LINUX_DEFAULT` entry in `/etc/default/grub` and add the options.
 
-Open /etc/default/grub for editing:
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 rd.luks.name=GENERATED_UUID=cryptoarch rd.luks.key=GENERATED_UUID=/.crypto_keyfile.bin rd.lvm=0 rd.md=0 rd.dm=0 nvidia_drm.modeset=1"`
+```
 
-GRUB_CMDLINE_LINUX_DEFAULT
+In this case, the `GRUB` options `rd.lvm=0`, `rd.md=0`, and `rd.dm=0` disable the automatic assembly of Logical Volume Management (LVM), multi-disk arrays (MD RAID), and device mapper (DM RAID) volumes, respectively. This can improve boot times by preventing Dracut from searching for and assembling these types of volumes if they are not present on the system.
 
-Set ...
+The option `nvidia_drm.modeset=1` enables the NVIDIA Dynamic Resolution Mode Setting (DRMS) kernel module.
 
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptoarchice=UUID=UUID_OF_ENCRYPTED_PARTITION:cryptoarch"
+Now, add `luks` to `GRUB_PRELOAD_MODULES`
 
-Example: If the UUID of the encrypted partition was 180901b5-151a-45e3-ba87-28f02b124666, then ...
-
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptoarchice=UUID=180901b5-151a-45e3-ba87-28f02b124666:cryptoarch"
-
-GRUB_PRELOAD_MODULES
-
-Include the luks module ...
-
+```bash
 GRUB_PRELOAD_MODULES="part_gpt part_msdos luks"
+```
 
-GRUB_ENABLE_CRYPTODISK
+Set `GRUB_ENABLE_CRYPTODISK` to `y`
 
-Uncomment to enable ...
-
+```bash
 GRUB_ENABLE_CRYPTODISK=y
+```
 
-2.13 Install boot loader
+Now, install the bootloader
 
-Install GRUB in the ESP ...
+```bash
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --boot-directory=/boot/efi --bootloader-id=GRUB
+```
 
-grub-install --target=x86_64-efi --efi-directory=/efi --boot-directory=/efi --bootloader-id=GRUB
+The `--bootloader-id=` sets how the entry will appear in the UEFI system menu.
 
-Verify that a GRUB entry has been added to the UEFI bootloader by running ...
+If nothing wrong happens during the installation, check if the entry "GRUB" created above is listed in the system UEFI.
 
+```bash
 efibootmgr
+```
 
-Generate the GRUB configuration file ...
+Now, generate the `GRUB` configuration file.
 
-grub-mkconfig -o /efi/grub/grub.cfg
+```bash
+grub-mkconfig -o /boot/grub/grub.cfg
+```
 
-Verify that grub.cfg has entries for insmod cryptodisk and insmod luks by running ...
+Check if `grub.cfg` has entries for `insmod cryptodisk` and `insmod luks`.
 
-grep 'cryptodisk\|luks' /efi/grub/grub.cfg
+```bash
+grep 'cryptodisk\|luks' /boot/grub/grub.cfg
+```
 
-2.14 Reboot
+### Exiting `chroot` and rebooting the system
 
-Exit chroot and reboot ...
-
+```bash
 exit
+```
+
+```bash
 umount -R /mnt
-reboot
+```
 
-GRUB boot menu appears if configured to be displayed (default).
+```bash
+systemctl reboot
+```
 
-Important: In this early stage of boot GRUB is using the us keyboard, not any alternative keymap that might be set in vconsole.conf.
+If everything worked as intended, the prompt to type the LUKS password should appear even before the GRUB screen.
 
-GRUB prompts for the LUKS passphrase to unlock the system ...
+{{< admonition type=tip title="This is a tip" open=false >}}
+It can take a half-minute or more for the partition to be decrypted. This delay can be shortened by setting a lower `--iter-time` when running `cryptsetup luksAddkey`, however, the downside is a reduction in the security.
+{{< /admonition >}}
 
-Enter passphrase for hd0,gpt2 (uuid_long_string_of_characters):
+If the password is correct, the `GRUB` menu will appear, and you can choose your fresh Arch Linux installation
 
-Under normal circumstance, it can take upwards of a half-minute or more for the passphrase to be processed. This delay can be shortened by setting a lower --iter-time when running cryptsetup luksAddkey, though with a corresponding reduction in security.
+## Configuring the installed system
 
-Then ... Voila!
-
-archlinux login:
-
-3. After the install
-
-Arch Linux is installed. Yes!
+Now that Arch Linux is installed, the base system is running, but no UI is available. As much as we love the console interface, let's configure the system, add a DE (Desktop Environment) and some useful packages.
 
 These are a few things I like to do next ...
 3.1 Check for errors
@@ -750,11 +774,11 @@ $ journalctl -p 3 -xb
 
 3.2 Sudo
 
-Allow a user (example: foo) to execute superuser commands using sudo without being prompted for a password.
+Allow a user (example: kermit) to execute superuser commands using sudo without being prompted for a password.
 
-Create the file /etc/sudoers.d/sudoer_foo with ...
+Create the file /etc/sudoers.d/sudoer_kermit with ...
 
-echo "foo ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sudoer_foo
+echo "kermit ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sudoer_kermit
 
 3.3 Package manager
 
