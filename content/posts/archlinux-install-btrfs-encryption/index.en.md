@@ -1,7 +1,11 @@
 ---
-title: "Archlinux Install BTRFS Encryption"
+title: "Arch Linux BTRFS Install with LUKS Encryption"
 date: 2023-09-16T18:52:06+01:00
 draft: true
+tags: ["Arch Linux", "LUKS", "BTRFS"]
+categories: ["tutorials", "tips"]
+align: left
+featuredImage: git_dotfiles.png
 ---
 
 Arch Linux is an excellent Linux for a hands-on, daily use system when you are curious and motivated - practically required - to dig into the nitty-gritty.

@@ -1,9 +1,9 @@
 ---
 title: "Check Certificate Info"
-date: 2023-09-21T21:46:26+01:00
-draft: true
-tags: ["Linux", "Shell"]
-categories: ["quick tips"]
+date: 2023-11-04T23:08:00+00:00
+draft: false
+tags: ["Linux", "Shell", "OpenSSL"]
+categories: ["tips"]
 align: left
 ---
 
