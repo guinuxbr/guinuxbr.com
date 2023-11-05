@@ -1,5 +1,5 @@
 ---
-title: "Backup and Restore dotfiles using Git"
+title: "BACKUP AND RESTORE DOTFILES USING GIT"
 date: 2021-12-29T13:18:49Z
 draft: false
 tags: ["Linux", "Git", "GitHub"]

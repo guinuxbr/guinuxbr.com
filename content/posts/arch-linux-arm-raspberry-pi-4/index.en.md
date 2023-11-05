@@ -1,5 +1,5 @@
 ---
-title: "Arch Linux ARM on Raspberry Pi 4"
+title: "ARCH LINUX ARM ON RASPBERRY PI 4"
 subtitle: "Keeping things simple!"
 date: 2020-05-08T22:54:24-03:00
 draft: false

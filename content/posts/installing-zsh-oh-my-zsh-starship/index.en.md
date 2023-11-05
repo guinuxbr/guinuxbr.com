@@ -1,5 +1,5 @@
 ---
-title: "Installing Zsh + Oh-My-Zsh + Starship"
+title: "INSTALLING ZSH + OH-MY-ZSH + STARSHIP"
 subtitle: "Increasing productivity"
 date: 2020-04-03T20:59:05-03:00
 lastmod: 2022-03-04T22:30:00-00:00

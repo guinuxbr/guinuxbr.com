@@ -1,5 +1,5 @@
 ---
-title: "Vim Cheat Sheet"
+title: "VIM CHEAT SHEET"
 subtitle: "Sooner or later you will need it"
 date: 2020-12-25T19:22:19Z
 draft: false

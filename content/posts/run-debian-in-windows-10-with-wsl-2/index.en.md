@@ -1,5 +1,5 @@
 ---
-title: "Run Debian in Windows 10 with WSL 2"
+title: "RUN DEBIAN IN WINDOWS 10 WITH WSL 2"
 subtitle: "Useful and cool"
 date: 2020-07-24T21:15:00-03:00
 draft: false
@@ -11,7 +11,7 @@ featuredImage: banner.en.png
 
 Hello and welcome to my blog.
 
-We use Windows in our workstations at my current job (it was not my choice 🙊), but there are a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: "This would be a lot simple with cat, grep, sort, etc.".
+We use Windows in our workstations at my current job (it was not my choice 🙊), but there are a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: "This would be a lot simple with `cat`, `grep`, `sort`, etc.".
 
 So, I remember that I have read something about running Linux inside Windows using WSL and, well, why not give it a try?
 

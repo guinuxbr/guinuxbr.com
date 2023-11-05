@@ -1,5 +1,5 @@
 ---
-title: "Load SSH keys via KDE Plasma Kwallet"
+title: "LOAD SSH KEYS VIA KDE PLASMA KWALLET"
 subtitle: "Automatically add SSH keys after login"
 date: 2022-07-03T14:12:33+01:00
 draft: false

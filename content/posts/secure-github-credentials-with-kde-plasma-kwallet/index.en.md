@@ -1,5 +1,5 @@
 ---
-title: "Secure GitHub credentials with KDE Plasma KWallet"
+title: "SECURE GITHUB CREDENTIALS WITH KDE PLASMA KWALLET"
 subtitle: "Konsole + GitHub + KWallet"
 date: 2020-08-21T15:15:00-03:00
 draft: false
@@ -21,7 +21,7 @@ First, make sure to have `ksshaskpass` installed. `ksshaskpass` is an ssh-add he
 
 ## Create the needed files
 
-Now, create an autostart script file and mark it as executable:
+Now, create a script file and mark it as executable:
 
 ```shell
 vim ~/.config/plasma-workspace/env/askpass.sh
@@ -43,6 +43,6 @@ chmod +x ~/.config/plasma-workspace/env/askpass.sh
 ## Conclusion
 
 Next time you log in, open Konsole and try to clone some of your private GitHub repositories.
-If your wallet is already open and you will see the `ksshaskpass` dialogue asking for your username and then asking for your password. Ensure to mark "Remember password" to save your credentials safely in your wallet.
+If your wallet is already open, and you will see the `ksshaskpass` dialogue asking for your username and then asking for your password. Ensure to mark "Remember password" to save your credentials safely in your wallet.
 
 ![ksshaskpass](./ksshaskpass.png)

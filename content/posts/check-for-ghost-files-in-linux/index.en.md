@@ -1,5 +1,5 @@
 ---
-title: "Check for Ghost Files in Linux"
+title: "CHECK FOR GHOST FILES IN LINUX"
 date: 2023-11-05T13:30:00+00:00
 draft: false
 tags: ["Linux", "Shell"]

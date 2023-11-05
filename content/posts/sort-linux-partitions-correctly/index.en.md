@@ -1,5 +1,5 @@
 ---
-title: "Sort Linux Partitions Correctly"
+title: "SORT LINUX PARTITIONS CORRECTLY"
 date: 2020-08-21T15:10:00-03:00
 draft: false
 tags: ["Linux", "partitions"]

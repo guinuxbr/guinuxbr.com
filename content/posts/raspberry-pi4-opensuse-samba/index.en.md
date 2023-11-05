@@ -1,5 +1,5 @@
 ---
-title: "Raspberry Pi 4 + openSUSE + Samba"
+title: "RASPBERRY PI 4 + OPENSUSE + SAMBA"
 date: 2022-03-04T23:00:11Z
 draft: false
 tags: ["Linux", "Raspberry Pi", "openSUSE", "ARM", "Samba"]

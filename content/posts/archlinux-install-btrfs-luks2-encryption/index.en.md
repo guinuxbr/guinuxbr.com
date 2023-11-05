@@ -1,5 +1,5 @@
 ---
-title: "Arch Linux BTRFS Install with LUKS2 Encryption"
+title: "ARCH LINUX BTRFS INSTALL WITH LUKS2 ENCRYPTION"
 date: 2023-09-16T18:52:06+01:00
 draft: true
 tags: ["Arch Linux", "LUKS", "BTRFS"]

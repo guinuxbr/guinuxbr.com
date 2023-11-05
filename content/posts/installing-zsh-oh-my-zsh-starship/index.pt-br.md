@@ -1,5 +1,5 @@
 ---
-title: "Instalando Zsh + Oh-My-Zsh + Starship"
+title: "INSTALANDO ZSH + OH-MY-ZSH + STARSHIP"
 subtitle: "Melhorando a produtividade"
 date: 2020-05-08T23:10:26-03:00
 draft: false

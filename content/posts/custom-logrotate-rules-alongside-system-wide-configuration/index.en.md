@@ -1,5 +1,5 @@
 ---
-title: "Custom Logrotate rules alongside system-wide configuration"
+title: "CUSTOM LOGROTATE RULES ALONGSIDE SYSTEM-WIDE CONFIGURATION"
 date: 2023-09-12T20:07:23+01:00
 draft: true
 tags: ["Linux", "logs"]

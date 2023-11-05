@@ -1,5 +1,5 @@
 ---
-title: "Check SSL Certificate Info"
+title: "CHECK SSL CERTIFICATE INFO"
 date: 2023-11-04T23:08:00+00:00
 draft: false
 tags: ["Linux", "Shell", "OpenSSL"]
