@@ -6,7 +6,7 @@ draft: false
 tags: ["Linux", "Shell", "Bash", "Zsh"]
 categories: ["tutoriais"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.pt-br.png
 ---
 
 ## Introdução

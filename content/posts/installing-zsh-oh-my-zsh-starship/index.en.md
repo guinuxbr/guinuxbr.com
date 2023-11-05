@@ -7,7 +7,7 @@ draft: false
 tags: ["Linux", "Shell", "Bash", "Zsh"]
 categories: ["tutorials", "productivity"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 ## Introduction

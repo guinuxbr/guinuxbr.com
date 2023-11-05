@@ -5,7 +5,7 @@ draft: false
 tags: ["Linux", "Git", "GitHub"]
 categories: ["tutorials", "tips"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 ## Introduction

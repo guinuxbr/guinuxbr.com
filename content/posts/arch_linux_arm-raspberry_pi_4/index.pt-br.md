@@ -6,6 +6,7 @@ draft: false
 tags: ["Linux", "Raspberry Pi", "ARM", "Arch Linux"]
 categories: ["tutoriais"]
 align: left
+featuredImage: banner.pt-br.png
 ---
 
 Olá, bem-vindo ao meu blog!

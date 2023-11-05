@@ -6,7 +6,7 @@ draft: false
 tags: ["Linux", "KDE", "openSUSE"]
 categories: ["tutorials", "tips"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 ## Introduction

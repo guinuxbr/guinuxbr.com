@@ -6,7 +6,7 @@ draft: false
 tags: ["Linux", "KDE", "openSUSE"]
 categories: ["tutorials"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running KDE Plasma.

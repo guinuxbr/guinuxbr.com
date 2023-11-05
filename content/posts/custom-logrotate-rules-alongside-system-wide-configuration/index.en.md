@@ -5,7 +5,7 @@ draft: true
 tags: ["Linux", "logs"]
 categories: ["tutorials"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 We frequently use [logrotate](https://github.com/logrotate/logrotate) to control log rotation on Linux servers. By default, `logrotate` use the custom configuration files locate in `/etc/logrotate.d`.

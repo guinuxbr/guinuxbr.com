@@ -6,7 +6,7 @@ draft: false
 tags: ["Linux", "Virtualization"]
 categories: ["tutorials"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 Hello! In this quick tutorial, I will show you how to convert an OVA file to a QCOW2.

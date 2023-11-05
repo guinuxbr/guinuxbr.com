@@ -5,7 +5,7 @@ draft: false
 tags: ["Linux", "Shell", "OpenSSL"]
 categories: ["tips"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 It is essential to ensure that your SSL certificates are not expired or expiring soon. Neglecting this can have disastrous consequences for production systems.

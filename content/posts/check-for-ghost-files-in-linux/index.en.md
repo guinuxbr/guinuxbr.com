@@ -5,7 +5,7 @@ draft: false
 tags: ["Linux", "Shell"]
 categories: ["tips"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 ## Check for deleted files held by a process

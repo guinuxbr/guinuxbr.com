@@ -6,7 +6,7 @@ draft: false
 tags: ["Linux", "WSL", "WSL2", "Windows"]
 categories: ["tutorials"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 Hello and welcome to my blog.

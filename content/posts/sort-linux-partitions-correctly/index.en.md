@@ -5,7 +5,7 @@ draft: false
 tags: ["Linux", "partitions"]
 categories: ["tutorials"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 ## Introduction

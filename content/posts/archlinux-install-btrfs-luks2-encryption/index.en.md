@@ -5,7 +5,7 @@ draft: true
 tags: ["Arch Linux", "LUKS", "BTRFS"]
 categories: ["tutorials", "tips"]
 align: left
-featuredImage: banner.png
+featuredImage: banner.en.png
 ---
 
 Arch Linux is an excellent Linux for a hands-on, daily use system when you are curious and motivated - practically required - to dig into the nitty-gritty.
