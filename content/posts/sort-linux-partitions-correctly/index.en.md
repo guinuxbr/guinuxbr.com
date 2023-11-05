@@ -1,12 +1,11 @@
 ---
-title: "Sort Linux partitions correctly"
-subtitle: "Fix the partition mess"
+title: "Sort Linux Partitions Correctly"
 date: 2020-08-21T15:10:00-03:00
 draft: false
 tags: ["Linux", "partitions"]
 categories: ["tutorials"]
 align: left
-featuredImage: gnu-linux.jpg
+featuredImage: banner.png
 ---
 
 ## Introduction

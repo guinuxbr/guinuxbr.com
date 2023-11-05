@@ -7,7 +7,7 @@ draft: false
 tags: ["Linux", "Shell", "Bash", "Zsh"]
 categories: ["tutorials", "productivity"]
 align: left
-featuredImage: zsh_oh-my-zsh_starship.png
+featuredImage: banner.png
 ---
 
 ## Introduction

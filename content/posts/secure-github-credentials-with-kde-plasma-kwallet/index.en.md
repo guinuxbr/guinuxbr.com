@@ -1,12 +1,12 @@
 ---
-title: "Secure GitHub credentials with KWallet"
+title: "Secure GitHub credentials with KDE Plasma KWallet"
 subtitle: "Konsole + GitHub + KWallet"
 date: 2020-08-21T15:15:00-03:00
 draft: false
 tags: ["Linux", "KDE", "openSUSE"]
 categories: ["tutorials", "tips"]
 align: left
-featuredImage: kwallet.png
+featuredImage: banner.png
 ---
 
 ## Introduction
@@ -29,7 +29,7 @@ vim ~/.config/plasma-workspace/env/askpass.sh
 
 Put the following content in the file:
 
-```bash
+```shell
 #!/bin/sh
 export GIT_ASKPASS='/usr/lib/ssh/ksshaskpass'
 ```

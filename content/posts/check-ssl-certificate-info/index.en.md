@@ -1,17 +1,18 @@
 ---
-title: "Check Certificate Info"
+title: "Check SSL Certificate Info"
 date: 2023-11-04T23:08:00+00:00
 draft: false
 tags: ["Linux", "Shell", "OpenSSL"]
 categories: ["tips"]
 align: left
+featuredImage: banner.png
 ---
 
 It is essential to ensure that your SSL certificates are not expired or expiring soon. Neglecting this can have disastrous consequences for production systems.
 
 Certificate files typically have a `.pem` or `.crt` extension. You can use `openssl` commands to explore the details of a certificate. For example, the following command displays the details of a certificate:
 
-```bash
+```shell
 openssl x509 -in mycert.pem -text -noout
 ```
 

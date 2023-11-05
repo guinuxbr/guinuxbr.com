@@ -6,7 +6,7 @@ draft: false
 tags: ["Linux", "WSL", "WSL2", "Windows"]
 categories: ["tutorials"]
 align: left
-featuredImage: wsl2.png
+featuredImage: banner.png
 ---
 
 Hello and welcome to my blog.
@@ -85,49 +85,49 @@ Clicking on Debian will lead you to the user configuration screen. Choose your u
 
 Now, I recommend that you update the installation:
 
-```bash
+```shell
 sudo apt update && sudo apt upgrade
 ```
 
 Verify the version of Debian that was installed.
 
-```bash
+```shell
 cat /etc/os-release
 ```
 
 For reasons unknown to me, the downloaded image was still the Stretch version of Debian. No problem, let's update it to Debian Buster. First, make a backup of your _sources.list_ file.
 
-```bash
+```shell
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 ```
 
 Now, replace every "stretch" entry with "buster". You can do this with `nano` or `vi` or directly with `sed`.
 
-```bash
+```shell
 sudo sed -i 's/stretch/buster/g' /etc/apt/sources.list
 ```
 
 Then update the system again.
 
-```bash
+```shell
 sudo apt update && sudo apt upgrade && sudo apt full-upgrade
 ```
 
 Now get rid of obsolete packages in your system.
 
-```bash
+```shell
 sudo apt autoremove
 ```
 
 Close the Debian tab and open another one to check if you have installed Debian Buster with success.
 
-```bash
+```shell
 cat /etc/os-release
 ```
 
 You should see something like the below:
 
-```bash
+```shell
 PRETTY_NAME="Debian GNU/Linux 10 (buster)"
 NAME="Debian GNU/Linux"
 VERSION_ID="10"

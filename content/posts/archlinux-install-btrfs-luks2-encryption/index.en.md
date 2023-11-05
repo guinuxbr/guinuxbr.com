@@ -1,11 +1,11 @@
 ---
-title: "Arch Linux BTRFS Install with LUKS Encryption"
+title: "Arch Linux BTRFS Install with LUKS2 Encryption"
 date: 2023-09-16T18:52:06+01:00
 draft: true
 tags: ["Arch Linux", "LUKS", "BTRFS"]
 categories: ["tutorials", "tips"]
 align: left
-featuredImage: git_dotfiles.png
+featuredImage: banner.png
 ---
 
 Arch Linux is an excellent Linux for a hands-on, daily use system when you are curious and motivated - practically required - to dig into the nitty-gritty.
@@ -32,13 +32,13 @@ Download the latest ISO image from <https://archlinux.org/download/>. The needed
 
 It is recommended to verify the checksum of the ISO before preparing the USB flash drive. To do this, also download the file `sha256sums.txt` to the same directory as the ISO image and run the command below.
 
-```bash
+```shell
 sha256sum -c sha256sums.txt
 ```
 
 The output should be similar to:
 
-```bash
+```shell
 archlinux-2023.09.01-x86_64.iso: OK
 sha256sum: archlinux-x86_64.iso: No such file or directory
 archlinux-x86_64.iso: FAILED open or read
@@ -71,7 +71,7 @@ Using `dd` will wipe all data on the chosen device. Be careful!
 
 On Linux, USB drives usually appears as `sdx1`, `sdbx1`, etc. Remember to remove the partition number from the `dd` command.
 
-```bash
+```shell
 sudo dd if=archlinux-RELEASE_VERSION-x86_64.iso of=/dev/sdx bs=4M status=progress oflag=sync
 ```
 
@@ -87,13 +87,13 @@ The default console key map is `us`. It is a good idea to match the keyboard lay
 
 List available layouts:
 
-```bash
+```shell
 localectl list-keymaps
 ```
 
 Load the appropriate key map:
 
-```bash
+```shell
 loadkeys uk
 ```
 
@@ -103,7 +103,7 @@ The default font can be small if you are using a high-resolution display. Check 
 
 You can check some previews [here](https://adeverteuil.github.io/linux-console-fonts-screenshots/). Then, set the font.
 
-```bash
+```shell
 setfont ter-v24n
 ```
 
@@ -111,7 +111,7 @@ setfont ter-v24n
 
 The installer should boot Arch in UEFI mode if the system is configured accordingly. It is worth to check though.
 
-```bash
+```shell
 ls /sys/firmware/efi/efivars
 ```
 
@@ -134,7 +134,7 @@ For wireless connection behind WPA2 (most common scenario), `iwd` can be used. T
 - You can use all commands as command line arguments without entering an interactive prompt. For example: `iwctl device wlan0 show`.
 {{< /admonition >}}
 
-```bash
+```shell
 iwctl
 ```
 
@@ -153,31 +153,31 @@ The interactive prompt is then displayed with a prefix of `[iwd]#`.
 
 Enable the Network Time Protocol.
 
-```bash
+```shell
 timedatectl set-ntp true
 ```
 
 Check the available time zones.
 
-```bash
+```shell
 timedatectl list-timezones
 ```
 
 Set the desired time zone.
 
-```bash
+```shell
 timedatectl set-timezone Europe/London
 ```
 
 Check the time status.
 
-```bash
+```shell
 timedatectl status
 ```
 
 It should show something similar to:
 
-```bash
+```shell
 Local time: Sun 2023-10-08 18:35:20 BST
 Universal time: Sun 2023-10-08 17:35:20 UTC
 RTC time: Sun 2023-10-08 17:35:20
@@ -201,15 +201,15 @@ In this guide I'll use `/dev/nvme0n1`
 The following commands perform destructive operations, you must proceed with care!
 {{< /admonition >}}
 
-```bash
+```shell
 wipefs -af /dev/nvme0n1
 ```
 
-```bash
+```shell
 sgdisk --zap-all --clear /dev/nvme0n1
 ```
 
-```bash
+```shell
 partprobe /dev/nvme0n1
 ```
 
@@ -217,7 +217,7 @@ partprobe /dev/nvme0n1
 
 Use `sgdisk` to list the partition type and its codes.
 
-```bash
+```shell
 sgdisk --list-types
 ```
 
@@ -230,21 +230,21 @@ I'll use a simple layout for a single drive with a GPT (not the Chat one :D) par
   - size: the rest of space in the drive
   - code `8309`
 
-```bash
+```shell
 sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:esp /dev/nvme0n1
 ```
 
-```bash
+```shell
 sgdisk -n 0:0:0 -t 0:8309 -c 0:luks /dev/nvme0n1
 ```
 
-```bash
+```shell
 partprobe /dev/nvme0n1
 ```
 
 Display the new partition table.
 
-```bash
+```shell
 sgdisk -p /dev/nvme0n1
 ```
 
@@ -256,7 +256,7 @@ At the time of this writing GRUB 2.06 has limited support for LUKS2. [See GRUB b
 
 Configure the encrypted partition.
 
-```bash
+```shell
 cryptsetup --type luks1 --cipher aes-xts-plain64 --hash sha512 --use-random --verify-passphrase luksFormat /dev/nvme0n1p2
 ```
 
@@ -282,21 +282,21 @@ Before the boot, the default keyboard layout `us` is the only one available, the
 
 The ESP partition is formatted with the `vfat` file system, and the Linux `root` partition uses `btrfs`.
 
-```bash
+```shell
 cryptsetup open /dev/nvme0n1p2 cryptoarch
 ```
 
-```bash
+```shell
 mkfs.vfat -F32 -n ESP /dev/nvme0n1p1
 ```
 
-```bash
+```shell
 mkfs.btrfs -L ArchLinux /dev/mapper/cryptoarch
 ```
 
 ### Mounting the root device
 
-```bash
+```shell
 mount /dev/mapper/cryptoarch /mnt
 ```
 
@@ -310,7 +310,7 @@ To simplify sub-volume layout modifications, avoid mounting the top-level sub-vo
 
 I named the new sub-volume "@" as it is the default for [Snapper](https://github.com/openSUSE/snapper), a tool for creating backup snapshots which I will speak more later.
 
-```bash
+```shell
 btrfs sub volume create /mnt/@
 ```
 
@@ -329,27 +329,27 @@ The reasoning behind not excluding the entire /var out of the root snapshot is t
 
 To create the sub-volumes, `btrfs` provides the sub-command `sub-volume` with the option `create`.
 
-```bash
+```shell
 btrfs sub-volume create /mnt/@home
 ```
 
-```bash
+```shell
 btrfs sub-volume create /mnt/@snapshots
 ```
 
-```bash
+```shell
 btrfs sub-volume create /mnt/@cache
 ```
 
-```bash
+```shell
 btrfs sub-volume create /mnt/@libvirt
 ```
 
-```bash
+```shell
 btrfs sub-volume create /mnt/@log
 ```
 
-```bash
+```shell
 btrfs sub-volume create /mnt/@tmp
 ```
 
@@ -357,45 +357,45 @@ btrfs sub-volume create /mnt/@tmp
 
 Unmount the `root` partition to be able to mount the sub-volumes.
 
-```bash
+```shell
 umount /mnt
 ```
 
 Mount the new BTRFS root sub-volume with `subvol=@`.
 
-```bash
+```shell
 mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@ /dev/mapper/cryptoarch /mnt
 ```
 
 Create mount points for the additional sub volumes.
 
-```bash
+```shell
 mkdir -p /mnt/{home,.snapshots,var/cache,var/lib/libvirt,var/log,var/tmp}
 ```
 
 Mount each sub-volume using the mount options. After typing the first command, use the up arrow key (⬆️) to repeat the previous command and adjust the options `subvol=@` and `/mnt/` to point to the correct sub-volume name and mount point.
 
-```bash
+```shell
 mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@home /dev/mapper/cryptoarch /mnt/home
 ```
 
-```bash
+```shell
 mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@snapshots /dev/mapper/cryptoarch /mnt/.snapshots
 ```
 
-```bash
+```shell
 mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@cache /dev/mapper/cryptoarch /mnt/var/cache
 ```
 
-```bash
+```shell
 mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@libvirt /dev/mapper/cryptoarch /mnt/var/lib/libvirt
 ```
 
-```bash
+```shell
 mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@log /dev/mapper/cryptoarch /mnt/var/log
 ```
 
-```bash
+```shell
 mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@tmp /dev/mapper/cryptoarch /mnt/var/tmp
 ```
 
@@ -413,11 +413,11 @@ Detailed information can be found in [BTRFS documentation](https://btrfs.readthe
 
 ### Mounting the ESP partition
 
-```bash
+```shell
 mkdir -p /mnt/boot/efi
 ```
 
-```bash
+```shell
 mount /dev/nvme0n1p1 /mnt/boot/efi
 ```
 
@@ -425,13 +425,13 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 
 Choose the faster mirrors to perform the package installation can drastically improve the installation speed.
 
-```bash
+```shell
 pacman -Syy
 ```
 
 Use [reflector](https://xyne.dev/projects/reflector) to generate a new set of mirrors to be user by Arch Linux package manager, `pacman`.
 
-```bash
+```shell
 reflector --verbose --protocol https --latest 10 --sort rate --country GB --country IR --save /etc/pacman.d/mirrorlist
 ```
 
@@ -441,13 +441,13 @@ This will get the most recently synchronized 10 mirrors hosted in the UK or Irel
 
 The package selection here depends on user needs. From the packages below, `vim` and `zsh` are optional, but recommended.
 
-```bash
+```shell
 pacstrap /mnt base base-devel git dracut intel-ucode btrfs-progs networkmanager cryptsetup vim sudo zsh
 ```
 
 ### Configuring the /etc/fstab
 
-```bash
+```shell
 genfstab -U -p /mnt >> /mnt/etc/fstab
 ```
 
@@ -455,13 +455,13 @@ genfstab -U -p /mnt >> /mnt/etc/fstab
 
 Now that the base system is installed, we can use `arch-chroot` to mount it and start the configuration.
 
-```bash
+```shell
 arch-chroot /mnt /bin/bash
 ```
 
 ### Defining the `root` user password
 
-```bash
+```shell
 passwd
 ```
 
@@ -471,14 +471,14 @@ Choose a strong password and type it twice. You can use [Bitwarden](https://bitw
 
 Create a standard user and give it Administrator privileges using `sudo`.
 
-```bash
+```shell
 useradd -m -G wheel -s $(which zsh) kermit
 ```
 
 Further down I explain
 Define the password for the newly created user.
 
-```bash
+```shell
 passwd kermit
 ```
 
@@ -486,25 +486,25 @@ passwd kermit
 
 Become the recently created non-root user.
 
-```bash
+```shell
 su - guinuxbr
 ```
 
 Get the `dracut-hook` repository source code.
 
-```bash
+```shell
 git clone https://aur.archlinux.org/dracut-hook.git
 ```
 
 Enter the cloned directory.
 
-```bash
+```shell
 cd dracut-hook
 ```
 
 Build and install the package.
 
-```bash
+```shell
 makepkg -si
 ```
 
@@ -514,13 +514,13 @@ After the installation finishes, press `CTRL+d` to return to the `root` prompt.
 
 Using [vim](https://github.com/vim/vim), create the file `/etc/dracut.conf.d/10-custom.conf`.
 
-```bash
+```shell
 vim /etc/dracut.conf.d/10-custom.conf
 ```
 
 And add the content below.
 
-```bash
+```shell
 omit_dracutmodules+=" network cifs nfs brltty "
 compress="zstd"
 ```
@@ -533,19 +533,19 @@ Configure the system time zone and the system clock.
 
 List the available time zones based on your continent.
 
-```bash
+```shell
 ls -lha /usr/share/zoneinfo/Europe
 ```
 
 Link the chosen time zone to `/etc/localtime`
 
-```bash
+```shell
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 ```
 
 Set the system time to the hardware clock.
 
-```bash
+```shell
 hwclock --systohc
 ```
 
@@ -553,13 +553,13 @@ hwclock --systohc
 
 Configure the system hostname.
 
-```bash
+```shell
 echo "archer" > /etc/hostname
 ```
 
 Add the entries to `/etc/hosts`
 
-```bash
+```shell
 cat > /etc/hosts <<EOF
 127.0.0.1   localhost
 ::1         localhost
@@ -573,19 +573,19 @@ Configure the system locales.
 
 Edit `/etc/locale.gen` and uncomment your preferred locale. In my case it is `en_GB.UTF-8 UTF-8`.
 
-```bash
+```shell
 vim /etc/locale.gen
 ```
 
 Add the preferred locale in `/etc/locale.conf`
 
-```bash
+```shell
 echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 ```
 
 Finally, generate the locales.
 
-```bash
+```shell
 locale-gen
 ```
 
@@ -593,13 +593,13 @@ locale-gen
 
 Configure the font to be used in the console.
 
-```bash
+```shell
 echo "FONT=ter-v24n" > /etc/vconsole.conf
 ```
 
 Now, configure the keyboard layout.
 
-```bash
+```shell
 echo "KEYMAP=uk" >> /etc/vconsole.conf
 ```
 
@@ -607,7 +607,7 @@ echo "KEYMAP=uk" >> /etc/vconsole.conf
 
 Configure the default system editor.
 
-```bash
+```shell
 echo "EDITOR=nvim" > /etc/environment && echo "VISUAL=vim" >> /etc/environment
 ```
 
@@ -621,7 +621,7 @@ This gives `root` powers to users who are members of `wheel` group. While it is 
 
 We can use [sed](https://www.gnu.org/software/sed/) to replace `# %wheel ALL=(ALL:ALL) ALL` with `%wheel ALL=(ALL:ALL) ALL`
 
-```bash
+```shell
 sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
 ```
 
@@ -631,7 +631,7 @@ There are different Linux packages that can be used to control the system networ
 
 Enable `NetworkManager` to start during system boot.
 
-```bash
+```shell
 systemctl enable NetworkManager
 ```
 
@@ -643,13 +643,13 @@ To avoid the need to type the LUKS password twice, one to decrypt `/boot` to rea
 
 Create hidden key file `.crypto_keyfile.bin` under `/`.
 
-```bash
+```shell
 dd bs=512 count=4 iflag=fullblock if=/dev/random of=/.crypto_keyfile.bin
 ```
 
 Adjust the permissions to allow only `root` to have access to the file.
 
-```bash
+```shell
 chmod 600 /.crypto_keyfile.bin
 ```
 
@@ -657,13 +657,13 @@ chmod 600 /.crypto_keyfile.bin
 
 Create the file `/etc/dracut.conf.d/20-encryption.conf`.
 
-```bash
+```shell
 vim etc/dracut.conf.d/20-encryption.conf
 ```
 
 And add the content below.
 
-```bash
+```shell
 install_items+=" /etc/crypttab /.crypto_keyfile.bin "
 ```
 
@@ -671,7 +671,7 @@ install_items+=" /etc/crypttab /.crypto_keyfile.bin "
 
 Finally, install the desired kernel, the kernel headers and the package `linux-firmware`.
 
-```bash
+```shell
 pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware
 ```
 
@@ -681,19 +681,19 @@ If everything went fine, `dracut-hook` will detect a newly installed kernel and 
 
 Install the needed packages.
 
-```bash
+```shell
 pacman -S grub efibootmgr
 ```
 
 Check the `UUID` of the encrypted `root` partition.
 
-```bash
+```shell
 blkid -s UUID -o value /dev/nvme0n1p2
 ```
 
 Edit the `GRUB_CMDLINE_LINUX_DEFAULT` entry in `/etc/default/grub` and add the options.
 
-```bash
+```shell
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 rd.luks.name=GENERATED_UUID=cryptoarch rd.luks.key=GENERATED_UUID=/.crypto_keyfile.bin rd.lvm=0 rd.md=0 rd.dm=0 nvidia_drm.modeset=1"`
 ```
 
@@ -703,19 +703,19 @@ The option `nvidia_drm.modeset=1` enables the NVIDIA Dynamic Resolution Mode Set
 
 Now, add `luks` to `GRUB_PRELOAD_MODULES`
 
-```bash
+```shell
 GRUB_PRELOAD_MODULES="part_gpt part_msdos luks"
 ```
 
 Set `GRUB_ENABLE_CRYPTODISK` to `y`
 
-```bash
+```shell
 GRUB_ENABLE_CRYPTODISK=y
 ```
 
 Now, install the bootloader
 
-```bash
+```shell
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --boot-directory=/boot/efi --bootloader-id=GRUB
 ```
 
@@ -723,33 +723,33 @@ The `--bootloader-id=` sets how the entry will appear in the UEFI system menu.
 
 If nothing wrong happens during the installation, check if the entry "GRUB" created above is listed in the system UEFI.
 
-```bash
+```shell
 efibootmgr
 ```
 
 Now, generate the `GRUB` configuration file.
 
-```bash
+```shell
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 Check if `grub.cfg` has entries for `insmod cryptodisk` and `insmod luks`.
 
-```bash
+```shell
 grep 'cryptodisk\|luks' /boot/grub/grub.cfg
 ```
 
 ### Exiting `chroot` and rebooting the system
 
-```bash
+```shell
 exit
 ```
 
-```bash
+```shell
 umount -R /mnt
 ```
 
-```bash
+```shell
 systemctl reboot
 ```
 
@@ -769,7 +769,7 @@ Now that Arch Linux is installed, the base system is running, but no UI is avail
 
 The file `/etc/pacman.conf` is responsible to configure the options for the Arch Linux package manager [pacman](https://wiki.archlinux.org/title/pacman). Observe the comments for each option.
 
-```bash
+```shell
 # Misc options
 #UseSyslog # Log action messages through syslog(). This will insert log entries into /var/log/messages or equivalent.
 Color # Automatically enable colors only when pacman’s output is on a tty.
@@ -782,7 +782,7 @@ ILoveCandy # Add a Pac-Man style to pacman.
 
 ### Updating the system
 
-```bash
+```shell
 sudo pacman -Syu
 ```
 
@@ -792,19 +792,19 @@ Instead of having a file or partition based `swap`, we will use a compressed dev
 
 Install the package [zram-generator](https://github.com/systemd/zram-generator).
 
-```bash
+```shell
 sudo pacman -S zram-generator
 ```
 
 Copy the sample configuration file.
 
-```bash
+```shell
 sudo cp /usr/share/doc/zram-generator/zram-generator.conf.example /etc/systemd/zram-generator.conf
 ```
 
 Check the online documentation and modify the file as needed.
 
-```bash
+```shell
 # This file is part of the zram-generator project
 # https://github.com/systemd/zram-generator
 
@@ -849,13 +849,13 @@ options =
 
 [plocate](https://plocate.sesse.net/) is a modern version of `locate`, a member of the GNU suite [findutils](https://www.gnu.org/software/findutils/). It uses an index to speed up the searches, and it is very fast.
 
-```bash
+```shell
 sudo pacman -S plocate
 ```
 
 Update the file database.
 
-```bash
+```shell
 sudo updatedb
 ```
 
@@ -863,7 +863,7 @@ The package `plocate` provides a `Systemd` timer that will periodically scan the
 
 To enable the timer.
 
-```bash
+```shell
 sudo systemctl enable --now plocate-updatedb.timer
 ```
 
@@ -875,7 +875,7 @@ Using BTRFS, asynchronous discard is [enabled](https://wiki.archlinux.org/title/
 
 By enabling `fstrim.timer` the system will perform a periodic TRIM and span the SSD device life.
 
-```bash
+```shell
 sudo systemctl enable fstrim.timer
 ```
 
@@ -885,19 +885,19 @@ When a command is typed, but not found in the system, the `command-not-found` fu
 
 Install the package.
 
-```bash
+```shell
 sudo pacman -S pkgfile
 ```
 
 Update the package's database.
 
-```bash
+```shell
 sudo pkgfile --update
 ```
 
 Configure the shell to load the `command-no-found` rules. Edit the file `~/.zshrc` and add `command-not-found.zsh` to it.
 
-```bash
+```shell
 if [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]]; then
     . /usr/share/doc/pkgfile/command-not-found.zsh
 fi
@@ -909,7 +909,7 @@ Some modern Linux distribution are using [pipewire](https://pipewire.org/) as so
 
 Installing the needed packages.
 
-```bash
+```shell
 sudo pacman -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber alsa-utils sof-firmware
 ```
 
@@ -925,19 +925,19 @@ AUR packages are user produced content. Any use of the provided files is at your
 
 To be able to interact with AUR in a straightforward manner, an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) is needed. I like the use [paru](https://github.com/morganamilo/paru).
 
-```bash
+```shell
 sudo pacman -S --needed base-devel
 ```
 
-```bash
+```shell
 git clone https://aur.archlinux.org/paru-bin.git
 ```
 
-```bash
+```shell
 cd paru-bin
 ```
 
-```bash
+```shell
 makepkg -si
 ```
 
@@ -951,13 +951,13 @@ You can install the full KDE Plasma with the majority of the applications that a
 
 Install the following packages to have a minimal, but functional, KDE Plasma installation.
 
-```bash
+```shell
 sudo pacman -S plasma-desktop plasma-wayland-session konsole dolphin plasma-pa plasma-nm sddm 
 ```
 
 Enable `sddm` to start during boot and become the default login screen.
 
-```bash
+```shell
 sudo systemctl enable sddm
 ```
 
@@ -973,7 +973,7 @@ One of the main advantages of using the BTRFS file system is the possibility to 
 
 Install all needed packages.
 
-```bash
+```shell
 sudo pacman -S snapper snap-pac grub-btrfs
 ```
 
@@ -981,17 +981,17 @@ sudo pacman -S snapper snap-pac grub-btrfs
 
 The first step is to get rid of the existing `/.snapshots` directory, because `snapper` will create it when we create the configuration.
 
-```bash
+```shell
 sudo umount /.snapshots
 ```
 
-```bash
+```shell
 sudo rm -rf /.snapshots
 ```
 
 Now we can create the `snapper` configuration. `root` is only the configuration name, you can change it as you see fit.
 
-```bash
+```shell
 sudo snapper -c root create-config /
 ```
 
@@ -1005,27 +1005,27 @@ The above command generates:
 
 Because we used `@` to identify all other sub volumes, we will remove the sub volume `.snapshots` automatically created by `snapper`.
 
-```bash
+```shell
 sudo btrfs subvolume delete .snapshots
 ```
 
 Now, re-create and mount the directory `./snapshots`
 
-```bash
+```shell
 sudo mkdir /.snapshots
 ```
 
-```bash
+```shell
 sudo mount -a
 ```
 
 Configure the permissions for `./snapshots`. The directory owner must be `root`, and members of the `wheel` group will have read and execute permissions which will allow then to browse into the directory.
 
-```bash
+```shell
 sudo chmod 750 /.snapshots
 ```
 
-```bash
+```shell
 sudo chown :wheel /.snapshots
 ```
 
@@ -1033,7 +1033,7 @@ sudo chown :wheel /.snapshots
 
 In order to automatically update `grub` configuration upon snapshot creation or deletion, start and enable the `grub-btrfsd` service.
 
-```bash
+```shell
 sudo systemctl enable --now grub-btrfsd
 ```
 
@@ -1043,7 +1043,7 @@ The configuration of the `root` configuration created above is controlled by the
 
 In the below example, I followed the [ArchWiki recommendation](https://wiki.archlinux.org/title/snapper#Set_snapshot_limits) for the limits and added the user to `ALLOW_USERS`
 
-```bash
+```shell
 # subvolume to snapshot
 SUBVOLUME="/"
 

@@ -1,12 +1,12 @@
 ---
-title: "Load SSH keys via Kwallet"
+title: "Load SSH keys via KDE Plasma Kwallet"
 subtitle: "Automatically add SSH keys after login"
 date: 2022-07-03T14:12:33+01:00
 draft: false
 tags: ["Linux", "KDE", "openSUSE"]
 categories: ["tutorials"]
 align: left
-featuredImage: ssh.png
+featuredImage: banner.png
 ---
 
 This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running KDE Plasma.
@@ -15,7 +15,7 @@ This quick tip was tested on openSUSE Tumbleweed. However, it will probably work
 
 Using Zypper, install `ksshaskpass5`
 
-```bash
+```shell
 sudo zypper in --details ksshaskpass5
 ```
 
@@ -27,7 +27,7 @@ Create the `.desktop` file that will be automatically parsed at KDE Plasma start
 vim ~/.config/autostart/ssh-add.desktop
 ```
 
-```bash
+```shell
 [Desktop Entry]
 Exec=ssh-add -q /home/user_name/.ssh/key1 /home/user_name/.ssh/key2 < /dev/null
 Icon=dialog-scripts
@@ -40,11 +40,11 @@ For the `Exec` command, I've used the `/home/user_name/` path because `~` or `$H
 
 Create another script in `~/.config/plasma-workspace/env/` to set the environment variable `SSH_ASKPASS` to use **ksshaskpass**.
 
-```bash
+```shell
 vim ~/.config/plasma-workspace/env/ksshaskpass.sh
 ```
 
-```bash
+```shell
 #!/bin/sh
 export SSH_ASKPASS='/usr/libexec/ssh/ksshaskpass'
 ```

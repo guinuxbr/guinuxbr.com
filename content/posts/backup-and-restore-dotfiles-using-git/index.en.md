@@ -1,23 +1,22 @@
 ---
-title: "Backup dotfiles to GitHub"
-subtitle: "Or any other version control system"
+title: "Backup and Restore dotfiles using Git"
 date: 2021-12-29T13:18:49Z
 draft: false
 tags: ["Linux", "Git", "GitHub"]
 categories: ["tutorials", "tips"]
 align: left
-featuredImage: git_dotfiles.png
+featuredImage: banner.png
 ---
 
 ## Introduction
 
-This article is about how to back up dotfiles using Git. I will try to keep it short and straightforward.
+This article is about how to back up `dotfiles` using Git. I will try to keep it short and straightforward.
 
 I'm using `Zsh` as the shell in the examples, but another shell can be used. The commands below should be executed as a normal user in the `/home` directory.
 
 ## Set up the repository
 
-Create a local Git repository that will be used to track the dotfiles.
+Create a local Git repository that will be used to track the `dotfiles`.
 
 ```shell
 git init $HOME/.dotfiles

@@ -6,7 +6,7 @@ draft: false
 tags: ["Linux", "Vim"]
 categories: ["tutorials", "tips"]
 align: left
-featuredImage: vim-logo.png
+featuredImage: banner.png
 ---
 
 ## Introduction

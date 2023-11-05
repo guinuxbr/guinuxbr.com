@@ -1,12 +1,11 @@
 ---
 title: "Raspberry Pi 4 + openSUSE + Samba"
-subtitle: "Sharing files within your LAN"
 date: 2022-03-04T23:00:11Z
 draft: false
 tags: ["Linux", "Raspberry Pi", "openSUSE", "ARM", "Samba"]
 categories: ["tutorials"]
 align: left
-featuredImage: raspberry-pi_opensuse_samba.png
+featuredImage: banner.png
 ---
 
 ## Introduction
