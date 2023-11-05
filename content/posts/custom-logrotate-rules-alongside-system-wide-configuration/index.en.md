@@ -1,7 +1,7 @@
 ---
 title: "CUSTOM LOGROTATE RULES ALONGSIDE SYSTEM-WIDE CONFIGURATION"
-date: 2023-09-12T20:07:23+01:00
-draft: true
+date: 2023-11-05T16:00:00+00:00
+draft: false
 tags: ["Linux", "logs"]
 categories: ["tutorials"]
 align: left
