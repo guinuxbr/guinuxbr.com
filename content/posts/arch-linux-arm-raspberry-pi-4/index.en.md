@@ -18,13 +18,13 @@ I think everyone already knows the Raspberry Pi, but if you haven't heard about 
 Now that you know what it is about, let's get down to business.
 It is worth mentioning that a good part of this guide is found in the instructions on the project's own page, available [here](https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4).
 
-The first thing to do is to format your MicroSD card. I recommend a good Class 10 card or better.
+The first thing to do is to format your Micro SD card. I recommend a good Class 10 card or better.
 
-The choice of the partitioning tool is up to you. I will use _fdisk_ which is available by default on most Linux distributions.
+The choice of the partitioning tool is up to you. I will use `fdisk` which is available by default on most Linux distributions.
 
 ## Format the device
 
-First, we start microSD with fdisk. You need to use _sudo_ or perform the process as _root_.
+First, we start microSD with `fdisk`. You need to use `sudo` or perform the process as `root`.
 
 ```shell
 fdisk /dev/sdX
@@ -34,12 +34,12 @@ Replace "sdX" with your device identifier.
 
 At the first prompt, delete (!!!) the partitions and create a new one:
 
-* Press **o** and **ENTER**. This will clear the current partitions.
-* Press **p** to list the partitions. There should be none listed.
-* Press **n** and **ENTER** for a new partition and **p** to choose the "Primary" type. Now **1** for the first partition and **ENTER** to accept the default value for the first sector. Now type **+ 100M** for the last sector.
-* Press **t** and then **c** to configure the first partition with type **W95 FAT32 (LBA)**
-* Now press **n** for a new partition and **p** again for "Primary". Then **2** for the second partition on the card and press **ENTER** twice to accept the default values ​​for the first and last sectors of the second partition.
-* Press **w** to write the partition table and exit.
+- Press **o** and **ENTER**. This will clear the current partitions.
+- Press **p** to list the partitions. There should be none listed.
+- Press **n** and **ENTER** for a new partition and **p** to choose the "Primary" type. Now **1** for the first partition and **ENTER** to accept the default value for the first sector. Now type **+ 100M** for the last sector.
+- Press **t** and then **c** to configure the first partition with type **W95 FAT32 (LBA)**
+- Now press **n** for a new partition and **p** again for "Primary". Then **2** for the second partition on the card and press **ENTER** twice to accept the default values ​​for the first and last sectors of the second partition.
+- Press **w** to write the partition table and exit.
 
 This way you guarantee the rest of the card to the system. We will talk about this later.
 
@@ -63,12 +63,18 @@ mount /dev/sdX2 root
 
 ## Download and extract the filesystem
 
-The parameters of the _bsdtar_ command are **x** to extract, **p** to restore permissions, and **f** indicates the input file. The _C_ after the input file indicates the directory to which we must change before extracting the files, in this case, the _root_ directory we have created.
+The parameters of the `bsdtar` command are **x** to extract, **p** to restore permissions, and **f** indicates the input file. The `C` after the input file indicates the directory to which we must change before extracting the files, in this case, the `root` directory we have created.
 This part MUST be done as the root user:
 
 ```shell
 wget <http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-4-latest.tar.gz>
+```
+
+```shell
 bsdtar -xpf ArchLinuxARM-rpi-4-latest.tar.gz -C root
+```
+
+```shell
 sync
 ```
 
@@ -90,17 +96,20 @@ umount boot root
 
 ## Starting the Raspberry Pi
 
-Insert the card into the Raspberry Pi, and connect the ethernet cable and the power supply.
+Insert the card into the Raspberry Pi, and connect the Ethernet cable and the power supply.
 
 If you do not use the Raspberry Pi connected directly to a video, keyboard, and mouse, you can connect via SSH. Check the IP assigned by your router's DHCP, for example.
 
-* Log in with the standard user _alarm_ and password _alarm_.
-* The default root password is _root_.
+- Log in with the standard user **alarm** and password **alarm**.
+- The default **root** password is **root**.
 
 Last, but not least: Start the Pacman keychain and populate it with the Arch Linux ARM keys.
 
 ```shell
 pacman-key --init
+```
+
+```shell
 pacman-key --populate archlinuxarm
 ```
 
@@ -108,5 +117,8 @@ Arch Linux ARM is ready to be used for the project you want. I recommend updatin
 
 ```shell
 pacman -Syu
+```
+
+```shell
 systemctl reboot
 ```
