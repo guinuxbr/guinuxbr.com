@@ -1,6 +1,6 @@
 ---
-title: "DOCKER BASIC COMMANDS"
-date: 2024-01-20T15:50:00Z
+title: "DOCKER 101 - BASIC COMMANDS"
+date: 2024-01-20T15:45:00Z
 draft: false
 tags: ["Containers", "Docker"]
 categories: ["tips"]
