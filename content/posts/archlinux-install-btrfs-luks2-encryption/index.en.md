@@ -8,9 +8,7 @@ align: left
 featuredImage: banner.en.png
 ---
 
-Arch Linux is an excellent Linux for a hands-on, daily use system when you are curious and motivated - practically required - to dig into the nitty-gritty.
-
-In this article, I'll describe the steps for a minimal Arch Linux installation using LUKS for disk encryption (excluding `/boot/efi`, more on that later) and using BTRFS as main file system.
+Embrace the DIY spirit with Arch Linux! This guide walks you through a minimal installation with LUKS encryption and BTRFS, perfect for crafting your personalized daily powerhouse.
 
 Some relevant details about the environment:
 
@@ -1100,10 +1098,15 @@ EMPTY_PRE_POST_CLEANUP="yes"
 EMPTY_PRE_POST_MIN_AGE="1800"
 ```
 
-Start and enable snapper-timeline.timer to launch the automatic snapshot timeline, and snapper-cleanup.timer to periodically clean up older snapshots...
+Start and enable `snapper-timeline.timer` to launch the automatic snapshot timeline, and `snapper-cleanup.timer` to periodically clean up older snapshots.
 
-$ sudo systemctl enable --now snapper-timeline.timer
-$ sudo systemctl enable --now snapper-cleanup.timer
+```shell
+sudo systemctl enable --now snapper-timeline.timer
+```
+
+```shell
+sudo systemctl enable --now snapper-cleanup.timer
+```
 
 ## References
 

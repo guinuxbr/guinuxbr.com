@@ -16,7 +16,7 @@ To achieve this, we can use a tool called `zcat`.
 
 Looking to its help session we can see:
 
-```bash
+```shell
 zcat --help
 Usage: /usr/bin/zcat [OPTION]... [FILE]...
 Uncompress FILEs to standard output.
@@ -45,13 +45,13 @@ This will output a list of all the files and directories in the compressed file,
 
 For example, if you have a compressed file called `file_sample.gz`, you can run the following command to list its contents:
 
-```bash
+```shell
 zcat -l file_sample.gz
 ```
 
 This will output something like the following:
 
-```bash
+```shell
 -rw-r--r-- 1 user group 1024 2023-09-19 17:38:25 file_sample_01.txt
 -rw-r--r-- 1 user group 1024 2023-10-25 18:40:25 file_sample_02.txt
 -rw-r--r-- 1 user group 1024 2022-04-11 17:38:25 file_sample_03.txt
