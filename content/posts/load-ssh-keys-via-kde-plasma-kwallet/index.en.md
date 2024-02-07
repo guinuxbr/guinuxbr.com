@@ -2,6 +2,7 @@
 title: "LOAD SSH KEYS VIA KDE PLASMA KWALLET"
 subtitle: "Automatically add SSH keys after login"
 date: 2022-07-03T14:12:33+01:00
+lastmod: 2024-02-07T22:35:00+00:00
 draft: false
 tags: ["Linux", "KDE", "openSUSE"]
 categories: ["tutorials"]
@@ -47,6 +48,7 @@ vim ~/.config/plasma-workspace/env/ksshaskpass.sh
 ```shell
 #!/bin/sh
 export SSH_ASKPASS='/usr/libexec/ssh/ksshaskpass'
+[ -n "$SSH_AGENT_PID" ] || eval "$(ssh-agent -s)"
 ```
 
 ## Reboot to test

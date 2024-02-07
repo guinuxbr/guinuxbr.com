@@ -22,6 +22,12 @@ This blog is built with [Hugo](https://gohugo.io/), one of the most popular and 
 git clone git@github.com:guinuxbr/guinuxbr.com.git
 ```
 
+### Enter the cloned repo
+
+```bash
+cd guinuxbr.com
+```
+
 ### Pull the theme files (Git submodule)
 
 ```bash
