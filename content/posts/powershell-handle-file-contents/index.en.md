@@ -1,7 +1,7 @@
 ---
 title: "POWERSHELL HANDLE FILE CONTENTS"
-date: 2024-03-25T10:46:55Z
-draft: true
+date: 2024-03-25T11:46:55Z
+draft: false
 tags: ["Windows", "PowerShell", "Telnet"]
 categories: ["tips"]
 align: left

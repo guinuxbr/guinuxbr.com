@@ -1,7 +1,7 @@
 ---
 title: "POWERSHELL TEST NET CONNECTION"
-date: 2024-03-25T10:46:55Z
-draft: true
+date: 2024-03-25T12:46:55Z
+draft: false
 tags: ["Windows", "PowerShell", "Telnet"]
 categories: ["tips"]
 align: left
