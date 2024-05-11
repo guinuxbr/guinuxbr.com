@@ -250,30 +250,41 @@ Regarding the Swap file/partition, I'll use [zram-generator](https://github.com/
 
 ## Encrypting the partition
 
-At the time of this writing GRUB 2.06 has limited support for LUKS2. [See GRUB bug #55093](https://savannah.gnu.org/bugs/?55093). As LUKS1 is completely supported, it will be used in this guide.
+At the time of this writing GRUB 2.06 has limited support for LUKS2 `Argon2i`. [See GRUB bug #55093](https://savannah.gnu.org/bugs/?55093). As `pbkdf2` is completely supported, it will be used in this guide.
 
 Configure the encrypted partition.
 
 ```shell
-cryptsetup --type luks1 --cipher aes-xts-plain64 --hash sha512 --use-random --verify-passphrase luksFormat /dev/nvme0n1p2
+cryptsetup luksFormat /dev/nvme0n1p2 \
+  --type luks2 \
+  --cipher aes-xts-plain64 \
+  --hash sha512 \
+  --pbkdf pbkdf2 \
+  --pbkdf-force-iterations 500000 \
+  --use-random \
+  --verify-passphrase  
 ```
 
 Here is a brief explanation of the command options used:
 
-`--type luks1`: as mentioned above, due to GRUB still not fully support LUKS2, version 1 will be used. LUKS1 is the older version of the LUKS standard, but it is still widely supported.
+`luksFormat`: format the specified device with LUKS encryption.
+
+`--type luks2`: use LUKS2 as the encryption method.
 
 `--cipher aes-xts-plain64`: specifies the encryption cipher to be used. `AES-XTS` is a strong and secure encryption algorithm.
 
 `--hash sha512`: specifies the hash algorithm to be used for key derivation. SHA-512 is a fast and secure hash algorithm which works very well with x64 CPUs.
 
+`--pbkdf pbkdf2`: due to GRUB still not fully support LUKS2 `Argon2i`, we will use `pbkdf2`.
+
+`--pbkdf-force-iterations`: set the iteration count to 500000. Lowering the iterations reduces security. It is recommended to use a stronger passphrase with higher entropy (entropy > 60 bits).
+
 `--use-random`: tells `cryptsetup` to use random data for key generation. This is important for security, as it makes the encryption keys more difficult to guess.
 
 `--verify-passphrase`: tells `cryptsetup` to prompt the user to enter the passphrase twice, to ensure that it is entered correctly.
 
-`luksFormat`: format the specified device with LUKS encryption.
-
 {{< admonition type=info title="Important" open=true >}}
-Before the boot, the default keyboard layout `us` is the only one available, therefore, you must pay attention to this detail when you generate the password when using a keyboard with a different layout.
+Before booting, the default keyboard layout `us` is the only one available, therefore, you must pay attention to this detail when you generate the password when using a keyboard with a different layout.
 {{< /admonition >}}
 
 ### Formatting the partitions
@@ -362,7 +373,7 @@ umount /mnt
 Mount the new BTRFS root sub-volume with `subvol=@`.
 
 ```shell
-mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@ /dev/mapper/cryptoarch /mnt
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@ /dev/mapper/cryptoarch /mnt
 ```
 
 Create mount points for the additional sub volumes.
@@ -374,38 +385,40 @@ mkdir -p /mnt/{home,.snapshots,var/cache,var/lib/libvirt,var/log,var/tmp}
 Mount each sub-volume using the mount options. After typing the first command, use the up arrow key (⬆️) to repeat the previous command and adjust the options `subvol=@` and `/mnt/` to point to the correct sub-volume name and mount point.
 
 ```shell
-mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@home /dev/mapper/cryptoarch /mnt/home
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@home /dev/mapper/cryptoarch /mnt/home
 ```
 
 ```shell
-mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@snapshots /dev/mapper/cryptoarch /mnt/.snapshots
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@snapshots /dev/mapper/cryptoarch /mnt/.snapshots
 ```
 
 ```shell
-mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@cache /dev/mapper/cryptoarch /mnt/var/cache
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@cache /dev/mapper/cryptoarch /mnt/var/cache
 ```
 
 ```shell
-mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@libvirt /dev/mapper/cryptoarch /mnt/var/lib/libvirt
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@libvirt /dev/mapper/cryptoarch /mnt/var/lib/libvirt
 ```
 
 ```shell
-mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@log /dev/mapper/cryptoarch /mnt/var/log
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@log /dev/mapper/cryptoarch /mnt/var/log
 ```
 
 ```shell
-mount -o noatime,compress-force=zstd:1,ssd,space_cache=v2,subvol=@tmp /dev/mapper/cryptoarch /mnt/var/tmp
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@tmp /dev/mapper/cryptoarch /mnt/var/tmp
 ```
 
 BTRFS supports several mount options. Here is a brief explanation of the command options used:
 
 `noatime`: disables the updating of file access timestamps (`atime`) when files are read. This can improve performance by reducing the amount of disk I/O required.
 
-`compress-force=zstd:1`: forces BTRFS to compress all files using the `zstd` compression algorithm with a compression level of 1. This will save disk space and improve performance, especially for files that are not frequently accessed.
+`compress=zstd:1`: configures BTRFS to compress all files using the `zstd` compression algorithm with a compression level of 1. This will save disk space and improve performance, especially for files that are not frequently accessed.
 
 `ssd`: enables SSD-specific optimizations in BTRFS. This can improve performance by reducing the amount of unnecessary disk I/O.
 
 `space_cache=v2`: enables the use of the v2 space cache algorithm. This can improve performance by reducing the amount of time required to find free space on the disk.
+
+`discard=async`: enables asynchronous discard of unused blocks. This can improve performance by reducing the amount of unnecessary disk I/O.
 
 Detailed information can be found in [BTRFS documentation](https://btrfs.readthedocs.io/en/latest/btrfs-man5.html)
 
@@ -485,7 +498,7 @@ passwd kermit
 Become the recently created non-root user.
 
 ```shell
-su - guinuxbr
+su - kermit
 ```
 
 Get the `dracut-hook` repository source code.
