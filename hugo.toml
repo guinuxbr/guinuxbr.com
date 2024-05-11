@@ -9,7 +9,7 @@ title = "GuinuxBR"
 theme = "DoIt"
 
 # Configure Hugo to get information from Git
-enableGitInfo = false
+enableGitInfo = true
 
 # Tell Hugo to export the static site to "docs" folder
 # publishDir = "docs"
