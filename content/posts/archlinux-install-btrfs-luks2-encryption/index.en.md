@@ -1,6 +1,6 @@
 ---
 title: "ARCH LINUX BTRFS INSTALL WITH LUKS2 ENCRYPTION"
-date: 2023-09-16T18:52:06+01:00
+date: 2024-05-13T10:00:00+01:00
 draft: true
 tags: ["Arch Linux", "LUKS", "BTRFS"]
 categories: ["tutorials", "tips"]
@@ -161,7 +161,7 @@ Check the available time zones.
 timedatectl list-timezones
 ```
 
-Set the desired time zone.
+Set the desired time zone. in my case, `Europe/London`.
 
 ```shell
 timedatectl set-timezone Europe/London
@@ -193,6 +193,12 @@ In my case I have two potential devices `nvme0n1` and `nvme1n1`. On Linux, devic
 
 In this guide I'll use `/dev/nvme0n1`
 
+Now create a variable for the chosen disk:
+
+```shell
+export MAIN_DISK=/dev/nvme0n1
+```
+
 #### Deleting old partition layout
 
 {{< admonition type=warning title="WARNING" open=true >}}
@@ -200,15 +206,15 @@ The following commands perform destructive operations, you must proceed with car
 {{< /admonition >}}
 
 ```shell
-wipefs -af /dev/nvme0n1
+wipefs -af ${MAIN_DISK}
 ```
 
 ```shell
-sgdisk --zap-all --clear /dev/nvme0n1
+sgdisk --zap-all --clear ${MAIN_DISK}
 ```
 
 ```shell
-partprobe /dev/nvme0n1
+partprobe ${MAIN_DISK}
 ```
 
 #### Partitioning the drive
@@ -229,21 +235,21 @@ I'll use a simple layout for a single drive with a GPT (not the Chat one :D) par
   - code `8309`
 
 ```shell
-sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:esp /dev/nvme0n1
+sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:esp ${MAIN_DISK}
 ```
 
 ```shell
-sgdisk -n 0:0:0 -t 0:8309 -c 0:luks /dev/nvme0n1
+sgdisk -n 0:0:0 -t 0:8309 -c 0:luks ${MAIN_DISK}
 ```
 
 ```shell
-partprobe /dev/nvme0n1
+partprobe ${MAIN_DISK}
 ```
 
 Display the new partition table.
 
 ```shell
-sgdisk -p /dev/nvme0n1
+sgdisk -p ${MAIN_DISK}
 ```
 
 Regarding the Swap file/partition, I'll use [zram-generator](https://github.com/systemd/zram-generator), to create a swap device compressed in the RAM.
@@ -255,10 +261,9 @@ At the time of this writing GRUB 2.06 has limited support for LUKS2 `Argon2i`. [
 Configure the encrypted partition.
 
 ```shell
-cryptsetup luksFormat /dev/nvme0n1p2 \
+cryptsetup luksFormat ${MAIN_DISK}p2 \
   --type luks2 \
   --cipher aes-xts-plain64 \
-  --hash sha512 \
   --pbkdf pbkdf2 \
   --pbkdf-force-iterations 500000 \
   --use-random \
@@ -272,8 +277,6 @@ Here is a brief explanation of the command options used:
 `--type luks2`: use LUKS2 as the encryption method.
 
 `--cipher aes-xts-plain64`: specifies the encryption cipher to be used. `AES-XTS` is a strong and secure encryption algorithm.
-
-`--hash sha512`: specifies the hash algorithm to be used for key derivation. SHA-512 is a fast and secure hash algorithm which works very well with x64 CPUs.
 
 `--pbkdf pbkdf2`: due to GRUB still not fully support LUKS2 `Argon2i`, we will use `pbkdf2`.
 
@@ -292,15 +295,28 @@ Before booting, the default keyboard layout `us` is the only one available, ther
 The ESP partition is formatted with the `vfat` file system, and the Linux `root` partition uses `btrfs`.
 
 ```shell
-cryptsetup open /dev/nvme0n1p2 cryptoarch
+cryptsetup open ${MAIN_DISK}p2 cryptoarch
 ```
 
 ```shell
-mkfs.vfat -F32 -n ESP /dev/nvme0n1p1
+mkfs.vfat -F32 -n ESP ${MAIN_DISK}p1
 ```
 
 ```shell
 mkfs.btrfs -L ArchLinux /dev/mapper/cryptoarch
+```
+
+Running `lsblk -f` should present something like:
+
+```shell
+NAME           FSTYPE      FSVER            LABEL       UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+loop0          squashfs    4.0                                                                     0   100% /run/archiso/airootfs
+sr0            iso9660     Joliet Extension ARCH_202405 2024-05-01-17-04-31-00                     0   100% /run/archiso/bootmnt
+sr1                                                                                                         
+vda                                                                                                         
+├─vda1         vfat        FAT32            ESP         85A9-9309                                           
+└─vda2         crypto_LUKS 2                            d80c797a-42f3-4a01-98cb-8aa49935fa97                
+  └─cryptoarch btrfs                        ArchLinux   9700f1f4-c935-47ba-8544-0e000223837a
 ```
 
 ### Mounting the root device
@@ -320,7 +336,7 @@ To simplify sub-volume layout modifications, avoid mounting the top-level sub-vo
 I named the new sub-volume "@" as it is the default for [Snapper](https://github.com/openSUSE/snapper), a tool for creating backup snapshots which I will speak more later.
 
 ```shell
-btrfs sub volume create /mnt/@
+btrfs subvolume create /mnt/@
 ```
 
 It is nice to have additional sub-volumes to better control over rolling back the system to a previous state, while preserving the current state of other directories. These sub-volumes will be excluded from any root sub-volume snapshots. There are an unlimited way to configure the sub-volumes, it will depend on the user needs. Here is the structure used in this guide:
@@ -336,30 +352,30 @@ It is nice to have additional sub-volumes to better control over rolling back th
 
 The reasoning behind not excluding the entire /var out of the root snapshot is that `/var/lib/pacman` database in particular should mirror the rolled back state of installed packages.
 
-To create the sub-volumes, `btrfs` provides the sub-command `sub-volume` with the option `create`.
+To create the sub-volumes, `btrfs` provides the sub-command `subvolume` with the option `create`.
 
 ```shell
-btrfs sub-volume create /mnt/@home
+btrfs subvolume create /mnt/@home
 ```
 
 ```shell
-btrfs sub-volume create /mnt/@snapshots
+btrfs subvolume create /mnt/@snapshots
 ```
 
 ```shell
-btrfs sub-volume create /mnt/@cache
+btrfs subvolume create /mnt/@var_cache
 ```
 
 ```shell
-btrfs sub-volume create /mnt/@libvirt
+btrfs subvolume create /mnt/@var_libvirt
 ```
 
 ```shell
-btrfs sub-volume create /mnt/@log
+btrfs subvolume create /mnt/@var_logs
 ```
 
 ```shell
-btrfs sub-volume create /mnt/@tmp
+btrfs subvolume create /mnt/@var_tmp
 ```
 
 ### Mounting the BTRFS sub volumes
@@ -379,7 +395,7 @@ mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@ /dev/
 Create mount points for the additional sub volumes.
 
 ```shell
-mkdir -p /mnt/{home,.snapshots,var/cache,var/lib/libvirt,var/log,var/tmp}
+mkdir -pv /mnt/{home,.snapshots,var/cache,var/lib/libvirt,var/log,var/tmp}
 ```
 
 Mount each sub-volume using the mount options. After typing the first command, use the up arrow key (⬆️) to repeat the previous command and adjust the options `subvol=@` and `/mnt/` to point to the correct sub-volume name and mount point.
@@ -393,19 +409,19 @@ mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@snapsh
 ```
 
 ```shell
-mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@cache /dev/mapper/cryptoarch /mnt/var/cache
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@var_cache /dev/mapper/cryptoarch /mnt/var/cache
 ```
 
 ```shell
-mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@libvirt /dev/mapper/cryptoarch /mnt/var/lib/libvirt
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@var_libvirt /dev/mapper/cryptoarch /mnt/var/lib/libvirt
 ```
 
 ```shell
-mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@log /dev/mapper/cryptoarch /mnt/var/log
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@var_logs /dev/mapper/cryptoarch /mnt/var/log
 ```
 
 ```shell
-mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@tmp /dev/mapper/cryptoarch /mnt/var/tmp
+mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@var_tmp /dev/mapper/cryptoarch /mnt/var/tmp
 ```
 
 BTRFS supports several mount options. Here is a brief explanation of the command options used:
@@ -422,14 +438,22 @@ BTRFS supports several mount options. Here is a brief explanation of the command
 
 Detailed information can be found in [BTRFS documentation](https://btrfs.readthedocs.io/en/latest/btrfs-man5.html)
 
+### Disable CoW for /var/lib/libvirt
+
+BTRFS copy-on-write (CoW) can cause performance issues when virtual machines are created or deleted. This is because each time a file or directory is modified, a new version of it is created, and the previous version is kept until it is no longer needed. This can lead to a lot of disk space being used even when there are no actual changes. For this reason, it is recommended to disable CoW for the `/var/lib/libvirt` directory:
+
+```shell
+chattr -VR +C /mnt/var/lib/libvirt
+```
+
 ### Mounting the ESP partition
 
 ```shell
-mkdir -p /mnt/boot/efi
+mkdir -pv /mnt/boot/efi
 ```
 
 ```shell
-mount /dev/nvme0n1p1 /mnt/boot/efi
+mount ${MAIN_DISK}p1 /mnt/boot/efi
 ```
 
 ### Selecting package mirrors
@@ -480,17 +504,30 @@ Choose a strong password and type it twice. You can use [Bitwarden](https://bitw
 
 ### Adding a standard user
 
-Create a standard user and give it Administrator privileges using `sudo`.
+Create a standard user and add it to the `wheel` group.
 
 ```shell
-useradd -m -G wheel -s $(which zsh) kermit
+useradd -m -G wheel -s $(command -v zsh) kermit
 ```
 
-Further down I explain
 Define the password for the newly created user.
 
 ```shell
 passwd kermit
+```
+
+### Configuring `sudo` privileges
+
+Enable the members of the `wheel` group to type all commands with `sudo`.
+
+{{< admonition type=warning title="WARNING" open=true >}}
+This gives `root` powers to users who are members of `wheel` group. While it is fine for single user PC/laptop, it can be dangerous in most situations. On production systems, prefer to create a file under `/etc/sudoers.d` and define granular `sudo` permissions for each user or even use a centralized system to control the permissions each user can have. Always remember of the [Principle of Least Privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
+{{< /admonition >}}
+
+We can use [sed](https://www.gnu.org/software/sed/) to replace `# %wheel ALL=(ALL:ALL) ALL` with `%wheel ALL=(ALL:ALL) ALL`
+
+```shell
+sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
 ```
 
 ### Enabling the dracut-hook
@@ -519,21 +556,25 @@ Build and install the package.
 makepkg -si
 ```
 
+{{< admonition type=info title="Important" open=true >}}
 After the installation finishes, press `CTRL+d` to return to the `root` prompt.
+{{< /admonition >}}
 
 ### Configuring Dracut custom options
 
-Using [vim](https://github.com/vim/vim), create the file `/etc/dracut.conf.d/10-custom.conf`.
+Create the file `/etc/dracut.conf.d/10-custom.conf`.
 
 ```shell
-vim /etc/dracut.conf.d/10-custom.conf
-```
-
-And add the content below.
-
-```shell
+cat <<EOF > /etc/dracut.conf.d/10-custom.conf
 omit_dracutmodules+=" network cifs nfs brltty "
 compress="zstd"
+EOF
+```
+
+Check if the file was created correctly.
+
+```shell
+cat /etc/dracut.conf.d/10-custom.conf
 ```
 
 Further we will configure some other options and generate the `initramfs`.
@@ -571,7 +612,7 @@ echo "archer" > /etc/hostname
 Add the entries to `/etc/hosts`
 
 ```shell
-cat > /etc/hosts <<EOF
+cat <<EOF > /etc/hosts 
 127.0.0.1   localhost
 ::1         localhost
 127.0.1.1   archer.localdomain archer
@@ -582,10 +623,10 @@ EOF
 
 Configure the system locales.
 
-Edit `/etc/locale.gen` and uncomment your preferred locale. In my case it is `en_GB.UTF-8 UTF-8`.
+Use `sed` to edit `/etc/locale.gen` and uncomment your preferred locale. In my case it is `en_GB.UTF-8 UTF-8`.
 
 ```shell
-vim /etc/locale.gen
+sed -i "s/#en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/" /etc/locale.gen
 ```
 
 Add the preferred locale in `/etc/locale.conf`
@@ -619,21 +660,7 @@ echo "KEYMAP=uk" >> /etc/vconsole.conf
 Configure the default system editor.
 
 ```shell
-echo "EDITOR=nvim" > /etc/environment && echo "VISUAL=vim" >> /etc/environment
-```
-
-### Configuring `sudo` privileges
-
-Enable the members of the `wheel` group to type all commands with `sudo`.
-
-{{< admonition type=warning title="WARNING" open=true >}}
-This gives `root` powers to users who are members of `wheel` group. While it is fine for single user PC/laptop, it can be dangerous in most situations. On production systems, prefer to create a file under `/etc/sudoers.d` and define granular `sudo` permissions for each user or even use a centralized system to control the permissions each user can have. Always remember of the [Principle of Least Privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
-{{< /admonition >}}
-
-We can use [sed](https://www.gnu.org/software/sed/) to replace `# %wheel ALL=(ALL:ALL) ALL` with `%wheel ALL=(ALL:ALL) ALL`
-
-```shell
-sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
+echo "EDITOR=vim" > /etc/environment && echo "VISUAL=vim" >> /etc/environment
 ```
 
 ### Configuring the system network
@@ -647,36 +674,6 @@ systemctl enable NetworkManager
 ```
 
 The wired network connection will be configured via `DHCP` by default. In case you need to configure a wireless connection, `nmtui` can be used.
-
-### Using a key file to unlock the system
-
-To avoid the need to type the LUKS password twice, one to decrypt `/boot` to reach `/bbot/efi` and another to decrypt the root partition `/`, we can use a key file embedded in the `initramfs`.
-
-Create hidden key file `.crypto_keyfile.bin` under `/`.
-
-```shell
-dd bs=512 count=4 iflag=fullblock if=/dev/random of=/.crypto_keyfile.bin
-```
-
-Adjust the permissions to allow only `root` to have access to the file.
-
-```shell
-chmod 600 /.crypto_keyfile.bin
-```
-
-### Configuring Dracut encryption options
-
-Create the file `/etc/dracut.conf.d/20-encryption.conf`.
-
-```shell
-vim etc/dracut.conf.d/20-encryption.conf
-```
-
-And add the content below.
-
-```shell
-install_items+=" /etc/crypttab /.crypto_keyfile.bin "
-```
 
 ### Installing the kernel
 
@@ -699,35 +696,31 @@ pacman -S grub efibootmgr
 Check the `UUID` of the encrypted `root` partition.
 
 ```shell
-blkid -s UUID -o value /dev/nvme0n1p2
+export LUKS_UUID=$(blkid -s UUID -o value ${MAIN_DISK}p2)
 ```
 
-Edit the `GRUB_CMDLINE_LINUX_DEFAULT` entry in `/etc/default/grub` and add the options.
-
 ```shell
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 rd.luks.name=GENERATED_UUID=cryptoarch rd.luks.key=GENERATED_UUID=/.crypto_keyfile.bin rd.lvm=0 rd.md=0 rd.dm=0 nvidia_drm.modeset=1"`
+sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet rd.luks.uuid=luks-${LUKS_UUID} rd.lvm=0 rd.md=0 rd.dm=0\"/" /etc/default/grub
 ```
 
 In this case, the `GRUB` options `rd.lvm=0`, `rd.md=0`, and `rd.dm=0` disable the automatic assembly of Logical Volume Management (LVM), multi-disk arrays (MD RAID), and device mapper (DM RAID) volumes, respectively. This can improve boot times by preventing Dracut from searching for and assembling these types of volumes if they are not present on the system.
 
-The option `nvidia_drm.modeset=1` enables the NVIDIA Dynamic Resolution Mode Setting (DRMS) kernel module.
-
 Now, add `luks` to `GRUB_PRELOAD_MODULES`
 
 ```shell
-GRUB_PRELOAD_MODULES="part_gpt part_msdos luks"
+sed -i "s/GRUB_PRELOAD_MODULES=\"part_gpt part_msdos\"/GRUB_PRELOAD_MODULES=\"part_gpt part_msdos luks\"/" /etc/default/grub
 ```
 
 Set `GRUB_ENABLE_CRYPTODISK` to `y`
 
 ```shell
-GRUB_ENABLE_CRYPTODISK=y
+sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 ```
 
 Now, install the bootloader
 
 ```shell
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --boot-directory=/boot/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 ```
 
 The `--bootloader-id=` sets how the entry will appear in the UEFI system menu.
@@ -855,6 +848,38 @@ options =
 #zram-fraction = 0.10
 #max-zram-size = 2048
 ```
+
+### Using a key file to unlock the system
+
+To avoid the need to type the LUKS password twice, one to decrypt `/boot` to reach `/bbot/efi` and another to decrypt the root partition `/`, we can use a key file embedded in the `initramfs`.
+
+Create hidden key file `.crypto_keyfile.bin` under `/`.
+
+```shell
+dd bs=512 count=4 iflag=fullblock if=/dev/random of=/.crypto_keyfile.bin
+```
+
+Adjust the permissions to allow only `root` to have access to the file.
+
+```shell
+chmod 600 /.crypto_keyfile.bin
+```
+
+### Configuring Dracut encryption options
+
+Create the file `/etc/dracut.conf.d/20-encryption.conf`.
+
+```shell
+vim etc/dracut.conf.d/20-encryption.conf
+```
+
+And add the content below.
+
+```shell
+install_items+=" /etc/crypttab /.crypto_keyfile.bin "
+```
+
+Now it is a good time to reboot the system again and check if everything is working properly.
 
 ### Install a 'locate' command
 
