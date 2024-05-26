@@ -16,7 +16,7 @@ Some relevant details about the environment:
 - wired network connection
 - Arch Linux is the only OS on a dual disk laptop
 - GPT partition table with two partitions:
-  - unencrypted `/boot/efi` EFI system partition (ESP)
+  - unencrypted `/efi` EFI system partition (ESP)
   - LUKS encrypted `/` partition
 - BTRFS as main file system with multiple sub volumes
 - unlock system at boot with single passphrase
@@ -161,7 +161,7 @@ Check the available time zones.
 timedatectl list-timezones
 ```
 
-Set the desired time zone. in my case, `Europe/London`.
+Set the desired time zone; in my case, `Europe/London`.
 
 ```shell
 timedatectl set-timezone Europe/London
@@ -229,17 +229,17 @@ I'll use a simple layout for a single drive with a GPT (not the Chat one :D) par
 
 - EFI partition (ESP)
   - size: 512 MiB
-  - code `ef00`
-- Encrypted partition (LUKS)
+  - code `EF00`
+- Encrypted partition (LINUX)
   - size: the rest of space in the drive
-  - code `8309`
+  - code `8300`
 
 ```shell
-sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:esp ${MAIN_DISK}
+sgdisk -n1::+512M -t1:EF00 -c1:'ESP' ${MAIN_DISK}
 ```
 
 ```shell
-sgdisk -n 0:0:0 -t 0:8309 -c 0:luks ${MAIN_DISK}
+sgdisk -n2:: -t2:8300 -c2:'LINUX' ${MAIN_DISK}
 ```
 
 ```shell
@@ -303,7 +303,7 @@ mkfs.vfat -F32 -n ESP ${MAIN_DISK}p1
 ```
 
 ```shell
-mkfs.btrfs -L ArchLinux /dev/mapper/cryptoarch
+mkfs.btrfs -L ARCHLINUX /dev/mapper/cryptoarch
 ```
 
 Running `lsblk -f` should present something like:
@@ -316,7 +316,7 @@ sr1
 vda                                                                                                         
 ├─vda1         vfat        FAT32            ESP         85A9-9309                                           
 └─vda2         crypto_LUKS 2                            d80c797a-42f3-4a01-98cb-8aa49935fa97                
-  └─cryptoarch btrfs                        ArchLinux   9700f1f4-c935-47ba-8544-0e000223837a
+  └─cryptoarch btrfs                        ARCHLINUX   9700f1f4-c935-47ba-8544-0e000223837a
 ```
 
 ### Mounting the root device
@@ -449,11 +449,11 @@ chattr -VR +C /mnt/var/lib/libvirt
 ### Mounting the ESP partition
 
 ```shell
-mkdir -pv /mnt/boot/efi
+mkdir -pv /mnt/efi
 ```
 
 ```shell
-mount ${MAIN_DISK}p1 /mnt/boot/efi
+mount ${MAIN_DISK}p1 /mnt/efi
 ```
 
 ### Selecting package mirrors
@@ -464,7 +464,7 @@ Choose the faster mirrors to perform the package installation can drastically im
 pacman -Syy
 ```
 
-Use [reflector](https://xyne.dev/projects/reflector) to generate a new set of mirrors to be user by Arch Linux package manager, `pacman`.
+Use [reflector](https://xyne.dev/projects/reflector) to generate a new set of mirrors to be used by `pacstrap`.
 
 ```shell
 reflector --verbose --protocol https --latest 10 --sort rate --country GB --country IR --save /etc/pacman.d/mirrorlist
@@ -477,7 +477,7 @@ This will get the most recently synchronized 10 mirrors hosted in the UK or Irel
 The package selection here depends on user needs. From the packages below, `vim` and `zsh` are optional, but recommended.
 
 ```shell
-pacstrap /mnt base base-devel git dracut intel-ucode btrfs-progs networkmanager cryptsetup vim sudo zsh
+pacstrap /mnt base base-devel git dracut intel-ucode btrfs-progs networkmanager cryptsetup vim sudo zsh reflector
 ```
 
 ### Configuring the /etc/fstab
@@ -538,6 +538,8 @@ Become the recently created non-root user.
 su - kermit
 ```
 
+Press `q` to ignore the Zsh shell configuration for now.
+
 Get the `dracut-hook` repository source code.
 
 ```shell
@@ -567,7 +569,9 @@ Create the file `/etc/dracut.conf.d/10-custom.conf`.
 ```shell
 cat <<EOF > /etc/dracut.conf.d/10-custom.conf
 omit_dracutmodules+=" network cifs nfs brltty "
-compress="zstd"
+hostonly="yes"
+hostonly_cmdline="yes"
+compress="zstd -3 -T0 -q"
 EOF
 ```
 
@@ -626,7 +630,7 @@ Configure the system locales.
 Use `sed` to edit `/etc/locale.gen` and uncomment your preferred locale. In my case it is `en_GB.UTF-8 UTF-8`.
 
 ```shell
-sed -i "s/#en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/" /etc/locale.gen
+sed -i "s|#en_GB.UTF-8 UTF-8|en_GB.UTF-8 UTF-8|" /etc/locale.gen
 ```
 
 Add the preferred locale in `/etc/locale.conf`
@@ -677,10 +681,16 @@ The wired network connection will be configured via `DHCP` by default. In case y
 
 ### Installing the kernel
 
+Use [reflector](https://xyne.dev/projects/reflector) to generate a new set of mirrors to be used by `pacman`.
+
+```shell
+reflector --verbose --protocol https --latest 10 --sort rate --country GB --country IR --save /etc/pacman.d/mirrorlist
+```
+
 Finally, install the desired kernel, the kernel headers and the package `linux-firmware`.
 
 ```shell
-pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware
+pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware intel-ucode
 ```
 
 If everything went fine, `dracut-hook` will detect a newly installed kernel and will build the `initrams` using the custom configurations created previously.
@@ -700,7 +710,7 @@ export LUKS_UUID=$(blkid -s UUID -o value ${MAIN_DISK}p2)
 ```
 
 ```shell
-sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet rd.luks.uuid=luks-${LUKS_UUID} rd.lvm=0 rd.md=0 rd.dm=0\"/" /etc/default/grub
+sed -i "s|GRUB_CMDLINE_LINUX=\"\"|GRUB_CMDLINE_LINUX=\"rd.luks.name=${LUKS_UUID}=cryptoarch root=/dev/mapper/cryptoarch rd.luks.allow-discards rd.lvm=0 rd.md=0 rd.dm=0\"|" /etc/default/grub
 ```
 
 In this case, the `GRUB` options `rd.lvm=0`, `rd.md=0`, and `rd.dm=0` disable the automatic assembly of Logical Volume Management (LVM), multi-disk arrays (MD RAID), and device mapper (DM RAID) volumes, respectively. This can improve boot times by preventing Dracut from searching for and assembling these types of volumes if they are not present on the system.
@@ -708,19 +718,19 @@ In this case, the `GRUB` options `rd.lvm=0`, `rd.md=0`, and `rd.dm=0` disable th
 Now, add `luks` to `GRUB_PRELOAD_MODULES`
 
 ```shell
-sed -i "s/GRUB_PRELOAD_MODULES=\"part_gpt part_msdos\"/GRUB_PRELOAD_MODULES=\"part_gpt part_msdos luks\"/" /etc/default/grub
+sed -i "s|GRUB_PRELOAD_MODULES=\"part_gpt part_msdos\"|GRUB_PRELOAD_MODULES=\"part_gpt part_msdos luks\"|" /etc/default/grub
 ```
 
 Set `GRUB_ENABLE_CRYPTODISK` to `y`
 
 ```shell
-sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
+sed -i "s|#GRUB_ENABLE_CRYPTODISK=y|GRUB_ENABLE_CRYPTODISK=y|" /etc/default/grub
 ```
 
 Now, install the bootloader
 
 ```shell
-grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
+grub-install --target=x86_64-efi --efi-directory=/efi --boot-directory=/efi --bootloader-id=GRUB
 ```
 
 The `--bootloader-id=` sets how the entry will appear in the UEFI system menu.
@@ -912,7 +922,7 @@ Using BTRFS, asynchronous discard is [enabled](https://wiki.archlinux.org/title/
 By enabling `fstrim.timer` the system will perform a periodic TRIM and span the SSD device life.
 
 ```shell
-sudo systemctl enable fstrim.timer
+sudo systemctl enable --now fstrim.timer
 ```
 
 ### Enabling 'command-not-found'
@@ -977,7 +987,13 @@ cd paru-bin
 makepkg -si
 ```
 
-Consult the `paru` documentation to learn how to use it.
+Generate the devel database for tracking *-git packages. This is only needed when you initially start using `paru`.
+
+```shell
+paru --gendb
+```
+
+Consult the [paru's](https://github.com/morganamilo/paru) documentation to learn how to use it.
 
 ### Desktop Environment
 
@@ -988,7 +1004,7 @@ You can install the full KDE Plasma with the majority of the applications that a
 Install the following packages to have a minimal, but functional, KDE Plasma installation.
 
 ```shell
-sudo pacman -S plasma-desktop plasma-wayland-session konsole dolphin plasma-pa plasma-nm sddm 
+sudo pacman -S plasma-desktop konsole dolphin kscreen kate plasma-pa plasma-nm sddm 
 ```
 
 Enable `sddm` to start during boot and become the default login screen.
