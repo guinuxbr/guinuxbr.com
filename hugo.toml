@@ -16,7 +16,7 @@ enableGitInfo = true
 
 [params]
 # DoIt theme version
-version = "0.4.X"
+version = "1.0.X"
 # website title
 title = "GuinuxBR"
 # site description
