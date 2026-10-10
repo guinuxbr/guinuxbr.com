@@ -1,8 +1,8 @@
 baseURL = "https://guinuxbr.com/"
 # [en, pt-br, fr, ...] determines default content language
 defaultContentLanguage = "en"
-# language code
-languageCode = "en"
+# locale
+locale = "en"
 title = "GuinuxBR"
 
 # Change the default theme to be use when building the site with Hugo
@@ -716,7 +716,6 @@ home = ["HTML", "RSS", "JSON"]
 page = ["HTML", "MarkDown"]
 section = ["HTML", "RSS"]
 taxonomy = ["HTML", "RSS"]
-taxonomyTerm = ["HTML"]
 
 # Options for taxonomies
 [taxonomies]
@@ -729,8 +728,8 @@ series = "series"
 [languages.en]
 weight = 1
 title = "GuinuxBR"
-languageCode = "en"
-languageName = "EN"
+locale = "en"
+label = "EN"
 [[languages.en.menu.main]]
 identifier = "posts"
 pre = ""
@@ -759,9 +758,9 @@ weight = 3
 [languages.pt-br]
 weight = 2
 title = "GuinuxBR"
-# language code, CN only here
-languageCode = "pt-BR"
-languageName = "PT-BR"
+# locale
+locale = "pt-BR"
+label = "PT-BR"
 [[languages.pt-br.menu.main]]
 identifier = "posts"
 pre = ""
@@ -786,3 +785,8 @@ name = "Categorias"
 url = "/categories/"
 title = ""
 weight = 3
+
+# Caches
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
