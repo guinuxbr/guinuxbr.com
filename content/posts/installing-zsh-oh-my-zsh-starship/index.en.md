@@ -18,8 +18,8 @@ Starship configuration changed in the newer versions. This article was updated a
 
 Hi, welcome to my blog!  
 
-The objective of this article is to share my shell setup with you.
-I think that my job and day-to-day tasks became easier and more productive than using the "normal" _bash_. I hope that it helps you.  
+The objective of this article is to share my shell setup with you. I think that my job and day-to-day tasks became
+easier and more productive than using the "normal" _bash_. I hope that it helps you.  
 
 You will need the following tools:  
 
@@ -61,7 +61,9 @@ Now reboot your machine.
 
 ## Installing Oh-My-Zsh
 
-After rebooting, open your terminal and you should now be prompted by a Zsh configuration wizard. At this time you can just type **q** and **ENTER** because you will install and configure Oh-My-Zsh and it will install a '.zshrc' template for us:  
+After rebooting, open your terminal and you should now be prompted by a Zsh configuration wizard. At this time you can
+just type **q** and **ENTER** because you will install and configure Oh-My-Zsh and it will install a '.zshrc' template
+for us:  
 
 * curl or wget should be installed.  
 * git should be installed.
@@ -70,38 +72,44 @@ After rebooting, open your terminal and you should now be prompted by a Zsh conf
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-If Oh-My-Zsh was successfully installed, you should see that your prompt changes to a green one. The template configuration file is `~/.zshrc and it gives you tons of possibilities to configure your shell behavior, like prompt themes and plugins.
+If Oh-My-Zsh was successfully installed, you should see that your prompt changes to a green one. The template
+configuration file is `~/.zshrc and it gives you tons of possibilities to configure your shell behavior, like prompt
+themes and plugins.
 
 ## Loading some plugins
 
-There are a lot of configurations that can be made in Zsh + Oh-My-Zsh, here I'll just talk about a list of cool plugins that I use, but you can dive deeper to discover more possibilities.
-Plugins should be placed in the `plugins=(...)` session of the configuration file. I use the following:
+There are a lot of configurations that can be made in Zsh + Oh-My-Zsh, here I'll just talk about a list of cool plugins
+that I use, but you can dive deeper to discover more possibilities. Plugins should be placed in the `plugins=(...)`
+session of the configuration file. I use the following:
 
-| plugin name | brief description |
-|:------------------|:-----------------|
-| colored-man-pages | adds colors to man pages|
-| command-not-found | uses the command-not-found package for Zsh to provide suggested packages |
-| docker| adds auto-completion for docker |
-| git | provides many aliases and a few useful functions |
-| npm | provides completion as well as adding many useful aliases |
-| pep8 | adds completion for pep8 |
-| pip | adds completion for pip |
-| pyenv | loads pyenv and pyenv-virtualenv |
-| python | adds several aliases for useful python commands |
-| sudo | prefix your current or previous commands with sudo by pressing esc twice |
-| systemd | provides many useful aliases for systemd |
-| ubuntu | This plugin adds completions and aliases for Ubuntu |
-| zsh_reload | type _src_ to reload Zsh session |
-| zsh-autosuggestions | suggests commands as you type based on history and completions |
-| zsh-syntax-highlighting | package provides syntax highlighting |
+| plugin name             | brief description                                                        |
+| :---------------------- | :----------------------------------------------------------------------- |
+| colored-man-pages       | adds colors to man pages                                                 |
+| command-not-found       | uses the command-not-found package for Zsh to provide suggested packages |
+| docker                  | adds auto-completion for docker                                          |
+| git                     | provides many aliases and a few useful functions                         |
+| npm                     | provides completion as well as adding many useful aliases                |
+| pep8                    | adds completion for pep8                                                 |
+| pip                     | adds completion for pip                                                  |
+| pyenv                   | loads pyenv and pyenv-virtualenv                                         |
+| python                  | adds several aliases for useful python commands                          |
+| sudo                    | prefix your current or previous commands with sudo by pressing esc twice |
+| systemd                 | provides many useful aliases for systemd                                 |
+| ubuntu                  | This plugin adds completions and aliases for Ubuntu                      |
+| zsh_reload              | type _src_ to reload Zsh session                                         |
+| zsh-autosuggestions     | suggests commands as you type based on history and completions           |
+| zsh-syntax-highlighting | package provides syntax highlighting                                     |
 
-You can always go to <https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins> to see a complete list of plugins and their respective documentation.
+You can always go to <https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins> to see a complete list of plugins and
+their respective documentation.
 
-The last two plugins on my list aren't part of the default Oh-My-Zsh installation and should be installed separately. Maybe you can install it with your distribution package manager, but I do prefer to install it via Github to take advantage of possible new features.
+The last two plugins on my list aren't part of the default Oh-My-Zsh installation and should be installed separately.
+Maybe you can install it with your distribution package manager, but I do prefer to install it via Github to take
+advantage of possible new features.
 
-As you are using Oh-My-Zsh as a plugin manager, and the plugins are already enabled in our _.zshrc_ file, all you have to do is clone the project repository to our _$ZSH_CUSTOM_ directory.
-Just type the following commands.
-For `zsh-autosuggestions`:
+As you are using Oh-My-Zsh as a plugin manager, and the plugins are already enabled in our _.zshrc_ file, all you have
+to do is clone the project repository to our _$ZSH_CUSTOM_ directory. Just type the following commands. For
+`zsh-autosuggestions`:
 
 ```shell
 git clone <https://github.com/zsh-users/zsh-autosuggestions> ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -115,7 +123,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 ## Installing a better font
 
-For better support icons and symbols, you have to install a modern font like Nerd Fonts. I use the Meslo, but you can choose your own and test it.
+For better support icons and symbols, you have to install a modern font like Nerd Fonts. I use the Meslo, but you can
+choose your own and test it.
 
 * [Meslo Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/releases/)
 
@@ -142,15 +151,19 @@ It is a good idea to comment out the `ZSH_THEME` entry in `~/.zshrc`.
 
 ## Configuring Starship
 
-The configuration of Starship is easy to understand. First, you need to create the `starship.toml` file. It should be placed inside `~/.config`:
+The configuration of Starship is easy to understand. First, you need to create the `starship.toml` file. It should be
+placed inside `~/.config`:
 
 ```shell
 mkdir -p ~/.config && touch ~/.config/starship.toml
 ```
 
-After this, you have to fill the file with the options that you wish to change the default setup. By the way, the default setup is quite cool! As the configuration is a `.toml` file, all the options are of the type `key : value`, pretty intuitive.
+After this, you have to fill the file with the options that you wish to change the default setup. By the way, the
+default setup is quite cool! As the configuration is a `.toml` file, all the options are of the type `key : value`,
+pretty intuitive.
 
-Detailed information about every option is well described in the [official documentation](https://starship.rs/config/). However, I paste the one that I'm using to serve as a reference for you.
+Detailed information about every option is well described in the [official documentation](https://starship.rs/config/).
+However, I paste the one that I'm using to serve as a reference for you.
 
 ```toml
 # Inserts a blank line between shell prompts

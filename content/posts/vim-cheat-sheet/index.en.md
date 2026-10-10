@@ -11,11 +11,15 @@ featuredImage: banner.en.png
 
 ## Introduction
 
-For a long time, I ran away from Vim because it seemed very tricky and because there is a lot of simpler editors out there to work with. However, as it comes installed in most Linux distributions, I made this cheat sheet to help me understand how things work. I have discovered that is possible to be very productive with Vim 😃.
+For a long time, I ran away from Vim because it seemed very tricky and because there is a lot of simpler editors out
+there to work with. However, as it comes installed in most Linux distributions, I made this cheat sheet to help me
+understand how things work. I have discovered that is possible to be very productive with Vim 😃.
 
-I'll try to go straight to the point. This cheat sheet is not intended to be a complete guide but it helps to get started.
+I'll try to go straight to the point. This cheat sheet is not intended to be a complete guide but it helps to get
+started.
 
-Vim has different operation modes, and I will not cover all of them in this cheat sheet. I'll stick with the basic functionality needed to open, edit and save a file.
+Vim has different operation modes, and I will not cover all of them in this cheat sheet. I'll stick with the basic
+functionality needed to open, edit and save a file.
 
 Let's begin! To open a file with Vim just type `vim filename`.  
 `ESC` = enter "command mode"

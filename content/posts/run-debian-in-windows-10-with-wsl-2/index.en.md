@@ -11,7 +11,9 @@ featuredImage: banner.en.png
 
 Hello and welcome to my blog.
 
-We use Windows in our workstations at my current job (it was not my choice 🙊), but there are a lot of tasks that are easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: "This would be a lot simple with `cat`, `grep`, `sort`, etc.".
+We use Windows in our workstations at my current job (it was not my choice 🙊), but there are a lot of tasks that are
+easier to do in a Linux environment. Some days ago I needed to manipulate a huge CSV and just thought: "This would be a
+lot simple with `cat`, `grep`, `sort`, etc.".
 
 So, I remember that I have read something about running Linux inside Windows using WSL and, well, why not give it a try?
 
@@ -19,18 +21,29 @@ So, I remember that I have read something about running Linux inside Windows usi
 
 Some considerations:
 
-* WSL 2 is only available in Windows 10, Version 2004, Build 19041 or higher. Check your Windows version by selecting the Windows logo key + R, typing `winver`, and click OK.
-* All Windows commands should be typed in a PowerShell session with administrative privileges unless otherwise specified (right-click on the PowerShell icon and choose "Run as administrator").
+* WSL 2 is only available in Windows 10, Version 2004, Build 19041 or higher. Check your Windows version by selecting
+  the Windows logo key + R, typing `winver`, and click OK.
+* All Windows commands should be typed in a PowerShell session with administrative privileges unless otherwise specified
+  (right-click on the PowerShell icon and choose "Run as administrator").
 
-Here we go! Since I'm a command-line lover and do not have a Microsoft account to access Microsoft Store, I'll do this from there as much as possible. First, let's install a decent terminal emulator, Microsoft is doing a good job with [Windows Terminal](https://github.com/microsoft/terminal). I have downloaded v1.1.2021.0 and renamed it to **WindowsTerminal.msixbundle**. This is the latest version at the time of writing. The installation is pretty straightforward, just open a PowerShell instance, navigate to the directory where the executable was downloaded and type:
+Here we go! Since I'm a command-line lover and do not have a Microsoft account to access Microsoft Store, I'll do this
+from there as much as possible. First, let's install a decent terminal emulator, Microsoft is doing a good job with
+[Windows Terminal](https://github.com/microsoft/terminal). I have downloaded v1.1.2021.0 and renamed it to
+**WindowsTerminal.msixbundle**. This is the latest version at the time of writing. The installation is pretty
+straightforward, just open a PowerShell instance, navigate to the directory where the executable was downloaded and
+type:
 
 ```powershell
 .\WindowsTerminal.msixbundle
 ```
 
-Now, click on Instal and wait a few seconds for the windows of Windows Terminal to show up. Close this window, for now, we need to open it as Administrator soon.
+Now, click on Instal and wait a few seconds for the windows of Windows Terminal to show up. Close this window, for now,
+we need to open it as Administrator soon.
 
-The next step is to enable WSL. Use the same method stated at the top of the article to launch an instance of Windows Terminal with administrative privileges (damn, I wish that there was a "`sudo`" for this. Maybe Microsoft can launch an "`addo`" 🙃). Observe that should have a "PS" before your prompt, this indicates that you are in a PowerShell session. Now type:
+The next step is to enable WSL. Use the same method stated at the top of the article to launch an instance of Windows
+Terminal with administrative privileges (damn, I wish that there was a "`sudo`" for this. Maybe Microsoft can launch an
+"`addo`" 🙃). Observe that should have a "PS" before your prompt, this indicates that you are in a PowerShell session.
+Now type:
 
 ```powershell
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
@@ -50,13 +63,15 @@ Once rebooted, open Windows Terminal again and set WSL2 as default:
 wsl --set-default-version
 ```
 
-If you already have a distribution installed and like to convert it to use WSL2, this is possible. First, check the current status.
+If you already have a distribution installed and like to convert it to use WSL2, this is possible. First, check the
+current status.
 
 ```powershell
 wsl --list --verbose
 ```
 
-The above command will show a list of installed distributions separated by NAME, STATE, and VERSION. For instance, if you have an Ubuntu installation that is running at version 1 you can type:
+The above command will show a list of installed distributions separated by NAME, STATE, and VERSION. For instance, if
+you have an Ubuntu installation that is running at version 1 you can type:
 
 ```powershell
 wsl --set-version Ubuntu 2
@@ -66,7 +81,8 @@ You also can revert it to WSL 1 if you are not satisfied with the result, just c
 
 ## Download and installation
 
-Now it is time to download the distribution that you wish to install. I chose Debian because it is very light and stable. Since Windows 10 Spring 2018 Update, `curl.exe` is present, so let's use it.
+Now it is time to download the distribution that you wish to install. I chose Debian because it is very light and
+stable. Since Windows 10 Spring 2018 Update, `curl.exe` is present, so let's use it.
 
 ```powershell
 curl.exe -L -o debian.appx https://aka.ms/wsl-debian-gnulinux
@@ -78,8 +94,10 @@ The installation step is also quite simple.
 Add-AppxPackage .\debian.appx
 ```
 
-A strange progress bar will be displayed. Once it disappears, it is done. Now Debian should be available in your applications menu but don't click there, use the Windows Terminal to open a Debian session. On the right side of the tab, there is an arrow that hides all the possible sessions.
-Clicking on Debian will lead you to the user configuration screen. Choose your username and password and you are done.
+A strange progress bar will be displayed. Once it disappears, it is done. Now Debian should be available in your
+applications menu but don't click there, use the Windows Terminal to open a Debian session. On the right side of the
+tab, there is an arrow that hides all the possible sessions. Clicking on Debian will lead you to the user configuration
+screen. Choose your username and password and you are done.
 
 ## Configuration
 
@@ -95,7 +113,8 @@ Verify the version of Debian that was installed.
 cat /etc/os-release
 ```
 
-For reasons unknown to me, the downloaded image was still the Stretch version of Debian. No problem, let's update it to Debian Buster. First, make a backup of your _sources.list_ file.
+For reasons unknown to me, the downloaded image was still the Stretch version of Debian. No problem, let's update it to
+Debian Buster. First, make a backup of your _sources.list_ file.
 
 ```shell
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
@@ -141,9 +160,12 @@ BUG_REPORT_URL="https://bugs.debian.org/"
 
 ## Final considerations
 
-For better file system performance, make sure to store your Linux project files in the Linux file system (not the Windows file system).
-It is probable that when you open a Debian session your prompt show something like **_username@hostname:/mnt/c/Users/username$_** This is because WSL exposes the Windows file system through mount points placed in **_/mnt_** like **_/mnt/c_** and **_/mnt/d_** just type `cd ~` to go to your real home.
+For better file system performance, make sure to store your Linux project files in the Linux file system (not the
+Windows file system). It is probable that when you open a Debian session your prompt show something like
+**_username@hostname:/mnt/c/Users/username$_** This is because WSL exposes the Windows file system through mount points
+placed in **_/mnt_** like **_/mnt/c_** and **_/mnt/d_** just type `cd ~` to go to your real home.
 
-Not only the file system of Windows is exposed by WSL, but you can use Windows applications too, try to type `explorer.exe`. As you can see, Windows Explorer will open with the files of your current directory loaded.
+Not only the file system of Windows is exposed by WSL, but you can use Windows applications too, try to type
+`explorer.exe`. As you can see, Windows Explorer will open with the files of your current directory loaded.
 
 That is it, everything is set up and ready to use.

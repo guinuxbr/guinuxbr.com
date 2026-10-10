@@ -8,7 +8,8 @@ align: left
 featuredImage: banner.en.png
 ---
 
-Embrace the DIY spirit with Arch Linux! This guide walks you through a minimal installation with LUKS encryption and BTRFS, perfect for crafting your personalized daily powerhouse.
+Embrace the DIY spirit with Arch Linux! This guide walks you through a minimal installation with LUKS encryption and
+BTRFS, perfect for crafting your personalized daily powerhouse.
 
 Some relevant details about the environment:
 
@@ -26,9 +27,11 @@ Some relevant details about the environment:
 
 ### Preparing the USB install media
 
-Download the latest ISO image from <https://archlinux.org/download/>. The needed ISO file name have the format `archlinux-YYYY.MM.DD-x86_64.iso`.
+Download the latest ISO image from <https://archlinux.org/download/>. The needed ISO file name have the format
+`archlinux-YYYY.MM.DD-x86_64.iso`.
 
-It is recommended to verify the checksum of the ISO before preparing the USB flash drive. To do this, also download the file `sha256sums.txt` to the same directory as the ISO image and run the command below.
+It is recommended to verify the checksum of the ISO before preparing the USB flash drive. To do this, also download the
+file `sha256sums.txt` to the same directory as the ISO image and run the command below.
 
 ```shell
 sha256sum -c sha256sums.txt
@@ -47,19 +50,25 @@ archlinux-bootstrap-x86_64.tar.gz: FAILED open or read
 sha256sum: WARNING: 3 listed files could not be read
 ```
 
-The important line to check is the one which contains the same name of the downloaded image: `archlinux-2023.09.01-x86_64.iso: OK`. The warning about three files that could not be read is expected since only one ISO file was downloaded.
+The important line to check is the one which contains the same name of the downloaded image:
+`archlinux-2023.09.01-x86_64.iso: OK`. The warning about three files that could not be read is expected since only one
+ISO file was downloaded.
 
 There are different methods to "burn" the ISO to the USB drive, I'll list only two methods in this article.
 
 #### Using `Ventoy`
 
-If you already use [Ventoy](https://www.ventoy.net/en/index.html), this is the easiest way. The Ventoy setup and usage is out of scope for this article.
+If you already use [Ventoy](https://www.ventoy.net/en/index.html), this is the easiest way. The Ventoy setup and usage
+is out of scope for this article.
 
-To see the Arch Linux option in Ventoy's boot menu, just copy the downloaded ISO `archlinux-YYYY.MM.DD-x86_64.iso` to the USB drive in the same directory of other ISO images and reboot. Ventoy should generate a menu entry for Arch Linux automatically.
+To see the Arch Linux option in Ventoy's boot menu, just copy the downloaded ISO `archlinux-YYYY.MM.DD-x86_64.iso` to
+the USB drive in the same directory of other ISO images and reboot. Ventoy should generate a menu entry for Arch Linux
+automatically.
 
 #### Using `dd`
 
-`dd` is a well-known command-line utility available on all Linux distributions, its primary purpose is to convert and copy files.
+`dd` is a well-known command-line utility available on all Linux distributions, its primary purpose is to convert and
+copy files.
 
 Using `dd`, we can write the ISO image to an unmounted USB drive.
 
@@ -67,7 +76,8 @@ Using `dd`, we can write the ISO image to an unmounted USB drive.
 Using `dd` will wipe all data on the chosen device. Be careful!
 {{< /admonition >}}
 
-On Linux, USB drives usually appears as `sdx1`, `sdbx1`, etc. Remember to remove the partition number from the `dd` command.
+On Linux, USB drives usually appears as `sdx1`, `sdbx1`, etc. Remember to remove the partition number from the `dd`
+command.
 
 ```shell
 sudo dd if=archlinux-RELEASE_VERSION-x86_64.iso of=/dev/sdx bs=4M status=progress oflag=sync
@@ -81,7 +91,8 @@ Insert USB device with the installer and set your device to boot from it. The in
 
 #### Setting the keyboard layout
 
-The default console key map is `us`. It is a good idea to match the keyboard layout with the one used in the installation. This will prevent errors when creating the needed passwords.
+The default console key map is `us`. It is a good idea to match the keyboard layout with the one used in the
+installation. This will prevent errors when creating the needed passwords.
 
 List available layouts:
 
@@ -97,9 +108,11 @@ loadkeys uk
 
 #### Setting the font
 
-The default font can be small if you are using a high-resolution display. Check `/usr/share/kbd/consolefonts` for other fonts.
+The default font can be small if you are using a high-resolution display. Check `/usr/share/kbd/consolefonts` for other
+fonts.
 
-You can check some previews [here](https://adeverteuil.github.io/linux-console-fonts-screenshots/). Then, set the font.
+You can check some previews at
+[Linux Console Fonts Screenshots](https://adeverteuil.github.io/linux-console-fonts-screenshots/). Then, set the font.
 
 ```shell
 setfont ter-v24n
@@ -116,20 +129,23 @@ ls /sys/firmware/efi/efivars
 If the directory does not exist, the system did not boot in UEFI mode. Reboot the machine and check the configuration.
 
 {{< admonition type=note title="NOTE:" open=true >}}
-Although it is possible to use this guide to install Arch in a BIOS system, all steps were tested in my UEFI based laptop. Pay special attention about the drive partitioning steps.
+Although it is possible to use this guide to install Arch in a BIOS system, all steps were tested in my UEFI based
+laptop. Pay special attention about the drive partitioning steps.
 {{< /admonition >}}
 
 #### Connect to internet
 
 The Ethernet adapter will be configured automatically using DHCP.
 
-For wireless connection behind WPA2 (most common scenario), `iwd` can be used. The instructions below can be used as a reference. More details can be found at the Arch Wiki article [iwd](https://wiki.archlinux.org/title/iwd)
+For wireless connection behind WPA2 (most common scenario), `iwd` can be used. The instructions below can be used as a
+reference. More details can be found at the Arch Wiki article [iwd](https://wiki.archlinux.org/title/iwd)
 
 {{< admonition type=tip title="TIP:" open=true >}}
 
 - In the `iwctl` prompt, commands and devices can be auto-completed by hitting `Tab`.
 - To exit the interactive prompt, send EOF by pressing `Ctrl+d`.
-- You can use all commands as command line arguments without entering an interactive prompt. For example: `iwctl device wlan0 show`.
+- You can use all commands as command line arguments without entering an interactive prompt. For example:
+  `iwctl device wlan0 show`.
 {{< /admonition >}}
 
 ```shell
@@ -189,7 +205,8 @@ RTC in local TZ: no
 
 Check what is the device name where the system will be installed with `lsblk -f`.
 
-In my case I have two potential devices `nvme0n1` and `nvme1n1`. On Linux, devices are located in `/dev`, therefore, my devices are `/dev/nvme0n1` and `/dev/nvme1n1`.
+In my case I have two potential devices `nvme0n1` and `nvme1n1`. On Linux, devices are located in `/dev`, therefore, my
+devices are `/dev/nvme0n1` and `/dev/nvme1n1`.
 
 In this guide I'll use `/dev/nvme0n1`
 
@@ -252,11 +269,14 @@ Display the new partition table.
 sgdisk -p ${MAIN_DISK}
 ```
 
-Regarding the Swap file/partition, I'll use [zram-generator](https://github.com/systemd/zram-generator), to create a swap device compressed in the RAM.
+Regarding the Swap file/partition, I'll use [zram-generator](https://github.com/systemd/zram-generator), to create a
+swap device compressed in the RAM.
 
 ## Encrypting the partition
 
-At the time of this writing GRUB 2.06 has limited support for LUKS2 `Argon2i`. [See GRUB bug #55093](https://savannah.gnu.org/bugs/?55093). As `pbkdf2` is completely supported, it will be used in this guide.
+At the time of this writing GRUB 2.06 has limited support for LUKS2 `Argon2i`.
+[See GRUB bug #55093](https://savannah.gnu.org/bugs/?55093). As `pbkdf2` is completely supported, it will be used in
+this guide.
 
 Configure the encrypted partition.
 
@@ -276,18 +296,23 @@ Here is a brief explanation of the command options used:
 
 `--type luks2`: use LUKS2 as the encryption method.
 
-`--cipher aes-xts-plain64`: specifies the encryption cipher to be used. `AES-XTS` is a strong and secure encryption algorithm.
+`--cipher aes-xts-plain64`: specifies the encryption cipher to be used. `AES-XTS` is a strong and secure encryption
+algorithm.
 
 `--pbkdf pbkdf2`: due to GRUB still not fully support LUKS2 `Argon2i`, we will use `pbkdf2`.
 
-`--pbkdf-force-iterations`: set the iteration count to 500000. Lowering the iterations reduces security. It is recommended to use a stronger passphrase with higher entropy (entropy > 60 bits).
+`--pbkdf-force-iterations`: set the iteration count to 500000. Lowering the iterations reduces security. It is
+recommended to use a stronger passphrase with higher entropy (entropy > 60 bits).
 
-`--use-random`: tells `cryptsetup` to use random data for key generation. This is important for security, as it makes the encryption keys more difficult to guess.
+`--use-random`: tells `cryptsetup` to use random data for key generation. This is important for security, as it makes
+the encryption keys more difficult to guess.
 
-`--verify-passphrase`: tells `cryptsetup` to prompt the user to enter the passphrase twice, to ensure that it is entered correctly.
+`--verify-passphrase`: tells `cryptsetup` to prompt the user to enter the passphrase twice, to ensure that it is entered
+correctly.
 
 {{< admonition type=info title="Important" open=true >}}
-Before booting, the default keyboard layout `us` is the only one available, therefore, you must pay attention to this detail when you generate the password when using a keyboard with a different layout.
+Before booting, the default keyboard layout `us` is the only one available, therefore, you must pay attention to this
+detail when you generate the password when using a keyboard with a different layout.
 {{< /admonition >}}
 
 ### Formatting the partitions
@@ -327,19 +352,27 @@ mount /dev/mapper/cryptoarch /mnt
 
 ### Creating BTRFS sub volumes
 
-Every BTRFS file system has a primary sub-volume with the identifier "ID=5". A sub-volume is a self-contained section of the file system with its own independent data.
+Every BTRFS file system has a primary sub-volume with the identifier "ID=5". A sub-volume is a self-contained section of
+the file system with its own independent data.
 
-Creating sub-volumes within a BTRFS file system enables data segmentation. This is especially beneficial when creating backup snapshots of the system. Consider a situation where you want to revert a system after a faulty upgrade, but any modifications made in a user's `/home` directory should be preserved.
+Creating sub-volumes within a BTRFS file system enables data segmentation. This is especially beneficial when creating
+backup snapshots of the system. Consider a situation where you want to revert a system after a faulty upgrade, but any
+modifications made in a user's `/home` directory should be preserved.
 
-To simplify sub-volume layout modifications, avoid mounting the top-level sub-volume as `/` (the default). Instead, create a sub-volume to hold the actual data and mount it to `/`.
+To simplify sub-volume layout modifications, avoid mounting the top-level sub-volume as `/` (the default). Instead,
+create a sub-volume to hold the actual data and mount it to `/`.
 
-I named the new sub-volume "@" as it is the default for [Snapper](https://github.com/openSUSE/snapper), a tool for creating backup snapshots which I will speak more later.
+I named the new sub-volume "@" as it is the default for [Snapper](https://github.com/openSUSE/snapper), a tool for
+creating backup snapshots which I will speak more later.
 
 ```shell
 btrfs subvolume create /mnt/@
 ```
 
-It is nice to have additional sub-volumes to better control over rolling back the system to a previous state, while preserving the current state of other directories. These sub-volumes will be excluded from any root sub-volume snapshots. There are an unlimited way to configure the sub-volumes, it will depend on the user needs. Here is the structure used in this guide:
+It is nice to have additional sub-volumes to better control over rolling back the system to a previous state, while
+preserving the current state of other directories. These sub-volumes will be excluded from any root sub-volume
+snapshots. There are an unlimited way to configure the sub-volumes, it will depend on the user needs. Here is the
+structure used in this guide:
 
 | sub-volume | mount point                                                                   |
 | ---------- | ----------------------------------------------------------------------------- |
@@ -350,7 +383,8 @@ It is nice to have additional sub-volumes to better control over rolling back th
 | @log       | /var/log (excluding log files makes troubleshooting easier after reverting /) |
 | @tmp       | /var/tmp                                                                      |
 
-The reasoning behind not excluding the entire /var out of the root snapshot is that `/var/lib/pacman` database in particular should mirror the rolled back state of installed packages.
+The reasoning behind not excluding the entire /var out of the root snapshot is that `/var/lib/pacman` database in
+particular should mirror the rolled back state of installed packages.
 
 To create the sub-volumes, `btrfs` provides the sub-command `subvolume` with the option `create`.
 
@@ -398,7 +432,8 @@ Create mount points for the additional sub volumes.
 mkdir -pv /mnt/{home,.snapshots,var/cache,var/lib/libvirt,var/log,var/tmp}
 ```
 
-Mount each sub-volume using the mount options. After typing the first command, use the up arrow key (⬆️) to repeat the previous command and adjust the options `subvol=@` and `/mnt/` to point to the correct sub-volume name and mount point.
+Mount each sub-volume using the mount options. After typing the first command, use the up arrow key (⬆️) to repeat the
+previous command and adjust the options `subvol=@` and `/mnt/` to point to the correct sub-volume name and mount point.
 
 ```shell
 mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@home /dev/mapper/cryptoarch /mnt/home
@@ -426,21 +461,29 @@ mount -o noatime,compress=zstd:1,ssd,space_cache=v2,discard=async,subvol=@var_tm
 
 BTRFS supports several mount options. Here is a brief explanation of the command options used:
 
-`noatime`: disables the updating of file access timestamps (`atime`) when files are read. This can improve performance by reducing the amount of disk I/O required.
+`noatime`: disables the updating of file access timestamps (`atime`) when files are read. This can improve performance
+by reducing the amount of disk I/O required.
 
-`compress=zstd:1`: configures BTRFS to compress all files using the `zstd` compression algorithm with a compression level of 1. This will save disk space and improve performance, especially for files that are not frequently accessed.
+`compress=zstd:1`: configures BTRFS to compress all files using the `zstd` compression algorithm with a compression
+level of 1. This will save disk space and improve performance, especially for files that are not frequently accessed.
 
-`ssd`: enables SSD-specific optimizations in BTRFS. This can improve performance by reducing the amount of unnecessary disk I/O.
+`ssd`: enables SSD-specific optimizations in BTRFS. This can improve performance by reducing the amount of unnecessary
+disk I/O.
 
-`space_cache=v2`: enables the use of the v2 space cache algorithm. This can improve performance by reducing the amount of time required to find free space on the disk.
+`space_cache=v2`: enables the use of the v2 space cache algorithm. This can improve performance by reducing the amount
+of time required to find free space on the disk.
 
-`discard=async`: enables asynchronous discard of unused blocks. This can improve performance by reducing the amount of unnecessary disk I/O.
+`discard=async`: enables asynchronous discard of unused blocks. This can improve performance by reducing the amount of
+unnecessary disk I/O.
 
 Detailed information can be found in [BTRFS documentation](https://btrfs.readthedocs.io/en/latest/btrfs-man5.html)
 
 ### Disable CoW for /var/lib/libvirt
 
-BTRFS copy-on-write (CoW) can cause performance issues when virtual machines are created or deleted. This is because each time a file or directory is modified, a new version of it is created, and the previous version is kept until it is no longer needed. This can lead to a lot of disk space being used even when there are no actual changes. For this reason, it is recommended to disable CoW for the `/var/lib/libvirt` directory:
+BTRFS copy-on-write (CoW) can cause performance issues when virtual machines are created or deleted. This is because
+each time a file or directory is modified, a new version of it is created, and the previous version is kept until it is
+no longer needed. This can lead to a lot of disk space being used even when there are no actual changes. For this
+reason, it is recommended to disable CoW for the `/var/lib/libvirt` directory:
 
 ```shell
 chattr -VR +C /mnt/var/lib/libvirt
@@ -470,11 +513,14 @@ Use [reflector](https://xyne.dev/projects/reflector) to generate a new set of mi
 reflector --verbose --protocol https --latest 10 --sort rate --country GB --country IR --save /etc/pacman.d/mirrorlist
 ```
 
-This will get the most recently synchronized 10 mirrors hosted in the UK or Ireland which uses `https` and sort them by speed. The result will be saved to `/etc/pacman.d/mirrorlist` which is the default location where `pacman` will search for mirrors definition.
+This will get the most recently synchronized 10 mirrors hosted in the UK or Ireland which uses `https` and sort them by
+speed. The result will be saved to `/etc/pacman.d/mirrorlist` which is the default location where `pacman` will search
+for mirrors definition.
 
 ## Installing base system
 
-The package selection here depends on user needs. From the packages below, `vim` and `zsh` are optional, but recommended.
+The package selection here depends on user needs. From the packages below, `vim` and `zsh` are optional, but
+recommended.
 
 ```shell
 pacstrap /mnt base base-devel git dracut intel-ucode btrfs-progs networkmanager cryptsetup vim sudo zsh reflector
@@ -500,7 +546,8 @@ arch-chroot /mnt /bin/bash
 passwd
 ```
 
-Choose a strong password and type it twice. You can use [Bitwarden](https://bitwarden.com/password-generator/) in another device if you are out of ideas.
+Choose a strong password and type it twice. You can use [Bitwarden](https://bitwarden.com/password-generator/) in
+another device if you are out of ideas.
 
 ### Adding a standard user
 
@@ -521,10 +568,14 @@ passwd kermit
 Enable the members of the `wheel` group to type all commands with `sudo`.
 
 {{< admonition type=warning title="WARNING" open=true >}}
-This gives `root` powers to users who are members of `wheel` group. While it is fine for single user PC/laptop, it can be dangerous in most situations. On production systems, prefer to create a file under `/etc/sudoers.d` and define granular `sudo` permissions for each user or even use a centralized system to control the permissions each user can have. Always remember of the [Principle of Least Privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
+This gives `root` powers to users who are members of `wheel` group. While it is fine for single user PC/laptop, it can
+be dangerous in most situations. On production systems, prefer to create a file under `/etc/sudoers.d` and define
+granular `sudo` permissions for each user or even use a centralized system to control the permissions each user can
+have. Always remember of the [Principle of Least Privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
 {{< /admonition >}}
 
-We can use [sed](https://www.gnu.org/software/sed/) to replace `# %wheel ALL=(ALL:ALL) ALL` with `%wheel ALL=(ALL:ALL) ALL`
+We can use [sed](https://www.gnu.org/software/sed/) to replace `# %wheel ALL=(ALL:ALL) ALL` with
+`%wheel ALL=(ALL:ALL) ALL`
 
 ```shell
 sed -i "s/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
@@ -669,7 +720,8 @@ echo "EDITOR=vim" > /etc/environment && echo "VISUAL=vim" >> /etc/environment
 
 ### Configuring the system network
 
-There are different Linux packages that can be used to control the system network. I choose to use `NetworkManager` because it is simple and works out of the box.
+There are different Linux packages that can be used to control the system network. I choose to use `NetworkManager`
+because it is simple and works out of the box.
 
 Enable `NetworkManager` to start during system boot.
 
@@ -677,7 +729,8 @@ Enable `NetworkManager` to start during system boot.
 systemctl enable NetworkManager
 ```
 
-The wired network connection will be configured via `DHCP` by default. In case you need to configure a wireless connection, `nmtui` can be used.
+The wired network connection will be configured via `DHCP` by default. In case you need to configure a wireless
+connection, `nmtui` can be used.
 
 ### Installing the kernel
 
@@ -693,7 +746,8 @@ Finally, install the desired kernel, the kernel headers and the package `linux-f
 pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware intel-ucode
 ```
 
-If everything went fine, `dracut-hook` will detect a newly installed kernel and will build the `initrams` using the custom configurations created previously.
+If everything went fine, `dracut-hook` will detect a newly installed kernel and will build the `initrams` using the
+custom configurations created previously.
 
 ### Installing and configuring the GRUB bootloader
 
@@ -713,7 +767,10 @@ export LUKS_UUID=$(blkid -s UUID -o value ${MAIN_DISK}p2)
 sed -i "s|GRUB_CMDLINE_LINUX=\"\"|GRUB_CMDLINE_LINUX=\"rd.luks.name=${LUKS_UUID}=cryptoarch root=/dev/mapper/cryptoarch rd.luks.allow-discards rd.lvm=0 rd.md=0 rd.dm=0\"|" /etc/default/grub
 ```
 
-In this case, the `GRUB` options `rd.lvm=0`, `rd.md=0`, and `rd.dm=0` disable the automatic assembly of Logical Volume Management (LVM), multi-disk arrays (MD RAID), and device mapper (DM RAID) volumes, respectively. This can improve boot times by preventing Dracut from searching for and assembling these types of volumes if they are not present on the system.
+In this case, the `GRUB` options `rd.lvm=0`, `rd.md=0`, and `rd.dm=0` disable the automatic assembly of Logical Volume
+Management (LVM), multi-disk arrays (MD RAID), and device mapper (DM RAID) volumes, respectively. This can improve boot
+times by preventing Dracut from searching for and assembling these types of volumes if they are not present on the
+system.
 
 Now, add `luks` to `GRUB_PRELOAD_MODULES`
 
@@ -770,18 +827,21 @@ systemctl reboot
 If everything worked as intended, the prompt to type the LUKS password should appear even before the GRUB screen.
 
 {{< admonition type=info title="Important" open=false >}}
-It can take a half-minute or more for the partition to be decrypted. This delay can be shortened by setting a lower `--iter-time` when running `cryptsetup luksAddkey`, however, the downside is a reduction in the security.
+It can take a half-minute or more for the partition to be decrypted. This delay can be shortened by setting a lower
+`--iter-time` when running `cryptsetup luksAddkey`, however, the downside is a reduction in the security.
 {{< /admonition >}}
 
 If the password is correct, the `GRUB` menu will appear, and you can choose your fresh Arch Linux installation
 
 ## Configuring the installed system
 
-Now that Arch Linux is installed, the base system is running, but no UI is available. As much as we love the console interface, let's configure the system, add a DE (Desktop Environment) and some useful packages.
+Now that Arch Linux is installed, the base system is running, but no UI is available. As much as we love the console
+interface, let's configure the system, add a DE (Desktop Environment) and some useful packages.
 
 ### Configuring `pacman` package manager
 
-The file `/etc/pacman.conf` is responsible to configure the options for the Arch Linux package manager [pacman](https://wiki.archlinux.org/title/pacman). Observe the comments for each option.
+The file `/etc/pacman.conf` is responsible to configure the options for the Arch Linux package manager
+[pacman](https://wiki.archlinux.org/title/pacman). Observe the comments for each option.
 
 ```shell
 # Misc options
@@ -861,7 +921,8 @@ options =
 
 ### Using a key file to unlock the system
 
-To avoid the need to type the LUKS password twice, one to decrypt `/boot` to reach `/bbot/efi` and another to decrypt the root partition `/`, we can use a key file embedded in the `initramfs`.
+To avoid the need to type the LUKS password twice, one to decrypt `/boot` to reach `/bbot/efi` and another to decrypt
+the root partition `/`, we can use a key file embedded in the `initramfs`.
 
 Create hidden key file `.crypto_keyfile.bin` under `/`.
 
@@ -893,7 +954,8 @@ Now it is a good time to reboot the system again and check if everything is work
 
 ### Install a 'locate' command
 
-[plocate](https://plocate.sesse.net/) is a modern version of `locate`, a member of the GNU suite [findutils](https://www.gnu.org/software/findutils/). It uses an index to speed up the searches, and it is very fast.
+[plocate](https://plocate.sesse.net/) is a modern version of `locate`, a member of the GNU suite
+[findutils](https://www.gnu.org/software/findutils/). It uses an index to speed up the searches, and it is very fast.
 
 ```shell
 sudo pacman -S plocate
@@ -905,7 +967,8 @@ Update the file database.
 sudo updatedb
 ```
 
-The package `plocate` provides a `Systemd` timer that will periodically scan the system and keep the file database updated.
+The package `plocate` provides a `Systemd` timer that will periodically scan the system and keep the file database
+updated.
 
 To enable the timer.
 
@@ -917,7 +980,8 @@ sudo systemctl enable --now plocate-updatedb.timer
 
 Periodic [TRIM](https://wiki.archlinux.org/title/Solid_state_drive#TRIM) optimizes performance on SSD storage.
 
-Using BTRFS, asynchronous discard is [enabled](https://wiki.archlinux.org/title/Btrfs#SSD_TRIM) by default since kernel 6.2.
+Using BTRFS, asynchronous discard is [enabled](https://wiki.archlinux.org/title/Btrfs#SSD_TRIM) by default since kernel
+6.2.
 
 By enabling `fstrim.timer` the system will perform a periodic TRIM and span the SSD device life.
 
@@ -927,7 +991,8 @@ sudo systemctl enable --now fstrim.timer
 
 ### Enabling 'command-not-found'
 
-When a command is typed, but not found in the system, the `command-not-found` functionality provided by the `pkgfile` package, will suggest an option based on the available packages in the Arch Linux repositories.
+When a command is typed, but not found in the system, the `command-not-found` functionality provided by the `pkgfile`
+package, will suggest an option based on the available packages in the Arch Linux repositories.
 
 Install the package.
 
@@ -941,7 +1006,8 @@ Update the package's database.
 sudo pkgfile --update
 ```
 
-Configure the shell to load the `command-no-found` rules. Edit the file `~/.zshrc` and add `command-not-found.zsh` to it.
+Configure the shell to load the `command-no-found` rules. Edit the file `~/.zshrc` and add `command-not-found.zsh` to
+it.
 
 ```shell
 if [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]]; then
@@ -963,13 +1029,16 @@ The package `sof-firmware` was required for my laptop, but may be not required f
 
 ### Installing an AUR helper
 
-[Arch User Repository (AUR)](https://aur.archlinux.org/) is a community-driven repository for Arch users. It is one of the best things about Arch Linux. You can find almost every package available for Linux there.
+[Arch User Repository (AUR)](https://aur.archlinux.org/) is a community-driven repository for Arch users. It is one of
+the best things about Arch Linux. You can find almost every package available for Linux there.
 
 {{< admonition type=warning title="Warning" open=true >}}
 AUR packages are user produced content. Any use of the provided files is at your own risk.
 {{< /admonition >}}
 
-To be able to interact with AUR in a straightforward manner, an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) is needed. I like the use [paru](https://github.com/morganamilo/paru).
+To be able to interact with AUR in a straightforward manner, an
+[AUR helper](https://wiki.archlinux.org/title/AUR_helpers) is needed. I like the use
+[paru](https://github.com/morganamilo/paru).
 
 ```shell
 sudo pacman -S --needed base-devel
@@ -999,7 +1068,8 @@ Consult the [paru's](https://github.com/morganamilo/paru) documentation to learn
 
 There are several choices for Linux Desktops Environments, my preferred one is, by far, [KDE Plasma](https://kde.org/).
 
-You can install the full KDE Plasma with the majority of the applications that are part of the project. However, I prefer a more minimal KDE Plasma installation.
+You can install the full KDE Plasma with the majority of the applications that are part of the project. However, I
+prefer a more minimal KDE Plasma installation.
 
 Install the following packages to have a minimal, but functional, KDE Plasma installation.
 
@@ -1017,10 +1087,12 @@ Reboot the system, then enjoy your Arch Linux fresh installation.
 
 ### Enabling system snapshots
 
-One of the main advantages of using the BTRFS file system is the possibility to have snapshots and system rollbacks. To achieve this, we can use a combination of `snapper`, `snap-pac` and `grub-btrfs`.
+One of the main advantages of using the BTRFS file system is the possibility to have snapshots and system rollbacks. To
+achieve this, we can use a combination of `snapper`, `snap-pac` and `grub-btrfs`.
 
 - [snapper](https://github.com/openSUSE/snapper): Manage filesystem snapshots and allow undoing of system modifications
-- [snap-pac](https://github.com/wesbarnett/snap-pac): Arch Linux `pacman` hooks that use snapper to create pre/post BTRFS snapshots like [openSUSE's YaST](https://github.com/yast/)
+- [snap-pac](https://github.com/wesbarnett/snap-pac): Arch Linux `pacman` hooks that use snapper to create pre/post
+  BTRFS snapshots like [openSUSE's YaST](https://github.com/yast/)
 - [grub-btrfs](https://github.com/Antynea/grub-btrfs): Include BTRFS snapshots at boot options. (Grub menu)
 
 Install all needed packages.
@@ -1031,7 +1103,8 @@ sudo pacman -S snapper snap-pac grub-btrfs
 
 #### Creating `snapper` configuration for root sub volume
 
-The first step is to get rid of the existing `/.snapshots` directory, because `snapper` will create it when we create the configuration.
+The first step is to get rid of the existing `/.snapshots` directory, because `snapper` will create it when we create
+the configuration.
 
 ```shell
 sudo umount /.snapshots
@@ -1055,7 +1128,8 @@ The above command generates:
 
 #### Configuring the snapshots
 
-Because we used `@` to identify all other sub volumes, we will remove the sub volume `.snapshots` automatically created by `snapper`.
+Because we used `@` to identify all other sub volumes, we will remove the sub volume `.snapshots` automatically created
+by `snapper`.
 
 ```shell
 sudo btrfs subvolume delete .snapshots
@@ -1071,7 +1145,8 @@ sudo mkdir /.snapshots
 sudo mount -a
 ```
 
-Configure the permissions for `./snapshots`. The directory owner must be `root`, and members of the `wheel` group will have read and execute permissions which will allow then to browse into the directory.
+Configure the permissions for `./snapshots`. The directory owner must be `root`, and members of the `wheel` group will
+have read and execute permissions which will allow then to browse into the directory.
 
 ```shell
 sudo chmod 750 /.snapshots
@@ -1083,7 +1158,8 @@ sudo chown :wheel /.snapshots
 
 #### Configuring `grub-btrfs`
 
-In order to automatically update `grub` configuration upon snapshot creation or deletion, start and enable the `grub-btrfsd` service.
+In order to automatically update `grub` configuration upon snapshot creation or deletion, start and enable the
+`grub-btrfsd` service.
 
 ```shell
 sudo systemctl enable --now grub-btrfsd
@@ -1093,7 +1169,9 @@ sudo systemctl enable --now grub-btrfsd
 
 The configuration of the `root` configuration created above is controlled by the file `/etc/snapper/configs/root`.
 
-In the below example, I followed the [ArchWiki recommendation](https://wiki.archlinux.org/title/snapper#Set_snapshot_limits) for the limits and added the user to `ALLOW_USERS`
+In the below example, I followed the
+[ArchWiki recommendation](https://wiki.archlinux.org/title/snapper#Set_snapshot_limits) for the limits and added the
+user to `ALLOW_USERS`
 
 ```shell
 # subvolume to snapshot
@@ -1152,7 +1230,8 @@ EMPTY_PRE_POST_CLEANUP="yes"
 EMPTY_PRE_POST_MIN_AGE="1800"
 ```
 
-Start and enable `snapper-timeline.timer` to launch the automatic snapshot timeline, and `snapper-cleanup.timer` to periodically clean up older snapshots.
+Start and enable `snapper-timeline.timer` to launch the automatic snapshot timeline, and `snapper-cleanup.timer` to
+periodically clean up older snapshots.
 
 ```shell
 sudo systemctl enable --now snapper-timeline.timer

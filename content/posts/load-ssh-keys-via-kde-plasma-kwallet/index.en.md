@@ -10,7 +10,8 @@ align: left
 featuredImage: banner.en.png
 ---
 
-This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running KDE Plasma.
+This quick tip was tested on openSUSE Tumbleweed. However, it will probably work for other Linux distributions running
+KDE Plasma.
 
 ## Install ksshaskpass5
 
@@ -22,7 +23,8 @@ sudo zypper in --details ksshaskpass5
 
 ## Create the configuration files
 
-Create the `.desktop` file that will be automatically parsed at KDE Plasma start-up. Add all the needed keys using `ssh-add -q`. The "q" here stands for quiet.
+Create the `.desktop` file that will be automatically parsed at KDE Plasma start-up. Add all the needed keys using
+`ssh-add -q`. The "q" here stands for quiet.
 
 ```shell
 vim ~/.config/autostart/ssh-add.desktop
@@ -39,7 +41,8 @@ X-KDE-AutostartScript=true
 
 For the `Exec` command, I've used the `/home/user_name/` path because `~` or `$HOME` did not work as expected.
 
-Create another script in `~/.config/plasma-workspace/env/` to set the environment variable `SSH_ASKPASS` to use **ksshaskpass**.
+Create another script in `~/.config/plasma-workspace/env/` to set the environment variable `SSH_ASKPASS` to use
+**ksshaskpass**.
 
 ```shell
 vim ~/.config/plasma-workspace/env/ksshaskpass.sh
@@ -53,7 +56,8 @@ export SSH_ASKPASS='/usr/libexec/ssh/ksshaskpass'
 
 ## Reboot to test
 
-Now reboot the machine. In the next login, a dialogue window asking for your SSH key password will appear for each added key.  
+Now reboot the machine. In the next login, a dialogue window asking for your SSH key password will appear for each added
+key.  
 Ensure to mark the option "Remember password".  
 
 ![ksshaskpass](./ksshaskpass.png)

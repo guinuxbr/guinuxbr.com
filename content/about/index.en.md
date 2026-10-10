@@ -9,4 +9,5 @@ align: justify
 
 I'm graduated in Computer Science, passionate about Linux and Open Source, Heavy Metal, coffee and soccer.
 
-I've created this blog to be used as documentation for my day to day learning and to retribute just a little that I've learned reading many articles and tutorials over the years.
+I've created this blog to be used as documentation for my day to day learning and to retribute just a little that I've
+learned reading many articles and tutorials over the years.

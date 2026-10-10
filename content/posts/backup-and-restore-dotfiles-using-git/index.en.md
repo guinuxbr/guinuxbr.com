@@ -12,7 +12,8 @@ featuredImage: banner.en.png
 
 This article is about how to back up `dotfiles` using Git. I will try to keep it short and straightforward.
 
-I'm using `Zsh` as the shell in the examples, but another shell can be used. The commands below should be executed as a normal user in the `/home` directory.
+I'm using `Zsh` as the shell in the examples, but another shell can be used. The commands below should be executed as a
+normal user in the `/home` directory.
 
 ## Set up the repository
 
@@ -24,7 +25,10 @@ git init $HOME/.dotfiles
 
 ## Prepare the environment
 
-The default behaviour of Git commands is to run inside the project folder using information stored at the `<project>/.git` directory and Git assumes that the working tree is located at `<project>`. To enable the execution of Git commands specifically for the "dotfiles" repository from anywhere, it is needed to create an alias that indicates the location of the Git directory and the working tree.
+The default behaviour of Git commands is to run inside the project folder using information stored at the
+`<project>/.git` directory and Git assumes that the working tree is located at `<project>`. To enable the execution of
+Git commands specifically for the "dotfiles" repository from anywhere, it is needed to create an alias that indicates
+the location of the Git directory and the working tree.
 
 ```shell
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
@@ -44,7 +48,8 @@ source $HOME/.zsh/aliases
 
 ## Configure Git
 
-By default, Git will consider all the files under the working tree as untracked. To avoid this behaviour, configure Git to show only the files that are explicitly added.
+By default, Git will consider all the files under the working tree as untracked. To avoid this behaviour, configure Git
+to show only the files that are explicitly added.
 
 ```shell
 dotfiles config --local status.showUntrackedFiles no
@@ -84,14 +89,17 @@ To restore the dotfiles in a new system, clone the repository using the `--bare`
 git clone --bare <remote-url> $HOME/.dotfiles
 ```
 
-Before checking out, ensure that none of the repository files exist in the local filesystem. If there are existing files, backup them by renaming them to something like `filename.old` and then run the following command.
+Before checking out, ensure that none of the repository files exist in the local filesystem. If there are existing
+files, backup them by renaming them to something like `filename.old` and then run the following command.
 
 ```shell
 /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 ```
 
-Close the terminal and re-open it. All the configurations should be enabled now as the dotfiles should be at the right places.
+Close the terminal and re-open it. All the configurations should be enabled now as the dotfiles should be at the right
+places.
 
 ## Conclusion
 
-Job done! The files are now being backed up to GitHub and restored to the right place. Remember to use the `dotfiles` alias when dealing with the dotfiles Git repository.
+Job done! The files are now being backed up to GitHub and restored to the right place. Remember to use the `dotfiles`
+alias when dealing with the dotfiles Git repository.

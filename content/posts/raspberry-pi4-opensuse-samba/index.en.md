@@ -10,11 +10,16 @@ featuredImage: banner.en.png
 
 ## Introduction
 
-Hello, in this article, I'll explain how to install openSUSE Tumbleweed (however, these instructions would probably work in openSUSE Leap) in Raspberry Pi 4, plus install and configure a basic Samba server to share files from an external HDD.
+Hello, in this article, I'll explain how to install openSUSE Tumbleweed (however, these instructions would probably work
+in openSUSE Leap) in Raspberry Pi 4, plus install and configure a basic Samba server to share files from an external
+HDD.
 
-The first thing to do is install the openSUSE Tumbleweed image on your Raspberry Pi 4. Go to the [openSUSE Wiki page for Raspberry Pi 4](https://en.opensuse.org/HCL:Raspberry_Pi4) and download the image that you like to use.
+The first thing to do is install the openSUSE Tumbleweed image on your Raspberry Pi 4. Go to the
+[openSUSE Wiki page for Raspberry Pi 4](https://en.opensuse.org/HCL:Raspberry_Pi4) and download the image that you like
+to use.
 
-There are six images available. Download the image you want (Leap is stable, and Tumbleweed is rolling) from here. Choose your desktop type:
+There are six images available. Download the image you want (Leap is stable, and Tumbleweed is rolling) from here.
+Choose your desktop type:
 
 * JeOS - Just enough Operating System - a very basic system, no graphical desktop
 * E20 - Enlightenment desktop
@@ -23,16 +28,21 @@ There are six images available. Download the image you want (Leap is stable, and
 * LXQT - LXQT desktop
 * X11 - basic X11 system
 
-The direct links did not work for me, so I went to the [general download directory](http://download.opensuse.org/ports/aarch64/tumbleweed/appliances/) and downloaded the latest JeOS image named [openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz](https://download.opensuse.org/ports/aarch64/tumbleweed/appliances/openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz)
+The direct links did not work for me, so I went to the
+[general download directory](http://download.opensuse.org/ports/aarch64/tumbleweed/appliances/) and downloaded the
+latest JeOS image named
+[openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz](https://download.opensuse.org/ports/aarch64/tumbleweed/appliances/openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz)
 
 ## Preparing the media
 
 As **root** extract the image onto your SD card or USB device(replace sdX with the device name of your SD card).
 
-If possible, it is better to use a decent USB 3 device as the read and write speeds are greater than SD cards. I'll use the USB device as the media used to install the image from now on.
+If possible, it is better to use a decent USB 3 device as the read and write speeds are greater than SD cards. I'll use
+the USB device as the media used to install the image from now on.
 
 {{< admonition type=warning title="WARNING" open=true >}}
-This is a destructive operation. All existing data on the device will be lost. Check first if the device you have selected is your target device!
+This is a destructive operation. All existing data on the device will be lost. Check first if the device you have
+selected is your target device!
 {{< /admonition >}}
 
 ```shell
@@ -41,11 +51,13 @@ xzcat openSUSE-Tumbleweed-ARM-JeOS-raspberrypi.aarch64.raw.xz | dd bs=4M of=/dev
 
 After the image is extracted to the USB device, you can insert it into your Raspberry Pi 4 and turn it on.
 
-You will need to discover the IP address of your Raspberry Pi 4. This can be done in a hundred different ways. For example, you can look at your router DHCP table for a MAC address that belongs to "Raspberry Pi Trading Ltd".
+You will need to discover the IP address of your Raspberry Pi 4. This can be done in a hundred different ways. For
+example, you can look at your router DHCP table for a MAC address that belongs to "Raspberry Pi Trading Ltd".
 
 ## Logging into the system
 
-Wait 5 minutes before the first login as the OS will perform some tasks at the first boot, like resizing the ext4 filesystem to the entire disk.
+Wait 5 minutes before the first login as the OS will perform some tasks at the first boot, like resizing the ext4
+filesystem to the entire disk.
 
 SSH is enabled by default in openSUSE images so that you can log in as root with:
 
@@ -225,13 +237,15 @@ Add a group called `smbusers` or whatever you like.
 sudo groupadd smbusers
 ```
 
-Create a Samba password for the user that will have access to the shares. This password can be different from the user account password.
+Create a Samba password for the user that will have access to the shares. This password can be different from the user
+account password.
 
 ```shell
 sudo smbpasswd -a your_username
 ```
 
-Edit the Samba configuration file. For simplicity, I'll omit some comments, but I strongly recommend reading the Samba documentation to properly understand the options.
+Edit the Samba configuration file. For simplicity, I'll omit some comments, but I strongly recommend reading the Samba
+documentation to properly understand the options.
 
 ```shell
 sudo vim /etc/samba/smb.conf

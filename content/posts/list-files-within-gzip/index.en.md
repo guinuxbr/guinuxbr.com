@@ -10,7 +10,8 @@ featuredImage: banner.en.png
 
 ## List files within gzip
 
-How to list the files within a compressed `gzip` file without extracting it and get information like the timestamp and permissions?
+How to list the files within a compressed `gzip` file without extracting it and get information like the timestamp and
+permissions?
 
 To achieve this, we can use a tool called `zcat`.
 
@@ -43,7 +44,8 @@ The option we need is `-l` to **list compressed file contents**.
 
 This will output a list of all the files and directories in the compressed file, along with some information.
 
-For example, if you have a compressed file called `file_sample.gz`, you can run the following command to list its contents:
+For example, if you have a compressed file called `file_sample.gz`, you can run the following command to list its
+contents:
 
 ```shell
 zcat -l file_sample.gz
@@ -57,8 +59,10 @@ This will output something like the following:
 -rw-r--r-- 1 user group 1024 2022-04-11 17:38:25 file_sample_03.txt
 ```
 
-This tells us that the compressed file contains several files, and list information like file permission, file ownership, size and timestamp.
+This tells us that the compressed file contains several files, and list information like file permission, file
+ownership, size and timestamp.
 
 ## Conclusion
 
-`zcat` is very useful for several situations. This short article is a small introduction, always check the package `man pages` or the online documentation for more broad knowledge.
+`zcat` is very useful for several situations. This short article is a small introduction, always check the package
+`man pages` or the online documentation for more broad knowledge.

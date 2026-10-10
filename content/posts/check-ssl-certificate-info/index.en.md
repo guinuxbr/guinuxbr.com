@@ -8,15 +8,18 @@ align: left
 featuredImage: banner.en.png
 ---
 
-It is essential to ensure that your SSL certificates are not expired or expiring soon. Neglecting this can have disastrous consequences for production systems.
+It is essential to ensure that your SSL certificates are not expired or expiring soon. Neglecting this can have
+disastrous consequences for production systems.
 
-Certificate files typically have a `.pem` or `.crt` extension. You can use `openssl` commands to explore the details of a certificate. For example, the following command displays the details of a certificate:
+Certificate files typically have a `.pem` or `.crt` extension. You can use `openssl` commands to explore the details of
+a certificate. For example, the following command displays the details of a certificate:
 
 ```shell
 openssl x509 -in mycert.pem -text -noout
 ```
 
-Your terminal will print a long output describing the certificate's attributes, including version, serial number, signature algorithm, issuer, and validity.
+Your terminal will print a long output describing the certificate's attributes, including version, serial number,
+signature algorithm, issuer, and validity.
 
 ```text
 Certificate:
@@ -80,4 +83,5 @@ Certificate:
 
 ```
 
-Use this command when you plan to replace or renew your SSL certificate. This will help you avoid mistakes in certificate management.
+Use this command when you plan to replace or renew your SSL certificate. This will help you avoid mistakes in
+certificate management.

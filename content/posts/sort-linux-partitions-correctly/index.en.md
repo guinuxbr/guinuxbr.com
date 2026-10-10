@@ -22,11 +22,14 @@ Let's think that we had a disk `/dev/sda` with 4 partitions:
 /dev/sda4
 ```
 
-Now, if we have to repartition our disk and delete `/dev/sda2` and `/dev/sda3` to make `/dev/sda1` larger, occasionally you will end up with `/dev/sda1` and `/dev/sda4` when it should be only `/dev/sda1` and `/dev/sda2`.
+Now, if we have to repartition our disk and delete `/dev/sda2` and `/dev/sda3` to make `/dev/sda1` larger, occasionally
+you will end up with `/dev/sda1` and `/dev/sda4` when it should be only `/dev/sda1` and `/dev/sda2`.
 
 ## The fix
 
-To fix this mess and sort the partitions correctly we can use `fdisk` which is present by default in almost every Linux installation. Remember that `fdisk` and most of the partition/disk tools are very powerful and can be dangerous. Make sure to have a backup of your important files.
+To fix this mess and sort the partitions correctly we can use `fdisk` which is present by default in almost every Linux
+installation. Remember that `fdisk` and most of the partition/disk tools are very powerful and can be dangerous. Make
+sure to have a backup of your important files.
 
 Now, let's do the job.
 Begin typing `sudo fdisk /dev/sda`.
